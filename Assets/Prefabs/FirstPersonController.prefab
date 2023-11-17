@@ -72,11 +72,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a630f66e4cc8242a8dfd9925fb9e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 9011942975009067549}
+  characterController: {fileID: 9011942974338164171}
   canSprint: 1
   canJump: 1
   canCrouch: 1
-  canUseHeadBob: 0
-  willSlideOnSlopes: 0
+  canUseHeadBob: 1
   canZoom: 1
   canInteract: 1
   sprintKey: 304
@@ -100,18 +101,18 @@ MonoBehaviour:
   crouchingCenter: {x: 0, y: 0.5, z: 0}
   standingCenter: {x: 0, y: 0, z: 0}
   walkBobSpeed: 10
-  walkBobAmount: 0.03
+  walkBobAmount: 0.02
   sprintBobSpeed: 14
-  sprintBobAmount: 0.07
+  sprintBobAmount: 0.06
   crouchBobSpeed: 8
-  crouchBobAmount: 0.025
+  crouchBobAmount: 0.01
   timeToZoom: 0.3
   zoomFOV: 30
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   interactionLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
 --- !u!1 &9011942975009067536
 GameObject:
   m_ObjectHideFlags: 0
