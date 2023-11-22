@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-
-[RequireComponent(typeof(UIDocument))]
 public class FirstPersonController : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
-    private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
-    private bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded && !isCrouching;
-    private bool shouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
+    bool isSprinting => canSprint && Input.GetKey(sprintKey);
+    bool isGrounded => characterController.isGrounded;
+    bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded && !isCrouching;
+    bool shouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
 
     [SerializeField] Camera playerCamera;
     [SerializeField] CharacterController characterController;
@@ -63,25 +61,25 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] float sprintBobAmount = 0.07f;
     [SerializeField] float crouchBobSpeed = 8f;
     [SerializeField] float crouchBobAmount = 0.025f;
-    private float defaultYPos = 0;
-    private float timer;
+    float defaultYPos = 0;
+    float timer;
 
     [Header("Zoom Parameters")]
     [SerializeField] float timeToZoom = 0.3f;
     [SerializeField] float zoomFOV = 30f;
-    private float defaultFOV;
-    private Coroutine zoomRoutine;
+    float defaultFOV;
+    Coroutine zoomRoutine;
 
     [Header("Interaction")]
     [SerializeField] Vector3 interactionRayPoint = default;
     [SerializeField] float interactionDistance = default;
     [SerializeField] LayerMask interactionLayer = default;
-    private Interactable currentInteractable;
+    Interactable currentInteractable;
 
-    private Vector3 moveDirection;
-    private Vector2 currentInput;
+    Vector3 moveDirection;
+    Vector2 currentInput;
 
-    private float rotationX = 0;
+    float rotationX = 0;
 
     public event Action OnSprint;
 
@@ -89,8 +87,8 @@ public class FirstPersonController : MonoBehaviour
     {
         defaultYPos = playerCamera.transform.localPosition.y;
         defaultFOV = playerCamera.fieldOfView;
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -100,8 +98,8 @@ public class FirstPersonController : MonoBehaviour
             HandleMovementInput();
             HandleMouseLook();
 
-           /* if (canJump && shouldJump)
-                HandleJump();*/
+            if (canJump && shouldJump)
+                HandleJump();
 
             if (canCrouch && shouldCrouch)
                 StartCoroutine(CrouchStand());
@@ -123,19 +121,12 @@ public class FirstPersonController : MonoBehaviour
     }
     private void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        root.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
+
     }
-    void OnKeyDown(KeyDownEvent ev)
-    {
-        if(ev.keyCode == jumpKey)
-        {
-            if (canJump && shouldJump) { HandleJump(); }
-        }
-    }
+
     private void HandleMovementInput()
     {
-        currentInput = new Vector2((isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
+        currentInput = new Vector2((isCrouching ? crouchSpeed : isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isCrouching ? crouchSpeed : isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
 
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
@@ -158,14 +149,14 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleHeadBob()
     {
-        if (!characterController.isGrounded) return;
+        if (!isGrounded) return;
 
         if(Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
         {
-            timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : IsSprinting ? sprintBobSpeed : walkBobSpeed);
+            timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isSprinting ? sprintBobSpeed : walkBobSpeed);
             playerCamera.transform.localPosition = new Vector3(
                 playerCamera.transform.localPosition.x,
-                defaultYPos + Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : IsSprinting ? sprintBobAmount : walkBobAmount),
+                defaultYPos + Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isSprinting ? sprintBobAmount : walkBobAmount),
                 playerCamera.transform.localPosition.z);
         }
     }
@@ -225,8 +216,11 @@ public class FirstPersonController : MonoBehaviour
 
     private void ApplyFinalMovement()
     {
-        if (!characterController.isGrounded)
+        if (!isGrounded)
+        {
             moveDirection.y -= gravity * Time.deltaTime;
+            //moveDirection.y -= gravity;
+        }
 
         //if (characterController.velocity.y < -1 && characterController.isGrounded)
         //    moveDirection.y = 0;
