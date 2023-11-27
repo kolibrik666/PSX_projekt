@@ -4,10 +4,24 @@ using UnityEngine;
 
 public class CreateRandom : MonoBehaviour
 {
-    [SerializeField] PuzzleRooms _puzzleRooms;
+    [SerializeField] ScriptableObject[] _spawnables;
     [SerializeField] List<Transform> _spawnPoints = new List<Transform>();
+
+    PuzzleRooms _puzzleRooms;
+
     private void OnEnable()
     {
+        foreach(var spawnable in _spawnables)
+        {
+            if (spawnable != null)
+            {
+                if (spawnable is PuzzleRooms)
+                {
+                    _puzzleRooms = (PuzzleRooms)spawnable;
+                }
+            }
+        }
+        
         SetupRooms();
     }
     private void SetupRooms()
@@ -35,7 +49,7 @@ public class CreateRandom : MonoBehaviour
 
         int randomIndex = RandomNumGen.Random(0, puzzleRoomsCount);
         PuzzleRoom randomPuzzleRoom = _puzzleRooms.puzzleRooms[randomIndex];
-
+        Debug.Log("Chosen Room: " + randomIndex);
         if (randomPuzzleRoom != null && randomPuzzleRoom.prefab != null)
         {
             return randomPuzzleRoom.prefab;
