@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b9a1827d495db4b8bd45fec37a6606, type: 3}
+  m_Name: TunelVariants
+  m_EditorClassIdentifier: 
+  TunelVariantsList:
+  - {fileID: 11400000, guid: 4834c572618c26149a4b991b6932c0f8, type: 2}
+  - {fileID: 11400000, guid: 05865cf56f621264d9308b23cb5af867, type: 2}
+  - {fileID: 11400000, guid: 2d50f08ef55c1c54692559a2c043da78, type: 2}
+  NumOfSpawningObjects: 2

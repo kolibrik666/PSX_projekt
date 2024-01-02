@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 6599246914567083232}
   - component: {fileID: 8125279684408776722}
   m_Layer: 0
-  m_Name: TunelMetroFloor 1
+  m_Name: TunelMetroFloorStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

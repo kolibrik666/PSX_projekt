@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7045614ad86164f44a38606a9800f1dd, type: 3}
   m_Name: Puzzle1
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8741481135018320840, guid: 005f2d959edd3e243bd5bc43b2e7d9fb, type: 3}
+  prefab: {fileID: 7340205529993238690, guid: 2333fc8ceb0fde44ab39e171b7546ae2, type: 3}

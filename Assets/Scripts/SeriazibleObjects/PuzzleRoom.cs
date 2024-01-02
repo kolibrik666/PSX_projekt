@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/PuzzleRoom", order = 1)]
-public class PuzzleRoom : ScriptableObject
+public class PuzzleRoom : SpawnableGeneral
 {
-    public GameObject prefab;
 }

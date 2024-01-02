@@ -33,7 +33,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField]  float walkSpeed = 3.0f;
     [SerializeField] float sprintSpeed = 6.0f;
     [SerializeField] float crouchSpeed = 1.5f;
-    [SerializeField] float slopeSpeed = 7f;
+    //[SerializeField] float slopeSpeed = 7f;
 
     [Header("Look Parameters")]
     [SerializeField, Range(1, 10)] float lookSpeedX = 2.0f;
