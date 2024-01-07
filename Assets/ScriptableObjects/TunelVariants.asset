@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TunelVariants
   m_EditorClassIdentifier: 
   TunelVariantsList:
-  - {fileID: 11400000, guid: 4834c572618c26149a4b991b6932c0f8, type: 2}
-  - {fileID: 11400000, guid: 05865cf56f621264d9308b23cb5af867, type: 2}
   - {fileID: 11400000, guid: 2d50f08ef55c1c54692559a2c043da78, type: 2}
+  - {fileID: 11400000, guid: 05865cf56f621264d9308b23cb5af867, type: 2}
+  - {fileID: 11400000, guid: 4834c572618c26149a4b991b6932c0f8, type: 2}
   NumOfSpawningObjects: 2

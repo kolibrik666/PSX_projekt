@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Lists/PuzzleRooms", order = 1)]
 public class PuzzleRooms : ScriptableObject
 {
-    public List<PuzzleRoom> PuzzleRoomsList = new List<PuzzleRoom>();
+    public List<SpawnableGeneral> PuzzleRoomsList = new List<SpawnableGeneral>();
     public bool RandomPlaces;
     public int NumOfSpawningObjects;
 
