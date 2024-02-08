@@ -8,5 +8,10 @@ public class TunelPreRooms : ScriptableObject
     public List<SpawnableGeneral> TunelPreRoomsListRight = new List<SpawnableGeneral>();
     public List<SpawnableGeneral> TunelPreRoomsListLeft = new List<SpawnableGeneral>();
 
+    public List<SpawnableGeneral> TunelCorridorListRight = new List<SpawnableGeneral>();
+    public List<SpawnableGeneral> TunelCorridorListLeft = new List<SpawnableGeneral>();
+
     public int NumOfSpawningObjects;
+    public int NumOfSpawningCorridorPerSide;
+
 }

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PuzzleRoomsList:
   - {fileID: 11400000, guid: 30d7a6b556f87b84aaa14593994c2b38, type: 2}
+  - {fileID: 11400000, guid: 30d7a6b556f87b84aaa14593994c2b38, type: 2}
   RandomPlaces: 0
-  NumOfSpawningObjects: 0
+  NumOfSpawningObjects: 2

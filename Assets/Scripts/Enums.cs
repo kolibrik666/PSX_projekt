@@ -1,5 +1,6 @@
 public enum TypeRooms
 {
-  TunelVariants,
-  TunelPreRooms
+    General,
+    TunelCorridor,
+    TunelCorridorConnected
 }

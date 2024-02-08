@@ -8,7 +8,7 @@ public class PuzzleRooms : ScriptableObject
     public bool RandomPlaces;
     public int NumOfSpawningObjects;
 
-    public int getRandomRoom()
+    public int GetRandomRoom()
     {
         return RandomNumGen.Random(1, PuzzleRoomsList.Count);
     }

@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnableGeneral", order = 1)]
 public class SpawnableGeneral : ScriptableObject
 {
-    public GameObject prefab;
+    public GameObject SpawnablePrefab;
+    public TypeRooms RoomType;
 }

@@ -27,7 +27,7 @@ public class CreateRandom : MonoBehaviour
         public List<T> SpawnablesList { get; set; }
         public T SpawnableGeneral { get; set; }
     }
-    public static event Action<SpawnableGeneral> OnSpawned;
+
     private void OnEnable()
     {
         foreach(var spawnable in _spawnables)
@@ -52,8 +52,8 @@ public class CreateRandom : MonoBehaviour
                 if (spawnable is PuzzleRooms)
                 {
                     _puzzleRooms = (PuzzleRooms)spawnable;
-                    //SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelCorridorListRight);
-                    //SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelCorridorListLeft);
+                    SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelCorridorListRight);
+                    SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelCorridorListLeft);
 
                     //SetupRooms(_puzzleRooms.NumOfSpawningObjects);
                 }

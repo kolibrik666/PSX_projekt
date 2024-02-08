@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8754035632300947237}
   m_Layer: 0
-  m_Name: TunelPreRoomP1
+  m_Name: TunelPreRoomR1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2513163644962946201}
   m_Layer: 0
-  m_Name: PreRoom
+  m_Name: CorridorSpawn
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -409,7 +409,7 @@ Transform:
   m_GameObject: {fileID: 8467925045596946489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalPosition: {x: -0.05, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
