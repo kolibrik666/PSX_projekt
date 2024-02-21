@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d876f4487f630b54d9c4ca38e28d4dc6, type: 3}
   m_Name: CorridorRoomL
   m_EditorClassIdentifier: 
-  SpawnablePrefab: {fileID: 6415095175565443840, guid: cc4a53a1e59e90c4ea9f2fab70927798,
+  SpawnablePrefab: {fileID: 4438552316496185425, guid: cc4a53a1e59e90c4ea9f2fab70927798,
     type: 3}
   RoomType: 1

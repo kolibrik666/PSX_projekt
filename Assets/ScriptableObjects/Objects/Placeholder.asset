@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d876f4487f630b54d9c4ca38e28d4dc6, type: 3}
-  m_Name: CorridorRoomConnectedR
+  m_Name: Placeholder
   m_EditorClassIdentifier: 
-  SpawnablePrefab: {fileID: 5785943148251667357, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+  SpawnablePrefab: {fileID: 5818407698645804981, guid: 58311832bd4a74445865c7968d540f6b,
     type: 3}
-  RoomType: 2
+  RoomType: 0

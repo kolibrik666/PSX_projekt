@@ -8,6 +8,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2573099007260516184, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2573099007260516184, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2573099007260516184, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2573099007260516184, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2573099007260516184, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3608397335252990406, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97,6 +122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785943148251667357, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: m_Name
+      value: CorridorRoomConnectedL
       objectReference: {fileID: 0}
     - target: {fileID: 8833802717919244156, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
         type: 3}
