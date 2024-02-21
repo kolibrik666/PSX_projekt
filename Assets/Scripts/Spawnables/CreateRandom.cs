@@ -78,8 +78,6 @@ public class CreateRandom : MonoBehaviour
         for (int i = 0; i < spawnablesCount; i++)
         {
             var objectGeneral = InstantiateRandomSpawnable(_spawnablesList);
-
-            // ak je large tak nespawnujeme niè, ak je small tak dvere
             if (isCorridorsASpawned) //  porovna iba 0(0) s 0tým(2) a 1(1) s 1prvým(3)
             {               
                 var spawnable = _spawnedCorridorList[i];
@@ -94,41 +92,12 @@ public class CreateRandom : MonoBehaviour
                     _allDoors.Add(objectGeneral);
                 }               
             }
-            if (objectGeneral != null)
-            {
-                _spawnedCorridorList.Add(objectGeneral);
-                var tunelObject = objectGeneral.SpawnablePrefab;
-
-                SpawnObject(tunelObject, spawnPointsList[i]);
-            }
+            _spawnedCorridorList.Add(objectGeneral);
+            var tunelObject = objectGeneral.SpawnablePrefab;
+            SpawnObject(tunelObject, spawnPointsList[i]);
         }
     }
-    private void CheckCorridorrs()
-    {
-        for (int i = 0; i < _spawnedCorridorList.Count; i++)
-        {
-            int indexToCompare = i * 2;
-            if (indexToCompare < _spawnedCorridorList.Count)
-            {
-                SpawnableGeneral spawnableA = _spawnedCorridorList[i];
-                SpawnableGeneral spawnableB = _spawnedCorridorList[indexToCompare];
 
-                if (spawnableA.RoomType == TypeRooms.TunelCorridorConnected && spawnableB.RoomType == TypeRooms.TunelCorridorConnected)
-                {
-                    //spawnableA
-                }
-                else if (spawnableA.RoomType == TypeRooms.TunelCorridorConnected && spawnableB.RoomType == TypeRooms.TunelCorridor)
-                {
-                   
-                }
-                else if (spawnableB.RoomType == TypeRooms.TunelCorridorConnected && spawnableA.RoomType == TypeRooms.TunelCorridor)
-                {
-                   
-                }
-                else if (spawnableB.RoomType == TypeRooms.General) continue;
-            }
-        }
-    }
     private void SetupTunelPreRooms(int spawnablesCount, List<Transform> spawnPointsList, List<SpawnableGeneral> tunelPreRoomsList)
     {
         _spawnablesList = tunelPreRoomsList;
