@@ -74,44 +74,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 9011942975009067549}
   characterController: {fileID: 9011942974338164171}
-  canSprint: 1
-  canJump: 1
-  canCrouch: 1
-  canUseHeadBob: 1
-  canZoom: 1
-  canInteract: 1
+  _canSprint: 1
+  _canJump: 1
+  _canCrouch: 1
+  _canUseHeadBob: 1
+  _canZoom: 1
+  _canInteract: 1
   sprintKey: 304
   jumpKey: 32
   crouchKey: 306
   interactKey: 323
   zoomKey: 324
-  walkSpeed: 2.5
-  sprintSpeed: 5
-  crouchSpeed: 1.5
-  lookSpeedX: 2
-  lookSpeedY: 2
-  upperLookLimit: 80
-  lowerLookLimit: 80
-  jumpForce: 5
-  gravity: 20
-  crouchHeight: 0.5
-  standingHeight: 2
-  timeToCrouch: 0.25
-  crouchingCenter: {x: 0, y: 0.5, z: 0}
-  standingCenter: {x: 0, y: 0, z: 0}
-  walkBobSpeed: 10
-  walkBobAmount: 0.02
-  sprintBobSpeed: 14
-  sprintBobAmount: 0.06
-  crouchBobSpeed: 8
-  crouchBobAmount: 0.01
-  timeToZoom: 0.3
-  zoomFOV: 30
-  interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
-  interactionDistance: 2
-  interactionLayer:
+  _walkSpeed: 2.5
+  _sprintSpeed: 5
+  _crouchSpeed: 1.5
+  _lookSpeedX: 2
+  _lookSpeedY: 2
+  _upperLookLimit: 80
+  _lowerLookLimit: 80
+  _jumpForce: 5
+  _gravity: 20
+  _crouchHeight: 0.5
+  _standingHeight: 2
+  _timeToCrouch: 0.25
+  _crouchingCenter: {x: 0, y: 0.5, z: 0}
+  _standingCenter: {x: 0, y: 0, z: 0}
+  _walkBobSpeed: 10
+  _walkBobAmount: 0.02
+  _sprintBobSpeed: 14
+  _sprintBobAmount: 0.06
+  _crouchBobSpeed: 8
+  _crouchBobAmount: 0.01
+  _timeToZoom: 0.3
+  _zoomFOV: 30
+  _interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
+  _interactionDistance: 5
+  _interactionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!1 &9011942975009067536
 GameObject:
   m_ObjectHideFlags: 0

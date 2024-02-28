@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class CreateRandom : MonoBehaviour
 
     [SerializeField] List<Transform> _spawnPointsCorridorsA = new List<Transform>(); //sideA
     [SerializeField] List<Transform> _spawnPointsCorridorsB = new List<Transform>(); //sideB
+
+    public List<Transform> _spawnPointsPuzzleRooms; // temp public
 
     PuzzleRooms _puzzleRooms;
     TunelVariants _tunelVariants;
@@ -43,32 +46,42 @@ public class CreateRandom : MonoBehaviour
     {
         foreach (var spawnable in _spawnables)
         {
-            if (spawnable != null)
+            if (spawnable is TunelVariants)
             {
-                if (spawnable is TunelVariants)
-                {
-                    _tunelVariants = (TunelVariants)spawnable;
-                    SetupTunels(_tunelVariants.NumOfSpawningObjects);
-                }
-                if (spawnable is TunelPreRooms)
-                {
-                    _preTunelRooms = (TunelPreRooms)spawnable;
-                    SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelPreRoomsListRight);
-                    SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelPreRoomsListLeft);
-                    SetupCorridors(_spawnPointsPreRoomsRight.Count, _spawnPointsCorridorsA, _preTunelRooms.TunelCorridorListRight);
-                    SetupCorridors(_spawnPointsPreRoomsLeft.Count, _spawnPointsCorridorsB, _preTunelRooms.TunelCorridorListLeft, true);
-                }
-                if (spawnable is PuzzleRooms)
-                {
-                    _puzzleRooms = (PuzzleRooms)spawnable;
-                    //SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelCorridorListRight);
-                    //SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelCorridorListLeft);
-
-                    //SetupRooms(_puzzleRooms.NumOfSpawningObjects);
-                }
+                _tunelVariants = (TunelVariants)spawnable;
+                SetupTunels(_tunelVariants.NumOfSpawningObjects);
             }
+            if (spawnable is TunelPreRooms)
+            {
+                _preTunelRooms = (TunelPreRooms)spawnable;
+                SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelPreRoomsListRight);
+                SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelPreRoomsListLeft);
+                SetupCorridors(_spawnPointsPreRoomsRight.Count, _spawnPointsCorridorsA, _preTunelRooms.TunelCorridorListRight);
+                SetupCorridors(_spawnPointsPreRoomsLeft.Count, _spawnPointsCorridorsB, _preTunelRooms.TunelCorridorListLeft, true);
+            }
+            if (spawnable is PuzzleRooms)
+            {
+                PrepareSpawnpoints();
+                _puzzleRooms = (PuzzleRooms)spawnable;
+                //SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelCorridorListRight);
+                //SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelCorridorListLeft);
+
+                //SetupRooms(_puzzleRooms.NumOfSpawningObjects);
+            } 
         }
     }
+
+    private void PrepareSpawnpoints() // zÌskame spawnpointy z corridor roomov
+    {
+        _spawnPointsPuzzleRooms = new List<Transform>();
+        foreach (var spawned in _spawnedCorridorList)
+        {
+            if (spawned.RoomType == TypeRooms.General) return;
+            var spawnpoint = spawned.SpawnablePrefab.GetComponent<SpawnpointGetter>().Spawnpoint;
+            _spawnPointsPuzzleRooms.Add(spawnpoint);
+        }
+    }
+
     private void SetupCorridors(int spawnablesCount, List<Transform> spawnPointsList, List<SpawnableGeneral> tunelPreRoomsList, bool isCorridorsASpawned = false) 
     {
         // pottrebujem spawnuù na P L suradnice len z P na P a z L na L, a porovnaù Ëi jedne z nich je large
@@ -119,7 +132,7 @@ public class CreateRandom : MonoBehaviour
             SpawnObject(tunelObject, _spawnPoints[i % 2]);
         }
     }
-    private void SpawnObject(GameObject toSpawn, Transform spawnPoint)
+    private void SpawnObject(GameObject toSpawn, Transform spawnPoint) // ak neni objekt null tak ho spawne do spawnpointu a nastavÌ mu parent kde sa spawnol
     {
         if (toSpawn != null)
         {
@@ -130,7 +143,7 @@ public class CreateRandom : MonoBehaviour
         }
         else Debug.LogError("Object is not possible to load/read!");
     }
-    public SpawnableGeneral InstantiateRandomSpawnable(List<SpawnableGeneral> list)
+    public SpawnableGeneral InstantiateRandomSpawnable(List<SpawnableGeneral> list) // vyberie sa random SpawnableGeneral ktor· sa potom vymaûe z listu
     {
 
         ListItem<SpawnableGeneral> result = list.RemoveRandomItemFromList();

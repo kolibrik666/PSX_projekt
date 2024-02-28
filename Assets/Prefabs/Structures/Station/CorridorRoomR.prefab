@@ -2140,6 +2140,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.049999952, y: 3.7000003, z: 1}
   m_Center: {x: -0.024998784, y: 1.8500001, z: 0}
+--- !u!1 &2929631563889301959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6957390369879220903}
+  m_Layer: 0
+  m_Name: Spawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6957390369879220903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2929631563889301959}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.4499996, y: 0, z: 5.6000004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 252964724959738501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2952681819648992776
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,6 +2706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 252964724959738501}
+  - component: {fileID: 3541000914573217125}
   m_Layer: 0
   m_Name: CorridorRoomR
   m_TagString: Untagged
@@ -2696,8 +2728,22 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6094020092180279097}
+  - {fileID: 6957390369879220903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3541000914573217125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611299490116542586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cebd23a698b717479443f68c6f71212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnpoint: {fileID: 6957390369879220903}
 --- !u!1 &3886116456829999383
 GameObject:
   m_ObjectHideFlags: 0

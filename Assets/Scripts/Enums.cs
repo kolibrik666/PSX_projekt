@@ -2,5 +2,6 @@ public enum TypeRooms
 {
     General,
     TunelCorridor,
-    TunelCorridorConnected
+    TunelCorridorConnected,
+    Puzzle
 }
