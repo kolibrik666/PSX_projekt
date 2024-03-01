@@ -4,7 +4,7 @@ public class SpotlightController : MonoBehaviour
 {
     [SerializeField] SetSpotlight _setSpotlight;
     [SerializeField] GameObject _spotlightMoveStand;
-    [SerializeField] PuzzleManager _puzzleManager;
+    [SerializeField] SlidingWallAnimation _slidingAnim;
     [SerializeField] float _rotationSpeed = 15.0f;
     [SerializeField] float _limitX = 32f;
     [SerializeField] float _limitY = 40f;
@@ -17,7 +17,7 @@ public class SpotlightController : MonoBehaviour
         return dotProduct >= rotationThreshold;
     }
 
-    void Update() // po prejdeni  uriètej rhanici sa vypne a prejde znova na movenemnt
+    void Update() // po prejdeni  uriètej rhanici sa vypne a prejde znova na movenemnt !!!SPAVIT REMAKE NA DOTWEEN DoLookAt
     {
         if (_completed) return;
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -43,7 +43,7 @@ public class SpotlightController : MonoBehaviour
         if (IsTransformRotatedTowards(_setSpotlight.SavedRandomDirection))
         {
             _completed = true;
-            _puzzleManager.PuzzleCompleted();
+            _slidingAnim.OpenDoor();
             Debug.Log("Transform is rotated towards the saved direction!");
         }
 

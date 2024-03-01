@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
-    private int _challengesToComplete = 0;
-    private int _challengesCompleted = 0;
-    private List<SpawnablePuzzle> _spawnablePuzzleList = new();
+    protected int _challengesToComplete = 0;
+    protected int _challengesCompleted = 0;
+    protected List<SpawnablePuzzle> _spawnablePuzzleList = new();
 
     public event Action OnPuzzleCompleted;
    

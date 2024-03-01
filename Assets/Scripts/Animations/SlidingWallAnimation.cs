@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class SlidingWallAnimation : MonoBehaviour
 {
     [SerializeField] GameObject _slidingWall;
-    [SerializeField] float _duration = 1f;
+    [SerializeField] float _duration = 4f;
+    [SerializeField] float _targetPosY = -8.769f;
     [SerializeField] bool _animOnStart = true;
 
     Sequence _sequence;
-    private void OpenDoor()
+    private void SetPosY(int y)
     {
-        
+        _slidingWall.transform.DOMoveY(y, 0f);
+    }
+    public void OpenDoor(Action finishCallback = null)
+    {
+        _sequence?.Kill();
+        _sequence = DOTween.Sequence()
+            .Append(_slidingWall.transform.DOMoveY(_targetPosY, _duration))
+            .AppendCallback(() =>
+            {
+                _sequence = null;
+                finishCallback?.Invoke();
+            });
+
     }
     private void OnEnable()
     {
@@ -23,5 +37,6 @@ public class SlidingWallAnimation : MonoBehaviour
     {
         _sequence?.Kill();
         _sequence = null;
+        SetPosY(0);
     }
 }
