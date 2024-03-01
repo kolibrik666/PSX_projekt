@@ -19,11 +19,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ccd9c36284c3e145bf9f68ce3613f39, type: 2}
   - {fileID: 11400000, guid: 2ccd9c36284c3e145bf9f68ce3613f39, type: 2}
   TunelCorridorListRight:
-  - {fileID: 11400000, guid: 7d19a828ca2a17d4f96dbbe634e99e1c, type: 2}
   - {fileID: 11400000, guid: 2f955c0def1121449adc202741a888c2, type: 2}
   - {fileID: 11400000, guid: 7d19a828ca2a17d4f96dbbe634e99e1c, type: 2}
   TunelCorridorListLeft:
-  - {fileID: 11400000, guid: a0721a87910c9f144a145e80d2b10332, type: 2}
   - {fileID: 11400000, guid: 555cdd5ef11989b4f9f29ef2a977bfe0, type: 2}
   - {fileID: 11400000, guid: a0721a87910c9f144a145e80d2b10332, type: 2}
   NumOfSpawningObjects: 2

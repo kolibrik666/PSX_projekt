@@ -44,7 +44,6 @@ public class SpotlightController : MonoBehaviour
         {
             _completed = true;
             _puzzleManager.PuzzleCompleted();
-            // Do something if rotated towards the saved direction
             Debug.Log("Transform is rotated towards the saved direction!");
         }
 

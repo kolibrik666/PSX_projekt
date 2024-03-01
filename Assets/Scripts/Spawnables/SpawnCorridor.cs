@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpawnCorridor : MonoBehaviour
 {
-    [SerializeField] SpawnableGeneral _metalDoor;
+    /*[SerializeField] SpawnableGeneral _metalDoor;
     [SerializeField] Transform _spawnPoint;
     [SerializeField] ScriptableObject _spawnObject;
 
@@ -60,5 +60,5 @@ public class SpawnCorridor : MonoBehaviour
             spawnedTunnel.transform.SetParent(spawnPoint, false);
         }
         else Debug.LogError("Tunel is not possible to load/read!");
-    }
+    }*/
 }

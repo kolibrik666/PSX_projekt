@@ -7,32 +7,33 @@ using UnityEngine.UI;
 
 public class CreateRandom : MonoBehaviour
 {
+    [SerializeField] PuzzleManager _puzzleManager;
+
     [SerializeField] SpawnableGeneral _metalDoor;
     [SerializeField] SpawnableGeneral _placeholder;
 
     [SerializeField] List<ScriptableObject> _spawnables;
-    [SerializeField] List<Transform> _spawnPoints = new List<Transform>();
-    [SerializeField] List<Transform> _spawnPointsPreRoomsRight = new List<Transform>();
-    [SerializeField] List<Transform> _spawnPointsPreRoomsLeft = new List<Transform>();
+    [Header("Spawnpoints")]
+    [SerializeField] List<Transform> _spawnPoints = new();
+    [SerializeField] List<Transform> _spawnPointsPreRoomsRight = new();
+    [SerializeField] List<Transform> _spawnPointsPreRoomsLeft = new();
 
-    [SerializeField] List<Transform> _spawnPointsCorridorsA = new List<Transform>(); //sideA
-    [SerializeField] List<Transform> _spawnPointsCorridorsB = new List<Transform>(); //sideB
-
-    public List<Transform> _spawnPointsPuzzleRooms; // temp public
+    [SerializeField] List<Transform> _spawnPointsCorridorsA = new(); //sideA
+    [SerializeField] List<Transform> _spawnPointsCorridorsB = new(); //sideB
 
     PuzzleRooms _puzzleRooms;
     TunelVariants _tunelVariants;
     TunelPreRooms _preTunelRooms;
 
-    List<SpawnableGeneral> _spawnablesList;
     List<SpawnableGeneral> _spawnedCorridorList;
 
-    List<SpawnableGeneral> _allDoors = new List<SpawnableGeneral>(); // vyberie s ajeden z t˝chto ako exit
+    readonly List<GameObject> _allDoors = new(); // vyberie s ajeden z t˝chto ako exit
 
+    List<GameObject> _spawnedCorridorsObjects = new(); // miestnosti naspawnovane v scene
     public struct ListItem<T>
     {
         public List<T> SpawnablesList { get; set; }
-        public T SpawnableGeneral { get; set; }
+        public T Spawnable { get; set; }
     }
     //vyberie sa dopredu ake miestnosti sa spawnu a potom sa to poöle Ôalej?
 
@@ -61,36 +62,89 @@ public class CreateRandom : MonoBehaviour
             }
             if (spawnable is PuzzleRooms)
             {
-                PrepareSpawnpoints();
                 _puzzleRooms = (PuzzleRooms)spawnable;
-                //SetupTunelPreRooms(_spawnPointsPreRoomsRight.Count, _spawnPointsPreRoomsRight, _preTunelRooms.TunelCorridorListRight);
-                //SetupTunelPreRooms(_spawnPointsPreRoomsLeft.Count, _spawnPointsPreRoomsLeft, _preTunelRooms.TunelCorridorListLeft);
-
-                //SetupRooms(_puzzleRooms.NumOfSpawningObjects);
+                SetupPuzzleRooms(_spawnedCorridorsObjects, _puzzleRooms.PuzzleRoomsList);
             } 
         }
     }
-
-    private void PrepareSpawnpoints() // zÌskame spawnpointy z corridor roomov
+     
+    private void SetupPuzzleRooms(List<GameObject> spawnedCorridorsObjects, List<SpawnablePuzzle> puzzleRoomsList)
     {
-        _spawnPointsPuzzleRooms = new List<Transform>();
-        foreach (var spawned in _spawnedCorridorList)
-        {
-            if (spawned.RoomType == TypeRooms.General) return;
-            var spawnpoint = spawned.SpawnablePrefab.GetComponent<SpawnpointGetter>().Spawnpoint;
-            _spawnPointsPuzzleRooms.Add(spawnpoint);
-        }
-    }
+        //potrebujem checknuù ûe Ëi sa vybrala verzia Ëo m· aj PART 2 -> TypeRooms.PuzzleSplit, ak ·no  tak jej priraÔ z toho SpawnablePuzzle niektor˙ Ëasù z ktorej bude na v˝ber.
+        List<SpawnablePuzzle> spawnablesList = puzzleRoomsList; // to Ëo sa ide spawnuù
+        List<SpawnablePuzzle> spawnedPuzzleRoomsList = new List<SpawnablePuzzle>(); //to Ëo uû je spawnute
 
+        List<Transform> spawnpointsSideA = new();
+        List<Transform> spawnpointsSideB = new();
+
+        SpawnablePuzzle objectSplitToSpawn;
+        
+        foreach (var objectPuzzle in spawnedCorridorsObjects)
+        {            
+            var spawnpoint = objectPuzzle.GetComponent<SpawnpointGetter>();
+            if (spawnpoint.SpawnpointType == SpawnpointTypes.SideA) spawnpointsSideA.Add(spawnpoint.Spawnpoint);
+            else spawnpointsSideB.Add(spawnpoint.Spawnpoint);
+        }
+
+        if (spawnpointsSideA.Count != 0 || spawnpointsSideB.Count != 0)
+        {
+            bool spawnOnSideA = RandomNumGen.Random(0, 2) == 0;
+            Transform selectedSpawnpoint = spawnOnSideA ? spawnpointsSideA[0] : spawnpointsSideB[0]; // vybrany pre spawn puzzlu
+
+            ListItem<SpawnablePuzzle> resultList = spawnablesList.RemoveRandomItemFromList();
+            var objectToSpawn = resultList.Spawnable;
+            spawnablesList = resultList.SpawnablesList;
+
+            GameObject spawnedObject = SpawnObjectGet(objectToSpawn.SpawnablePrefab);// spawne sa prv˝ puzzle
+            spawnedObject.transform.SetParent(selectedSpawnpoint.transform, false);
+
+            spawnedPuzzleRoomsList.Add(objectToSpawn);
+
+            if(spawnOnSideA) spawnpointsSideA.Remove(selectedSpawnpoint);
+            else spawnpointsSideB.Remove(selectedSpawnpoint);
+
+            if (objectToSpawn.RoomType == TypeRooms.PuzzleSplit && objectToSpawn.SpawnablesPartsList != null) // pozrieme Ëi je rozpoleny alebo iba jednotny
+            {
+                Transform selectedOppositeSpawnpoint = !spawnOnSideA ? spawnpointsSideA[0] : spawnpointsSideB[0];
+                objectSplitToSpawn = objectToSpawn.SpawnablesPartsList.GetRandomItemFromList();
+
+                GameObject spawnedOppositeObject = SpawnObjectGet(objectSplitToSpawn.SpawnablePrefab);// spawne sa druhy puzzle
+                spawnedOppositeObject.transform.SetParent(selectedOppositeSpawnpoint.transform, false);
+
+                spawnedPuzzleRoomsList.Add(objectSplitToSpawn);
+                if (!spawnOnSideA) spawnpointsSideA.Remove(selectedOppositeSpawnpoint);
+                else spawnpointsSideB.Remove(selectedOppositeSpawnpoint);
+            }         
+        }
+
+        foreach (var spawnpoint in spawnpointsSideA) //vybraù random z fillerov nateraz dvere
+        {
+            GameObject spawnedObject = SpawnObjectGet(_metalDoor.SpawnablePrefab);
+            spawnedObject.transform.SetParent(spawnpoint.transform, false);
+            _allDoors.Add(spawnedObject);
+        }
+        foreach (var spawnpoint in spawnpointsSideB)
+        {
+            GameObject spawnedObject = SpawnObjectGet(_metalDoor.SpawnablePrefab);
+            spawnedObject.transform.SetParent(spawnpoint.transform, false);
+            _allDoors.Add(spawnedObject);
+        }
+
+        _puzzleManager.Setup(spawnedPuzzleRoomsList); // poöleme si SpawnablePuzzle do tohto listu. alebo gameObjecty?
+    }
     private void SetupCorridors(int spawnablesCount, List<Transform> spawnPointsList, List<SpawnableGeneral> tunelPreRoomsList, bool isCorridorsASpawned = false) 
     {
         // pottrebujem spawnuù na P L suradnice len z P na P a z L na L, a porovnaù Ëi jedne z nich je large
-        _spawnablesList = tunelPreRoomsList;
+        List<SpawnableGeneral> spawnablesList = tunelPreRoomsList;
+        //_spawnpointsPuzzleRoomList = new();
 
-        if (_spawnablesList == null || spawnablesCount == 0) return;
+        if (spawnablesList == null || spawnablesCount == 0) return;
         for (int i = 0; i < spawnablesCount; i++)
         {
-            var objectGeneral = InstantiateRandomSpawnable(_spawnablesList);
+            ListItem<SpawnableGeneral> resultList = spawnablesList.RemoveRandomItemFromList();
+            var objectGeneral = resultList.Spawnable;
+            spawnablesList = resultList.SpawnablesList;
+
             if (isCorridorsASpawned) //  porovnaù iba 0(0) s 0t˝m(2) a 1(1) s 1prv˝m(3)
             {               
                 var spawnable = _spawnedCorridorList[i];
@@ -102,36 +156,50 @@ public class CreateRandom : MonoBehaviour
                 if (objectGeneral.RoomType == TypeRooms.TunelCorridorConnected && spawnable.RoomType == TypeRooms.TunelCorridor)
                 {
                     objectGeneral = _metalDoor; // EXIT alebo spawnableL
-                    _allDoors.Add(objectGeneral);
+                    //_allDoors.Add(objectGeneral);
                 }               
             }
             _spawnedCorridorList.Add(objectGeneral);
-            var tunelObject = objectGeneral.SpawnablePrefab;
-            SpawnObject(tunelObject, spawnPointsList[i]);
+
+            GameObject spawnedObject = SpawnObjectGet(objectGeneral.SpawnablePrefab);
+            spawnedObject.transform.SetParent(spawnPointsList[i], false);
+            
+            if (objectGeneral.RoomType != TypeRooms.General)
+            {
+                var spawnPointGetter = spawnedObject.GetComponent<SpawnpointGetter>();
+                spawnPointGetter.SetSpawnpointType(i % 2);
+                _spawnedCorridorsObjects.Add(spawnedObject);
+            }
+            else if (objectGeneral == _metalDoor) _allDoors.Add(spawnedObject);
         }
     }
 
     private void SetupTunelPreRooms(int spawnablesCount, List<Transform> spawnPointsList, List<SpawnableGeneral> tunelPreRoomsList)
     {
-        _spawnablesList = tunelPreRoomsList;
-        if (_spawnablesList == null || spawnablesCount == 0) return;
+        List<SpawnableGeneral> spawnablesList = tunelPreRoomsList;
+        if (spawnablesList == null || spawnablesCount == 0) return;
         for (int i = 0; i < spawnablesCount; i++)
         {
-            var tunelObject = InstantiateRandomSpawnable(_spawnablesList).SpawnablePrefab;
+            ListItem<SpawnableGeneral> resultList = spawnablesList.RemoveRandomItemFromList();
+            var tunelObject = resultList.Spawnable.SpawnablePrefab;
+            spawnablesList = resultList.SpawnablesList;
             SpawnObject(tunelObject, spawnPointsList[i]);
         }
     }
     
     private void SetupTunels(int spawnablesCount) // DONE
     {
-        _spawnablesList = _tunelVariants.TunelVariantsList;
-        if (_spawnablesList == null || spawnablesCount == 0) return;
+        List<SpawnableGeneral> spawnablesList = _tunelVariants.TunelVariantsList;
+        if (spawnablesList == null || spawnablesCount == 0) return;
         for (int i = 0; i < spawnablesCount; i++)
         {
-            var tunelObject = InstantiateRandomSpawnable(_spawnablesList).SpawnablePrefab;
+            ListItem<SpawnableGeneral> resultList = spawnablesList.RemoveRandomItemFromList();
+            var tunelObject = resultList.Spawnable.SpawnablePrefab;
+            spawnablesList = resultList.SpawnablesList;
             SpawnObject(tunelObject, _spawnPoints[i % 2]);
         }
     }
+    
     private void SpawnObject(GameObject toSpawn, Transform spawnPoint) // ak neni objekt null tak ho spawne do spawnpointu a nastavÌ mu parent kde sa spawnol
     {
         if (toSpawn != null)
@@ -140,17 +208,26 @@ public class CreateRandom : MonoBehaviour
             Quaternion originalRotation = toSpawn.transform.rotation;
             GameObject spawnedObject = Instantiate(toSpawn, originalPosition, originalRotation);
             spawnedObject.transform.SetParent(spawnPoint, false);
+
         }
         else Debug.LogError("Object is not possible to load/read!");
     }
-    public SpawnableGeneral InstantiateRandomSpawnable(List<SpawnableGeneral> list) // vyberie sa random SpawnableGeneral ktor· sa potom vymaûe z listu
-    {
 
+    private GameObject SpawnObjectGet(GameObject toSpawn)
+    {
+        Vector3 originalPosition = toSpawn.transform.position;
+        Quaternion originalRotation = toSpawn.transform.rotation;
+        GameObject spawnedObject = Instantiate(toSpawn, originalPosition, originalRotation);
+        return spawnedObject;
+    }
+    /*
+    private SpawnableGeneral InstantiateRandomSpawnable(List<SpawnableGeneral> list) // vyberie sa random SpawnableGeneral ktor· sa potom vymaûe z listu
+    {
         ListItem<SpawnableGeneral> result = list.RemoveRandomItemFromList();
-        SpawnableGeneral removedItem = result.SpawnableGeneral;
+        SpawnableGeneral removedItem = result.Spawnable;
         _spawnablesList = result.SpawnablesList;
         return removedItem != null ? removedItem : null;
-    }
+    }*/
 
     /*
     private GameObject InstantiateRandomPuzzleRoom()
@@ -162,28 +239,5 @@ public class CreateRandom : MonoBehaviour
         Debug.Log("Chosen Room: " + randomIndex);
         if (randomPuzzleRoom != null) return randomPuzzleRoom.prefab.gameObject;
         else return null;
-    }*/
-
-    /*
-    private void SetupRooms(int spawnablesCount) // Chcem aby som mohol spawn˙ù presn˝ poËet miestnostÌ, ktor˝ si urËÌm v scriptableObjecte. na jednom mieste.
-    {
-        List<GameObject> _spawnObjects = new List<GameObject>();
-        _spawnablesList = _puzzleRooms.PuzzleRoomsList;
-
-        if (_puzzleRooms == null || spawnablesCount == 0) return;
-
-        int rngNumber = RandomNumGen.Random(1, spawnablesCount);
-        for (int i = 0; i < spawnablesCount; i++)
-        {
-            var goToSpawn = InstantiateRandomSpawnable(_spawnablesList).SpawnablePrefab;
-            _spawnObjects.Add(goToSpawn);
-        }
-
-        foreach (var spawnable in _spawnObjects)
-        {
-            Instantiate(spawnable, _spawnPoints[0].position, Quaternion.identity);
-           // spawnable.transform.SetParent(_spawnPoints[0].position, false);
-
-        }
-    }*/
+    */
 }

@@ -3,5 +3,12 @@ public enum TypeRooms
     General,
     TunelCorridor,
     TunelCorridorConnected,
-    Puzzle
+    Puzzle,
+    PuzzleSplit
+}
+
+public enum SpawnpointTypes
+{
+    SideA = 0,
+    SideB = 1,
 }

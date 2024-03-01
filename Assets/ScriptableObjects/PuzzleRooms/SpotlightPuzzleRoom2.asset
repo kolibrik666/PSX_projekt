@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21adf6a5707fb7e4d8f0bee9cc9af1fe, type: 3}
-  m_Name: SpotlightPuzzleRoom
+  m_Name: SpotlightPuzzleRoom2
   m_EditorClassIdentifier: 
-  SpawnablePrefab: {fileID: 9077448053650534782, guid: 28dcec7d638648a4c95f27bc6e5fe2a9,
+  SpawnablePrefab: {fileID: 2600997937021568924, guid: b9a8ade3083b9394f8de0c7d556bf382,
     type: 3}
-  RoomType: 3
-  SpawnablesPartsList: []
+  RoomType: 4
+  SpawnablesPartsList:
+  - {fileID: 11400000, guid: b0915102f435c8e478bb4d0fb65a2802, type: 2}
   ChallengesToComplete: 2
