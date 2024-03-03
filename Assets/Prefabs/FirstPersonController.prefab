@@ -111,7 +111,7 @@ MonoBehaviour:
   _interactionDistance: 5
   _interactionLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 512
 --- !u!1 &9011942975009067536
 GameObject:
   m_ObjectHideFlags: 0
