@@ -1,28 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
 {
-    protected int _challengesToComplete = 0;
-    protected int _challengesCompleted = 0;
-    protected List<SpawnablePuzzle> _spawnablePuzzleList = new();
+    //protected int _challengesToComplete = 0;
+    //protected int _challengesCompleted = 0;
+    protected List<GameObject> _spawnablePuzzleList = new();
+    bool _isExitUnlocked = false;
 
     public event Action OnPuzzleCompleted;
-   
-    public void Setup(List<SpawnablePuzzle> list)
+    private void OnEnable()
+    {
+        KeyExit.OnKeyPickedUp += UnlockExit;
+    }
+
+    private void OnDisable()
+    {
+        KeyExit.OnKeyPickedUp -= UnlockExit;
+    }
+
+    private void UnlockExit()
+    {
+        _isExitUnlocked = true;
+    }
+
+    public void Setup(List<GameObject> list)
     {
         _spawnablePuzzleList = list;
         foreach(var puzzle in _spawnablePuzzleList)
         {
-            _challengesToComplete += puzzle.ChallengesToComplete;
+            //puzzle.GetComponent<>
         }
-        Debug.Log(_challengesToComplete);
     }
+    /*
     public void PuzzleCompleted()
     {
         _challengesCompleted++;
         OnPuzzleCompleted?.Invoke();
     }
+    */
 }

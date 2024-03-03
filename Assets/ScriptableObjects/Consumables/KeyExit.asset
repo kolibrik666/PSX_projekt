@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d489cee1afb04a24eaebafb72ab4e679, type: 3}
-  m_Name: PuzzleRooms
+  m_Script: {fileID: 11500000, guid: 4b662c53d614c0446b845f10e968bd23, type: 3}
+  m_Name: KeyExit
   m_EditorClassIdentifier: 
-  PuzzleRoomsList:
-  - {fileID: 11400000, guid: 4592d08f7955a0546b4ffa8cb0d13098, type: 2}
-  - {fileID: 11400000, guid: b0915102f435c8e478bb4d0fb65a2802, type: 2}
+  SpawnablePrefab: {fileID: 3055928479486171639, guid: 4ec72c4370ad6e3409a5889c95507fa3,
+    type: 3}
+  ConsumableType: 0

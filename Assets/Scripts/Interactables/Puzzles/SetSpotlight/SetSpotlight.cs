@@ -22,8 +22,9 @@ public class SetSpotlight : Interactable
 
     private void SpawnTarget()
     {
-        Transform randomSpawnPoint = spawnPoints[RandomNumGen.Random(0, spawnPoints.Length)];
-        var target = Instantiate(_targetPrefab, randomSpawnPoint.position, randomSpawnPoint.rotation);
+        Transform randomSpawnPoint = spawnPoints[RandomNumGen.Random(0, spawnPoints.Length-1)];
+        var target = Instantiate(_targetPrefab, _targetPrefab.transform.position, _targetPrefab.transform.rotation);
+        target.transform.SetParent(randomSpawnPoint.transform, false);
         Vector3 targetDirection = target.transform.position - transform.position;
         _savedRandomDirection = targetDirection.normalized;
     }

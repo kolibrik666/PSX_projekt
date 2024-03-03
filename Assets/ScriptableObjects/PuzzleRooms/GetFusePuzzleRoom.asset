@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21adf6a5707fb7e4d8f0bee9cc9af1fe, type: 3}
   m_Name: GetFusePuzzleRoom
   m_EditorClassIdentifier: 
-  SpawnablePrefab: {fileID: 7361094449903508882, guid: 0aaaf65b4a7f377429d9a3ef8cae7a74,
+  SpawnablePrefab: {fileID: 5415395333486890373, guid: 9a43b7f22679ecf4f9a5ca4bfc313ccb,
     type: 3}
   RoomType: 3
   SpawnablesPartsList: []
-  ChallengesToComplete: 5
+  ChallengesToComplete: 0

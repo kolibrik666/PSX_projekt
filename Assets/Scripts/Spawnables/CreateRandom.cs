@@ -72,7 +72,7 @@ public class CreateRandom : MonoBehaviour
     {
         //potrebujem checknuù ûe Ëi sa vybrala verzia Ëo m· aj PART 2 -> TypeRooms.PuzzleSplit, ak ·no  tak jej priraÔ z toho SpawnablePuzzle niektor˙ Ëasù z ktorej bude na v˝ber.
         List<SpawnablePuzzle> spawnablesList = puzzleRoomsList; // to Ëo sa ide spawnuù
-        List<SpawnablePuzzle> spawnedPuzzleRoomsList = new List<SpawnablePuzzle>(); //to Ëo uû je spawnute
+        List<GameObject> spawnedPuzzleRoomsList = new List<GameObject>(); //to Ëo uû je spawnute
 
         List<Transform> spawnpointsSideA = new();
         List<Transform> spawnpointsSideB = new();
@@ -97,8 +97,8 @@ public class CreateRandom : MonoBehaviour
 
             GameObject spawnedObject = SpawnObjectGet(objectToSpawn.SpawnablePrefab);// spawne sa prv˝ puzzle
             spawnedObject.transform.SetParent(selectedSpawnpoint.transform, false);
-
-            spawnedPuzzleRoomsList.Add(objectToSpawn);
+            //pre part2 z puzzlu potrebujem informacie o poistke Ëi je pickapnuta
+            spawnedPuzzleRoomsList.Add(spawnedObject);
 
             if(spawnOnSideA) spawnpointsSideA.Remove(selectedSpawnpoint);
             else spawnpointsSideB.Remove(selectedSpawnpoint);
@@ -111,7 +111,7 @@ public class CreateRandom : MonoBehaviour
                 GameObject spawnedOppositeObject = SpawnObjectGet(objectSplitToSpawn.SpawnablePrefab);// spawne sa druhy puzzle
                 spawnedOppositeObject.transform.SetParent(selectedOppositeSpawnpoint.transform, false);
 
-                spawnedPuzzleRoomsList.Add(objectSplitToSpawn);
+                spawnedPuzzleRoomsList.Add(spawnedOppositeObject);
                 if (!spawnOnSideA) spawnpointsSideA.Remove(selectedOppositeSpawnpoint);
                 else spawnpointsSideB.Remove(selectedOppositeSpawnpoint);
             }         
@@ -130,7 +130,7 @@ public class CreateRandom : MonoBehaviour
             _allDoors.Add(spawnedObject);
         }
 
-        _puzzleManager.Setup(spawnedPuzzleRoomsList); // poöleme si SpawnablePuzzle do tohto listu. alebo gameObjecty?
+        //_puzzleManager.Setup(spawnedPuzzleRoomsList); // poöleme si SpawnablePuzzle do tohto listu. alebo gameObjecty?
     }
     private void SetupCorridors(int spawnablesCount, List<Transform> spawnPointsList, List<SpawnableGeneral> tunelPreRoomsList, bool isCorridorsASpawned = false) 
     {

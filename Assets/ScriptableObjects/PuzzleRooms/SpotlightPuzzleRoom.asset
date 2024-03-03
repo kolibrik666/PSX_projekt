@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21adf6a5707fb7e4d8f0bee9cc9af1fe, type: 3}
   m_Name: SpotlightPuzzleRoom
   m_EditorClassIdentifier: 
-  SpawnablePrefab: {fileID: 9077448053650534782, guid: 28dcec7d638648a4c95f27bc6e5fe2a9,
+  SpawnablePrefab: {fileID: 5415395333486890373, guid: 9a43b7f22679ecf4f9a5ca4bfc313ccb,
     type: 3}
   RoomType: 3
   SpawnablesPartsList: []
-  ChallengesToComplete: 2
+  ChallengesToComplete: 0
