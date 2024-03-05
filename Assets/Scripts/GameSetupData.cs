@@ -1,10 +1,6 @@
 
-using UnityEngine;
-
-public class GameSetupData : MonoBehaviour
+public class GameSetupData
 {
-    public int SanityValue;
-    public int SaturationValue;
-    public int SurvivedDays;
-    public int BatteryValue;
+    public int SurvivedDays = 7;
+    public Difficulty Difficulty;
 }

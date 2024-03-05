@@ -4,6 +4,7 @@ using UnityEngine;
 public class FirstPersonController : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
+    public bool IsSprinting => _isSprinting;
     bool _isSprinting => _canSprint && Input.GetKey(sprintKey);
     bool _isGrounded => characterController.isGrounded;
     bool _shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded && !_isCrouching;
@@ -134,8 +135,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Vertical"), (_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Horizontal"));
-
+        _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Vertical"), 
+            (_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Horizontal"));
         float _moveDirectionY = _moveDirection.y;
         _moveDirection = (transform.TransformDirection(Vector3.forward) * _currentInput.x) + (transform.TransformDirection(Vector3.right) * _currentInput.y);
         _moveDirection.y = _moveDirectionY;
@@ -154,7 +155,6 @@ public class FirstPersonController : MonoBehaviour
         _moveDirection.y = _jumpForce;
     }
 
-
     private void HandleHeadBob()
     {
         if (!_isGrounded) return;
@@ -168,7 +168,6 @@ public class FirstPersonController : MonoBehaviour
                 playerCamera.transform.localPosition.z);
         }
     }
-  
 
     private void HandleZoom()
     {

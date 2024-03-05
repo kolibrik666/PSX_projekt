@@ -16,7 +16,7 @@ public static class Extensions
     {
         if (list == null || list.Count == 0) return default;
 
-        int randomIndex = RandomNumGen.Random(0, list.Count);
+        int randomIndex = RandomNumGen.Range(0, list.Count);
         T item = list[randomIndex];
 
         return item;
@@ -25,7 +25,7 @@ public static class Extensions
     {
         if (list == null || list.Count == 0) return default;
 
-        int randomIndex = RandomNumGen.Random(0, list.Count);
+        int randomIndex = RandomNumGen.Range(0, list.Count);
         T item = list[randomIndex];
 
         List<T> updatedList = new List<T>(list);
@@ -38,7 +38,7 @@ public static class Extensions
     {
         if (list == null || list.Count == 0) return default;
 
-        int randomIndex = RandomNumGen.Random(0, list.Count);
+        int randomIndex = RandomNumGen.Range(0, list.Count);
         T item = list[randomIndex];
 
         list.RemoveAt(randomIndex);

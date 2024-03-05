@@ -9,7 +9,6 @@ public class SlidingWallAnimation : MonoBehaviour
     [SerializeField] GameObject _slidingWall;
     [SerializeField] float _duration = 4f;
     [SerializeField] float _targetPosY = -8.769f;
-    [SerializeField] bool _animOnStart = true;
 
     Sequence _sequence;
     private void SetPosY(int y)
@@ -28,11 +27,6 @@ public class SlidingWallAnimation : MonoBehaviour
             });
 
     }
-    private void OnEnable()
-    {
-        if (_animOnStart) OpenDoor();
-    }
-
     private void OnDisable()
     {
         _sequence?.Kill();

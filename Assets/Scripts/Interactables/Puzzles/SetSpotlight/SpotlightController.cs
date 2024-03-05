@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpotlightController : MonoBehaviour
@@ -9,17 +10,34 @@ public class SpotlightController : MonoBehaviour
     [SerializeField] float _limitX = 32f;
     [SerializeField] float _limitY = 40f;
 
-    bool _completed = false;
+    float _rotationThreshold = 0.9999f;
+    bool _puzzleCompleted = false;
+    bool _firstRun = true;
+    int _multiplier = 1;
+    
+    public bool PuzzleCompleted => _puzzleCompleted;
+    private void OnEnable()
+    {
+        if (!_firstRun) return;
+        if (transform.forward.z > 0.5f) _multiplier *= -1;
+        Debug.Log(transform.forward.z);
+        _firstRun = false;
+    }
     bool IsTransformRotatedTowards(Vector3 direction)
     {
-        float dotProduct = Vector3.Dot(transform.forward*-1, direction.normalized);
-        float rotationThreshold = 0.999f;
-        return dotProduct >= rotationThreshold;
+        float dotProduct = Vector3.Dot(transform.forward * _multiplier, direction.normalized);        
+        Debug.Log(dotProduct);
+        return dotProduct >= _rotationThreshold;
     }
+
 
     void Update() // po prejdeni  uriètej rhanici sa vypne a prejde znova na movenemnt !!!SPAVIT REMAKE NA DOTWEEN DoLookAt
     {
-        if (_completed) return;
+        if (PuzzleCompleted)
+        {
+            _setSpotlight.ChangeControl(true);
+            return;
+        }
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 rotation = new Vector3(verticalInput, horizontalInput, 0) * _rotationSpeed * Time.deltaTime;
@@ -42,7 +60,7 @@ public class SpotlightController : MonoBehaviour
 
         if (IsTransformRotatedTowards(_setSpotlight.SavedRandomDirection))
         {
-            _completed = true;
+            _puzzleCompleted = true;
             _slidingAnim.OpenDoor();
             Debug.Log("Transform is rotated towards the saved direction!");
         }

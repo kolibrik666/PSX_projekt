@@ -88,7 +88,7 @@ public class CreateRandom : MonoBehaviour
 
         if (spawnpointsSideA.Count != 0 || spawnpointsSideB.Count != 0)
         {
-            bool spawnOnSideA = RandomNumGen.Random(0, 2) == 0;
+            bool spawnOnSideA = RandomNumGen.Range(0, 2) == 0;
             Transform selectedSpawnpoint = spawnOnSideA ? spawnpointsSideA[0] : spawnpointsSideB[0]; // vybrany pre spawn puzzlu
 
             ListItem<SpawnablePuzzle> resultList = spawnablesList.RemoveRandomItemFromList();
@@ -234,7 +234,7 @@ public class CreateRandom : MonoBehaviour
     {
         int puzzleRoomsCount = _puzzleRooms.PuzzleRoomsList.Count;
         if (puzzleRoomsCount == 0) return null;
-        int randomIndex = RandomNumGen.Random(0, puzzleRoomsCount);
+        int randomIndex = RandomNumGen.Range(0, puzzleRoomsCount);
         PuzzleRoom randomPuzzleRoom = _puzzleRooms.PuzzleRoomsList[randomIndex];
         Debug.Log("Chosen Room: " + randomIndex);
         if (randomPuzzleRoom != null) return randomPuzzleRoom.prefab.gameObject;

@@ -22,26 +22,26 @@ public class SetSpotlight : Interactable
 
     private void SpawnTarget()
     {
-        Transform randomSpawnPoint = spawnPoints[RandomNumGen.Random(0, spawnPoints.Length-1)];
+        Transform randomSpawnPoint = spawnPoints[RandomNumGen.Range(0, spawnPoints.Length)];
         var target = Instantiate(_targetPrefab, _targetPrefab.transform.position, _targetPrefab.transform.rotation);
         target.transform.SetParent(randomSpawnPoint.transform, false);
+
         Vector3 targetDirection = target.transform.position - transform.position;
         _savedRandomDirection = targetDirection.normalized;
     }
-    private void ChangeControl()
+    public void ChangeControl(bool puzzleDone = false)
     {
-        if (_controlSpotlight)
+        if (puzzleDone)
         {
-            _light.SetActive(false);
+            OnChangeControl?.Invoke();
             _spotlightController.enabled = false;
-            _controlSpotlight = false;
+            return;
         }
-        else
-        {
-            _light.SetActive(true);
-            _spotlightController.enabled = true;
-            _controlSpotlight = true;
-        }
+
+        OnChangeControl?.Invoke();
+        _controlSpotlight = !_controlSpotlight;
+        _light.SetActive(_controlSpotlight);
+        _spotlightController.enabled = _controlSpotlight;
     }
     public override void OnFocus()
     {
@@ -49,10 +49,8 @@ public class SetSpotlight : Interactable
     }
 
     public override void OnInteract()
-    {
-        print("INTERACTED WITH " + gameObject.name);
-        OnChangeControl?.Invoke();
-        ChangeControl(); 
+    {   
+        if(!_spotlightController.PuzzleCompleted) ChangeControl(); 
     }
 
     public override void OnLoseFocus()

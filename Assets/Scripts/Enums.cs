@@ -19,3 +19,10 @@ public enum ConsumableTypes
     Food,
     Magazine
 }
+
+public enum Difficulty
+{
+    Normal,
+    Nightmare,
+    Insane,
+}
