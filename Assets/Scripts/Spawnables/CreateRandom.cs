@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEngine.AI;
 using UnityEngine;
-using UnityEngine.UI;
+using Unity.AI.Navigation;
 
 public class CreateRandom : MonoBehaviour
 {
     [SerializeField] PuzzleManager _puzzleManager;
+    [SerializeField] NavMeshSurface _navMeshSurface;
 
     [SerializeField] SpawnableGeneral _metalDoor;
     [SerializeField] SpawnableGeneral _placeholder;
@@ -41,6 +42,8 @@ public class CreateRandom : MonoBehaviour
     {
         _spawnedCorridorList = new List<SpawnableGeneral>();
         SpawnSpawnables();
+        _navMeshSurface.BuildNavMesh();
+
     }
 
     private void SpawnSpawnables()

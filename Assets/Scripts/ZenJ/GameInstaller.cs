@@ -8,5 +8,8 @@ public class GameInstaller : MonoInstaller
     {
         Container.Bind<GameSetupData>().AsSingle().NonLazy();
         Container.Bind<GameStartData>().FromScriptableObject(_gameStartData).AsSingle();
+        /*Container.BindFactory<VehicleInstaller.Data, PlayerUnit, PlayerUnit.Factory>()
+            .FromSubContainerResolve().ByNewContextPrefab<VehicleInstaller>(_playerUnitPrefab)
+            .UnderTransform(_vehiclesParent).AsSingle();*/
     }
 }

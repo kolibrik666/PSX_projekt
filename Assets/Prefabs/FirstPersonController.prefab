@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9011942974338164170}
   - component: {fileID: 9011942974338164171}
   - component: {fileID: 9011942974338164168}
+  - component: {fileID: 2327008629764003141}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Untagged
@@ -112,6 +113,25 @@ MonoBehaviour:
   _interactionLayer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &2327008629764003141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9011942974338164169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &9011942975009067536
 GameObject:
   m_ObjectHideFlags: 0
