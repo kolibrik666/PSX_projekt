@@ -46,7 +46,7 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Crouch Parameters")]
     [SerializeField] float _crouchHeight = 0.5f;
-    [SerializeField] float _standingHeight = 2.0f;
+    [SerializeField] float _standingHeight = 1.7f;
     [SerializeField] float _timeToCrouch = 0.25f;
     [SerializeField] Vector3 _crouchingCenter = new Vector3(0, 0.5f, 0);
     [SerializeField] Vector3 _standingCenter = new Vector3(0, 0, 0);

@@ -17,6 +17,7 @@ public enum ConsumableTypes
 {
     Key,
     Food,
+    Beer,
     Magazine
 }
 

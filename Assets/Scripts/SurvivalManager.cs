@@ -17,11 +17,11 @@ public class SurvivalManager : MonoBehaviour
     private float _elapsedTime = 0f;
     private float _interval = 1f; // 1 sekunda
 
-    int _hungerValue;
-    int _sanityValue;
+    int _hungerValue => _gameSetupData.Saturation;
+    int _sanityValue = 100;
     int _daysSurvived;
     float _difficultyMultiplier;
-    float _sprintingMultiplier = 0.40f;
+    float _sprintingMultiplier = 0.35f;
     float _ticksWithoutChange = 0.1f;
 
     Difficulty _difficulty;
@@ -59,14 +59,14 @@ public class SurvivalManager : MonoBehaviour
     }
     void Saturation()
     {
-        float hungerDecreaseChance = _difficultyMultiplier * (_ticksWithoutChange * RandomNumGen.Range(1, 10) / 100f);
         float borderToGet = RandomNumGen.Range(0f, 1f);
-        if (borderToGet < (_playerScript.IsSprinting ? _sprintingMultiplier : hungerDecreaseChance))
+        if (borderToGet < (_playerScript.IsSprinting ? _sprintingMultiplier : _difficultyMultiplier * (_ticksWithoutChange * RandomNumGen.Range(1, 10) / 100f)))
         {
             Debug.Log("minus 1");
-            _hungerBarSlider.value -= 1;
+            _gameSetupData.Saturation -= 1;
             _ticksWithoutChange = 0;
         }
         else _ticksWithoutChange += 0.1f;
+        _hungerBarSlider.value = _hungerValue;
     }
 }
