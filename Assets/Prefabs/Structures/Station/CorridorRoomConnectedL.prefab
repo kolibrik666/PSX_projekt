@@ -179,8 +179,24 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -8.1
       objectReference: {fileID: 0}
+    - target: {fileID: 8883506558626796057, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: _spawnpoints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883506558626796057, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+        type: 3}
+      propertyPath: _spawnpoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 4383993300857922624}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dc5b02d94b20ac4aa66c73b5004da0d, type: 3}
+--- !u!4 &4383993300857922624 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3423397408830958307, guid: 9dc5b02d94b20ac4aa66c73b5004da0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1393102536185515683}
+  m_PrefabAsset: {fileID: 0}

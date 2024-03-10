@@ -5415,7 +5415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2397363908273748437}
-  - component: {fileID: 5917728772168711750}
+  - component: {fileID: 8883506558626796057}
   m_Layer: 0
   m_Name: CorridorRoomConnectedR
   m_TagString: Untagged
@@ -5440,7 +5440,7 @@ Transform:
   - {fileID: 3423397408830958307}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5917728772168711750
+--- !u!114 &8883506558626796057
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5449,10 +5449,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5785943148251667357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cebd23a698b717479443f68c6f71212, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c7ed767021de1e4599b064fbbda7845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnpoint: {fileID: 3423397408830958307}
+  _spawnpoints:
+  - {fileID: 3423397408830958307}
 --- !u!1 &5850984513202686466
 GameObject:
   m_ObjectHideFlags: 0

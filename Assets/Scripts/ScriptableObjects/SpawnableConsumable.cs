@@ -8,4 +8,5 @@ public class SpawnableConsumable : ScriptableObject
 {
     public GameObject SpawnablePrefab;
     public ConsumableTypes ConsumableType;
+
 }

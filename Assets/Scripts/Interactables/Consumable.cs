@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -40,5 +41,7 @@ public class Consumable : Interactable
     {
 
     }
-    
+    public class Factory : PlaceholderFactory<Consumable> { }
+
+
 }

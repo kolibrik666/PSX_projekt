@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameStartData: {fileID: 11400000, guid: c4db372f3dea0a44c9c3fc9302b0245a, type: 2}
+  _spawnableConsumableSO: {fileID: 11400000, guid: 5c756898d24f4ec44a990fe1f8093c5d,
+    type: 2}
+  _spawnPOI: {fileID: 5799202535763511633, guid: 017204cd41b11c54d933cfd9c39a6aa2,
+    type: 3}

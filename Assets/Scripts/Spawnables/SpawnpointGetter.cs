@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class SpawnpointGetter : MonoBehaviour
 {
-    [SerializeField] Transform _spawnpoint;
-    SpawnpointTypes _spawnpointTypes;
-    public Transform Spawnpoint => _spawnpoint;
+    [SerializeField] protected List <Transform> _spawnpoints;
+    protected SpawnpointTypes _spawnpointTypes;
+    public Transform Spawnpoint => _spawnpoints.GetRandomItemFromList();
     public SpawnpointTypes SpawnpointType => _spawnpointTypes;
-    public void SetSpawnpointType(SpawnpointTypes newSpawnpointType)
+    public virtual void SetSpawnpointType(SpawnpointTypes newSpawnpointType)
     {
         _spawnpointTypes = newSpawnpointType;
     }
-    public void SetSpawnpointType(int index)
+    public virtual void SetSpawnpointType(int index)
     {
-        if (Enum.IsDefined(typeof(SpawnpointTypes), index)) _spawnpointTypes = (SpawnpointTypes)index;
-        else Debug.LogError("Invalid SpawnpointTypes index.");
+
     }
 }

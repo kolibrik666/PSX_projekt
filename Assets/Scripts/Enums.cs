@@ -11,6 +11,8 @@ public enum SpawnpointTypes
 {
     SideA = 0,
     SideB = 1,
+    POI,
+    Consumable,
 }
 
 public enum ConsumableTypes
@@ -27,3 +29,4 @@ public enum Difficulty
     Nightmare,
     Insane,
 }
+

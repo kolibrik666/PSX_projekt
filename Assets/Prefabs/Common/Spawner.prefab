@@ -45,12 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _puzzleManager: {fileID: 0}
+  _navMeshSurface: {fileID: 0}
   _metalDoor: {fileID: 11400000, guid: 71bec19ef4fd3034f84b2f2cb541490d, type: 2}
   _placeholder: {fileID: 11400000, guid: e5b4ef438d2b6ff4c89d4eb2d70664db, type: 2}
+  _consumables: {fileID: 11400000, guid: 0812e4e2680550b49ba3c999e4c47ed2, type: 2}
   _spawnables:
   - {fileID: 11400000, guid: 5e28fece29ce4f043b20aec3902fee8a, type: 2}
   - {fileID: 11400000, guid: 1fdad7ed5edc9aa4f9bf941da8cd58d7, type: 2}
   - {fileID: 11400000, guid: 033a14ade513e684290b43915a243463, type: 2}
+  - {fileID: 11400000, guid: 694dbf08e0e25b34e984879ae37ee03f, type: 2}
   _spawnPoints:
   - {fileID: 0}
   - {fileID: 0}
