@@ -18,7 +18,8 @@ public enum SpawnpointTypes
 public enum ConsumableTypes
 {
     Key,
-    Food,
+    Pears,
+    Beans,
     Beer,
     Magazine
 }

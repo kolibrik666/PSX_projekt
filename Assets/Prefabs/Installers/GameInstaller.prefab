@@ -49,3 +49,5 @@ MonoBehaviour:
     type: 2}
   _spawnPOI: {fileID: 5799202535763511633, guid: 017204cd41b11c54d933cfd9c39a6aa2,
     type: 3}
+  _setConsumables: {fileID: 2136956127379377113, guid: aaef6de58e9ae6843a9c5d80496f0990,
+    type: 3}

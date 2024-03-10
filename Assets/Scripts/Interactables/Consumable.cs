@@ -9,6 +9,9 @@ public class Consumable : Interactable
     [Inject] GameStartData _gameStartData;
     [SerializeField] ConsumableTypes _consumableTypes;
     bool _isMagazine;
+
+    public ConsumableTypes ConsumableType => _consumableTypes;
+
     private void OnEnable()
     {
         _isMagazine = _consumableTypes == ConsumableTypes.Magazine ? true : false;
@@ -27,10 +30,9 @@ public class Consumable : Interactable
     {
         int result = _consumableTypes switch
         {
-            ConsumableTypes.Food => _gameStartData.FoodValue,
             ConsumableTypes.Magazine => _gameStartData.MagazineValue,
             ConsumableTypes.Beer => _gameStartData.BeerBalue,
-            _ => 1
+            _ => _gameStartData.FoodValue
         };
 
         AddValue(result);

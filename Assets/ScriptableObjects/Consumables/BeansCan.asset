@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnablePrefab: {fileID: 440523756256625846, guid: 6dd2b1d050c8cc447a2febf3c062ad57,
     type: 3}
-  ConsumableType: 1
+  ConsumableType: 2

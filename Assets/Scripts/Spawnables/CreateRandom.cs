@@ -53,14 +53,6 @@ public class CreateRandom : MonoBehaviour
         _spawnedCorridorList = new List<SpawnableGeneral>();
         SpawnSpawnables();
         _navMeshSurface.BuildNavMesh();
-        /*
-        var consumable = _consumable.Create(new()
-        {
-            ConsumableTypes = ConsumableTypes.Magazine,
-
-        });
-
-        _spawnedConsumableObjects.Add(consumable.gameObject);*/
     }
 
     private void SpawnSpawnables()

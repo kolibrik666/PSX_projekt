@@ -5,10 +5,9 @@ using Zenject;
 public class SpawnPOI : MonoBehaviour
 {
     Consumables _consumables;
-    List<GameObject> _spawnedConsumablesObjects = new();
 
     List<GameObject> _spawnedPOIsObjects = new();
-    [Inject] Consumable.Factory _consumable = default;
+    [Inject] SetConsumables.Factory _setConsumables = default;
 
     [Inject]
     public void Construct(InitData initData)
@@ -23,8 +22,10 @@ public class SpawnPOI : MonoBehaviour
             var spawnpointConsumableList = obj.GetComponent<SpawnpointConsumableGetter>().SpawnpointsList;
             spawnpointConsumableList.ForEach(obj =>
             {
-                //var consumable = _consumables.ConsumablesList.GetRandomItemFromList().SpawnablePrefab;
-                var selectedObj = _consumable.Create();
+                var selectedObj = _setConsumables.Create(new()
+                {
+                    Consumables = _consumables,
+                });
                 selectedObj.gameObject.transform.SetParent(obj.transform, false);
             });
         });
