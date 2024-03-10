@@ -14,12 +14,12 @@ public class CreateRandom : MonoBehaviour
     [SerializeField] NavMeshSurface _navMeshSurface;
 
     [SerializeField] SpawnableGeneral _metalDoor;
+    [SerializeField] GameObject _doorForCorridors;
     [SerializeField] SpawnableGeneral _placeholder;
 
     [SerializeField] Consumables _consumables;
 
     [SerializeField] List<ScriptableObject> _spawnables;
-    [Header("Spawnpoints")]
     [SerializeField] List<Transform> _spawnPoints = new();
     [SerializeField] List<Transform> _spawnPointsPreRoomsRight = new();
     [SerializeField] List<Transform> _spawnPointsPreRoomsLeft = new();
@@ -36,6 +36,7 @@ public class CreateRandom : MonoBehaviour
 
     readonly List<GameObject> _allDoors = new(); // vyberie s ajeden z t˝chto ako exit
 
+    List<GameObject> _spawnedTunelsList = new();
     List<GameObject> _spawnedCorridorsObjects = new(); // miestnosti naspawnovane v scene
     List<GameObject> _spawnedPuzzleRoomsList = new();
     List<GameObject> _spawnedPOIsObjects = new();
@@ -108,6 +109,7 @@ public class CreateRandom : MonoBehaviour
     {
         List<Transform> allSpawnpointPOIs = new();
         var combinedCollection = _spawnedCorridorsObjects.Concat(_spawnedPuzzleRoomsList);
+        combinedCollection = combinedCollection.Concat(_spawnedTunelsList);
 
         foreach (var spawnedObject in combinedCollection)
         {
@@ -167,13 +169,13 @@ public class CreateRandom : MonoBehaviour
 
         foreach (var spawnpoint in spawnpointsSideA) //vybraù random z fillerov nateraz dvere
         {
-            GameObject spawnedObject = SpawnObjectGet(_metalDoor.SpawnablePrefab);
+            GameObject spawnedObject = SpawnObjectGet(_doorForCorridors);
             spawnedObject.transform.SetParent(spawnpoint.transform, false);
             _allDoors.Add(spawnedObject);
         }
         foreach (var spawnpoint in spawnpointsSideB)
         {
-            GameObject spawnedObject = SpawnObjectGet(_metalDoor.SpawnablePrefab);
+            GameObject spawnedObject = SpawnObjectGet(_doorForCorridors);
             spawnedObject.transform.SetParent(spawnpoint.transform, false);
             _allDoors.Add(spawnedObject);
         }
@@ -244,7 +246,10 @@ public class CreateRandom : MonoBehaviour
             ListItem<SpawnableGeneral> resultList = spawnablesList.RemoveRandomItemFromList();
             var tunelObject = resultList.Spawnable.SpawnablePrefab;
             spawnablesList = resultList.SpawnablesList;
-            SpawnObject(tunelObject, _spawnPoints[i % 2]);
+            var spawnedObj = SpawnObjectGet(tunelObject);
+            spawnedObj.transform.SetParent(_spawnPoints[i % 2],false);
+            _spawnedTunelsList.Add(spawnedObj);
+            //SpawnObject(tunelObject, _spawnPoints[i % 2]);
         }
     }
     

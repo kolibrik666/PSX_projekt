@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d876f4487f630b54d9c4ca38e28d4dc6, type: 3}
   m_Name: Tunel1
   m_EditorClassIdentifier: 
-  SpawnablePrefab: {fileID: 7340205529993238690, guid: 2333fc8ceb0fde44ab39e171b7546ae2,
+  SpawnablePrefab: {fileID: 4325157165043380404, guid: 186695fc342428e40a872baebd1c3ba1,
     type: 3}
   RoomType: 0

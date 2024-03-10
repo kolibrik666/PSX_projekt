@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c11d84b0ce25d38469d4649e9fe61d08, type: 3}
-  m_Name: POIs
+  m_Script: {fileID: 11500000, guid: 4f8479dd5adbb774b8ae7c017730247a, type: 3}
+  m_Name: BarrelPOI
   m_EditorClassIdentifier: 
-  POIsList:
-  - {fileID: 11400000, guid: 941b4f81fb2ca7b4e87093f773bddfd1, type: 2}
-  - {fileID: 11400000, guid: 915a52874edbec44483baa83f2b84251, type: 2}
+  _Poi: {fileID: 993644790688706824, guid: fbad1e85860012049b82992c2c5c9a11, type: 3}
+  _ChanceToSpawn: 0
