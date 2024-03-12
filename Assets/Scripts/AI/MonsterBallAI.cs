@@ -1,33 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static Extensions;
 
-public class MonsterBallAI : MonoBehaviour
+public class MonsterBallAI : GenericAI
 {
-    [SerializeField] NavMeshAgent _agent;
-    [SerializeField] Transform _player;
-    [SerializeField] Transform _initialPos;
-
     float _wanderRadius = 18f;
     float _wanderTimer = 5f;
+    float _reach = 14f;
+    float _timer;
+
     int _wonderMaxCount = 3;
     int _wonderCount = 0;
 
-    float _reach = 10f;
-    float _timer;
-    void Update()
+    protected void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, _player.position);
-
-        if (distanceToPlayer > _reach)
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+        if (distanceToPlayer < _killReach && _player.IsAlive)
+        {
+            _survivalManager.CheckLife(true);
+        }
+        if (distanceToPlayer > _reach || !_player.IsAlive)
         {
             Wander();
         }
         else
         {
             Reset();
-            _agent.destination = _player.position;
+            _agent.destination = _player.transform.position;
         }
     }
     void Wander()
@@ -50,19 +49,22 @@ public class MonsterBallAI : MonoBehaviour
             }
         }
     }
-    private void Reset()
+    protected override void UpdateReach(bool b)
+    {
+        if (b) _reach = _reach - 6;
+        else _reach = _reach * 2;
+    }
+    void Reset()
     {
         _wonderCount = 0;
         _timer = 0f;
     }
     Vector3 RandomNavSphere(Vector3 origin, float distance, int layermask)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * distance;
-
+        Vector3 randomDirection = GenerateRandomVectorInsideUnitSphere() * distance;
         randomDirection += origin;
-
         NavMesh.SamplePosition(randomDirection, out NavMeshHit navHit, distance, layermask);
-
         return navHit.position;
     }
+
 }

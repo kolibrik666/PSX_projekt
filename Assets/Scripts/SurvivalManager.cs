@@ -6,6 +6,7 @@ using Zenject;
 public class SurvivalManager : MonoBehaviour
 {
     [Inject] GameSetupData _gameSetupData;
+    [Inject] InGameMenu _ingameMenu;
 
     [SerializeField] Slider _hungerBarSlider;
     [SerializeField] Slider _sanityBarSlider;
@@ -22,6 +23,8 @@ public class SurvivalManager : MonoBehaviour
     float _ticksWithoutChange = 0.1f;
 
     Difficulty _difficulty;
+
+    public static event Action OnPlayerDeath; // can send trough <> enum / type of death so proper anim will be launched
 
     private void OnEnable()
     {
@@ -48,22 +51,29 @@ public class SurvivalManager : MonoBehaviour
             Tick();
             _elapsedTime = 0f;
         }
+        _hungerBarSlider.value = _hungerValue;
     }
 
     void Tick()
     {
         Saturation();
+        CheckLife();
     }
+
+    public void CheckLife(bool killed = false)
+    {
+        if (killed) OnPlayerDeath?.Invoke();
+        if (_hungerValue <= 0) OnPlayerDeath?.Invoke();        
+    }
+
     void Saturation()
     {
         float borderToGet = RandomNumGen.Range(0f, 1f);
         if (borderToGet < (_playerScript.IsSprinting ? _sprintingMultiplier : _difficultyMultiplier * (_ticksWithoutChange * RandomNumGen.Range(1, 10) / 100f)))
         {
-            Debug.Log("minus 1");
             _gameSetupData.Saturation -= 1;
             _ticksWithoutChange = 0;
         }
-        else _ticksWithoutChange += 0.1f;
-        _hungerBarSlider.value = _hungerValue;
+        else _ticksWithoutChange += 0.1f;      
     }
 }

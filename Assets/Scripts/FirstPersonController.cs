@@ -1,25 +1,22 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
+
 public class FirstPersonController : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
+    public bool IsAlive => _isAlive;
     public bool IsSprinting => _isSprinting;
     bool _isSprinting => _canSprint && Input.GetKey(sprintKey);
-    bool _isGrounded => characterController.isGrounded;
-    bool _shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded && !_isCrouching;
-    bool _shouldCrouch => Input.GetKeyDown(crouchKey) && !_duringCrouchAnimation && characterController.isGrounded;
+    bool _isGrounded => _characterController.isGrounded;
+    bool _shouldJump => Input.GetKeyDown(jumpKey) && _characterController.isGrounded && !_isCrouching;
+    bool _shouldCrouch => Input.GetKeyDown(crouchKey) && !_duringCrouchAnimation && _characterController.isGrounded;
 
-    [SerializeField] Camera playerCamera;
-    [SerializeField] CharacterController characterController;
-
-    [Header("Fuctional Options")]
-    [SerializeField] bool _canSprint = true;
-    [SerializeField] bool _canJump = true;
-    [SerializeField] bool _canCrouch = true;
-    [SerializeField] bool _canUseHeadBob = true;
-    [SerializeField] bool _canZoom = true;
-    [SerializeField] bool _canInteract = true;
+    [SerializeField] Camera _playerCamera;
+    [SerializeField] CharacterController _characterController;
+    [SerializeField] PlayerDeathAnimation _playerDeathAnimation;
+    [SerializeField] GameObject _light;
 
     [Header("Controls")]
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
@@ -79,18 +76,30 @@ public class FirstPersonController : MonoBehaviour
     Vector3 _moveDirection;
     Vector2 _currentInput;
 
+    bool _canSprint = true;
+    bool _canJump = true;
+    bool _canCrouch = true;
+    bool _canUseHeadBob = true;
+    bool _canZoom = true;
+    bool _canInteract = true;
+    bool _canLook = true;
+
+    bool _isAlive = true;
     float _rotationX = 0;
+
+    public static event Action<bool> IsCrouching;
 
     void Awake()
     {
-        _defaultYPos = playerCamera.transform.localPosition.y;
-        _defaultFOV = playerCamera.fieldOfView;
+        _defaultYPos = _playerCamera.transform.localPosition.y;
+        _defaultFOV = _playerCamera.fieldOfView;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
+        if (!_isAlive) return;
         if (CanMove)
         {
             HandleMovementInput();
@@ -110,7 +119,7 @@ public class FirstPersonController : MonoBehaviour
             ApplyFinalMovement();
         }
 
-        HandleMouseLook();
+        if (_canLook) HandleMouseLook();
 
         if (_canInteract)
         {
@@ -120,13 +129,20 @@ public class FirstPersonController : MonoBehaviour
     }
     private void OnEnable()
     {
+        SurvivalManager.OnPlayerDeath += Death;
         SetSpotlight.OnChangeControl += ChangeMovement;
     }
     private void OnDisable()
     {
+        SurvivalManager.OnPlayerDeath -= Death;
         SetSpotlight.OnChangeControl -= ChangeMovement;
     }
-
+    private void Death()
+    {
+        _isAlive = false;
+        _light.SetActive(false);
+        _playerDeathAnimation.Play();
+    }
     private void ChangeMovement()
     {
         if (CanMove) CanMove = false;
@@ -146,7 +162,7 @@ public class FirstPersonController : MonoBehaviour
     {
         _rotationX -= Input.GetAxis("Mouse Y") * _lookSpeedY;
         _rotationX = Mathf.Clamp(_rotationX, -_upperLookLimit, _lowerLookLimit);
-        playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+        _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * _lookSpeedX, 0);
     }
 
@@ -162,10 +178,10 @@ public class FirstPersonController : MonoBehaviour
         if(Mathf.Abs(_moveDirection.x) > 0.1f || Mathf.Abs(_moveDirection.z) > 0.1f)
         {
             _timer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting ? _sprintBobSpeed : _walkBobSpeed);
-            playerCamera.transform.localPosition = new Vector3(
-                playerCamera.transform.localPosition.x,
+            _playerCamera.transform.localPosition = new Vector3(
+                _playerCamera.transform.localPosition.x,
                 _defaultYPos + Mathf.Sin(_timer) * (_isCrouching ? _crouchBobAmount : _isSprinting ? _sprintBobAmount : _walkBobAmount),
-                playerCamera.transform.localPosition.z);
+                _playerCamera.transform.localPosition.z);
         }
     }
 
@@ -196,7 +212,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleInteractionCheck()
     {
-        if(Physics.Raycast(playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
+        if(Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
         {
             if(hit.collider.gameObject.layer == 9 && (_currentInteractable == null || hit.collider.gameObject.GetInstanceID() != _currentInteractable.GetInstanceID()))
             {
@@ -215,7 +231,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleInteractionInput()
     {
-        if (Input.GetKeyDown(interactKey) && _currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer))
+        if (Input.GetKeyDown(interactKey) && _currentInteractable != null && Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer))
         {
             _currentInteractable.OnInteract();
         }
@@ -229,37 +245,38 @@ public class FirstPersonController : MonoBehaviour
             //_moveDirection.y -= _gravity;
         }
 
-        //if (characterController.velocity.y < -1 && characterController.isGrounded)
+        //if (_characterController.velocity.y < -1 && _characterController.isGrounded)
         //    _moveDirection.y = 0;
 
-        characterController.Move(_moveDirection * Time.deltaTime);
+        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     private IEnumerator CrouchStand()
     {
-        if (_isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
+        if (_isCrouching && Physics.Raycast(_playerCamera.transform.position, Vector3.up, 1f))
             yield break;
 
         _duringCrouchAnimation = true;
 
         float timeElapsed = 0;
         float targetHeight = _isCrouching ? _standingHeight : _crouchHeight;
-        float currentHeight = characterController.height;
+        float currentHeight = _characterController.height;
         Vector3 targetCenter = _isCrouching ? _standingCenter : _crouchingCenter;
-        Vector3 currentCenter = characterController.center;
+        Vector3 currentCenter = _characterController.center;
 
         while(timeElapsed < _timeToCrouch)
         {
-            characterController.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / _timeToCrouch);
-            characterController.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / _timeToCrouch);
+            _characterController.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / _timeToCrouch);
+            _characterController.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / _timeToCrouch);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
 
-        characterController.height = targetHeight;
-        characterController.center = targetCenter;
+        _characterController.height = targetHeight;
+        _characterController.center = targetCenter;
 
         _isCrouching = !_isCrouching;
+        IsCrouching?.Invoke(_isCrouching);
 
         _duringCrouchAnimation = false;
     }
@@ -267,17 +284,17 @@ public class FirstPersonController : MonoBehaviour
     private IEnumerator ToggleZoom(bool isEnter)
     {
         float targetFOV = isEnter ? _zoomFOV : _defaultFOV;
-        float startingFOV = playerCamera.fieldOfView;
+        float startingFOV = _playerCamera.fieldOfView;
         float timeElapsed = 0;
 
         while(timeElapsed < _timeToZoom)
         {
-            playerCamera.fieldOfView = Mathf.Lerp(startingFOV, targetFOV, timeElapsed / _timeToZoom);
+            _playerCamera.fieldOfView = Mathf.Lerp(startingFOV, targetFOV, timeElapsed / _timeToZoom);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
 
-        playerCamera.fieldOfView = targetFOV;
+        _playerCamera.fieldOfView = targetFOV;
         _zoomRoutine = null;
     }
 }

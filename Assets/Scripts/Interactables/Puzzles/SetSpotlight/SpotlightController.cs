@@ -26,7 +26,6 @@ public class SpotlightController : MonoBehaviour
     bool IsTransformRotatedTowards(Vector3 direction)
     {
         float dotProduct = Vector3.Dot(transform.forward * _multiplier, direction.normalized);        
-        Debug.Log(dotProduct);
         return dotProduct >= _rotationThreshold;
     }
 

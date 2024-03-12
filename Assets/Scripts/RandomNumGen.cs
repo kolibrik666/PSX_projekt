@@ -14,6 +14,7 @@ public static class RandomNumGen
     }
     public static float Range(float minValue, float maxValue)
     {
+        Init();
         double num = _random.NextDouble();
         var range = maxValue - minValue + 0.1f;
         num = num * range;
