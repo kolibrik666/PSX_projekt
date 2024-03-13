@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &1928693289610325108
 Transform:
@@ -100,7 +100,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6904194425354905895
 Transform:
@@ -150,6 +150,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CeilingCurve
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640910781357010412, guid: 0fd1b13811925594ea87d40e535b8fd7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5232575583306072911, guid: 0fd1b13811925594ea87d40e535b8fd7,
         type: 3}
@@ -228,6 +233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CeilingTunel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764613854225383022, guid: aa737ed957a11114c816f97c31bd1a4f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7423378835928526535, guid: aa737ed957a11114c816f97c31bd1a4f,
         type: 3}

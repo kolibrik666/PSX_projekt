@@ -8,10 +8,11 @@ public class PuzzleManager : MonoBehaviour
 {
     //protected int _challengesToComplete = 0;
     //protected int _challengesCompleted = 0;
+    [SerializeField] GameObject _exitDoor;
     protected List<GameObject> _spawnablePuzzleList = new();
     bool _isExitUnlocked = false;
 
-    public event Action OnPuzzleCompleted;
+    //public event Action OnPuzzleCompleted;
     private void OnEnable()
     {
         KeyExit.OnKeyPickedUp += UnlockExit;
@@ -26,7 +27,7 @@ public class PuzzleManager : MonoBehaviour
     {
         _isExitUnlocked = true;
     }
-
+    /*
     public void Setup(List<GameObject> list)
     {
         _spawnablePuzzleList = list;

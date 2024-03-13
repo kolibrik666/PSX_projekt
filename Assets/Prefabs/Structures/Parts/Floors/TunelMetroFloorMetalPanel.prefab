@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 2541266291730245645, guid: c9d05f997790bf94d9185afcd21012da,
         type: 3}
       propertyPath: m_Name
-      value: TunelMetroFloor 1 Variant
+      value: TunelMetroFloorMetalPanel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

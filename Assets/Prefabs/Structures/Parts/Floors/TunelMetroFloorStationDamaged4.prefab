@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RailwayStraightDamaged4
       objectReference: {fileID: 0}
+    - target: {fileID: 2115323208234793616, guid: 79a1a0f729e46084bbfbfbf83f029df5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8583385702527689005, guid: 79a1a0f729e46084bbfbfbf83f029df5,
         type: 3}
       propertyPath: m_LocalPosition.x

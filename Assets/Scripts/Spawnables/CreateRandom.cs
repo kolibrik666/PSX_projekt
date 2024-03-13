@@ -6,7 +6,6 @@ using System.Linq;
 
 public class CreateRandom : MonoBehaviour
 {
-    [SerializeField] PuzzleManager _puzzleManager;
     [SerializeField] NavMeshSurface _navMeshSurface;
 
     [SerializeField] SpawnableGeneral _metalDoor;

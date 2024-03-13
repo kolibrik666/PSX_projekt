@@ -131,11 +131,13 @@ public class FirstPersonController : MonoBehaviour
     {
         SurvivalManager.OnPlayerDeath += Death;
         SetSpotlight.OnChangeControl += ChangeMovement;
+        HUD.OnChangeControl += ChangeMouseLook;
     }
     private void OnDisable()
     {
         SurvivalManager.OnPlayerDeath -= Death;
         SetSpotlight.OnChangeControl -= ChangeMovement;
+        HUD.OnChangeControl -= ChangeMouseLook;
     }
     private void Death()
     {
@@ -148,7 +150,11 @@ public class FirstPersonController : MonoBehaviour
         if (CanMove) CanMove = false;
         else CanMove = true;
     }
-
+    private void ChangeMouseLook()
+    {
+        if (_canLook) _canLook = false;
+        else _canLook = true;
+    }
     private void HandleMovementInput()
     {
         _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Vertical"), 

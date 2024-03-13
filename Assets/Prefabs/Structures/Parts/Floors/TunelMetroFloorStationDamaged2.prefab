@@ -142,6 +142,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RailwayStraightDamaged2
       objectReference: {fileID: 0}
+    - target: {fileID: 5788728399037453159, guid: 164323bc3c006f9428c6fbbe462d83cd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

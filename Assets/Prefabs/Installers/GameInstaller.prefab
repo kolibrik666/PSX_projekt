@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   _setConsumables: {fileID: 2136956127379377113, guid: aaef6de58e9ae6843a9c5d80496f0990,
     type: 3}
+  _firstPersonControllerPrefab: {fileID: 9011942974338164169, guid: c96149792183b12408d657dc4a29d01f,
+    type: 3}

@@ -35,11 +35,14 @@ public class PlayerDeathAnimation : MonoBehaviour
             {
                 _blackStripe.DOFade(1f, 1f);
                 _text.DOFade(1f, 2f);
+            })
+            .AppendInterval(1f)
+            .AppendCallback(() => {
                 _restartButton.onClick.AddListener(OnKeyPress);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = false;
             })
-            .AppendInterval(3f)
+            .AppendInterval(2f)
             .AppendCallback(() =>
             {
                 _hint.DOFade(1f, 1f);

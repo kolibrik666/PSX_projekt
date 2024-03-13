@@ -6,10 +6,6 @@ using Zenject;
 public class SurvivalManager : MonoBehaviour
 {
     [Inject] GameSetupData _gameSetupData;
-    [Inject] InGameMenu _ingameMenu;
-
-    [SerializeField] Slider _hungerBarSlider;
-    [SerializeField] Slider _sanityBarSlider;
     [SerializeField] FirstPersonController _playerScript;
 
     private float _elapsedTime = 0f;
@@ -17,7 +13,7 @@ public class SurvivalManager : MonoBehaviour
 
     int _hungerValue => _gameSetupData.Saturation;
     int _sanityValue = 100;
-    int _daysSurvived;
+    int _daysSurvived = 0;
     float _difficultyMultiplier;
     float _sprintingMultiplier = 0.35f;
     float _ticksWithoutChange = 0.1f;
@@ -25,7 +21,7 @@ public class SurvivalManager : MonoBehaviour
     Difficulty _difficulty;
 
     public static event Action OnPlayerDeath; // can send trough <> enum / type of death so proper anim will be launched
-
+    public static event Action OnValueChange;
     private void OnEnable()
     {
         _difficulty = _gameSetupData.Difficulty;
@@ -51,7 +47,6 @@ public class SurvivalManager : MonoBehaviour
             Tick();
             _elapsedTime = 0f;
         }
-        _hungerBarSlider.value = _hungerValue;
     }
 
     void Tick()
@@ -62,8 +57,12 @@ public class SurvivalManager : MonoBehaviour
 
     public void CheckLife(bool killed = false)
     {
-        if (killed) OnPlayerDeath?.Invoke();
-        if (_hungerValue <= 0) OnPlayerDeath?.Invoke();        
+        if (killed || _hungerValue <= 0)
+        {
+            _daysSurvived = 0;
+            _gameSetupData.SurvivedDays = _daysSurvived;
+            OnPlayerDeath?.Invoke();
+        }
     }
 
     void Saturation()
@@ -73,6 +72,7 @@ public class SurvivalManager : MonoBehaviour
         {
             _gameSetupData.Saturation -= 1;
             _ticksWithoutChange = 0;
+            OnValueChange?.Invoke();
         }
         else _ticksWithoutChange += 0.1f;      
     }

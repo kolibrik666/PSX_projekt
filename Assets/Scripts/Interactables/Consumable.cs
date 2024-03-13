@@ -1,5 +1,5 @@
 
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -7,10 +7,12 @@ public class Consumable : Interactable
 {
     [Inject] GameSetupData _gameSetupData;
     [Inject] GameStartData _gameStartData;
-    [SerializeField] ConsumableTypes _consumableTypes;
-    bool _isMagazine;
 
+    [SerializeField] ConsumableTypes _consumableTypes;
+
+    bool _isMagazine;
     public ConsumableTypes ConsumableType => _consumableTypes;
+    public static event Action OnValueChanged;
 
     private void OnEnable()
     {
@@ -20,6 +22,7 @@ public class Consumable : Interactable
     {
         if (!_isMagazine) _gameSetupData.Saturation += val;
         else _gameSetupData.Sanity += val;
+        OnValueChanged?.Invoke();
     }
     public override void OnFocus()
     {
