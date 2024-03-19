@@ -9,6 +9,7 @@ public class FirstPersonController : MonoBehaviour
     public bool IsAlive => _isAlive;
     public bool IsSprinting => _isSprinting;
     bool _isSprinting => _canSprint && Input.GetKey(sprintKey);
+    bool _isMovingBackwords => Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") == 0f;
     bool _isGrounded => _characterController.isGrounded;
     bool _shouldJump => Input.GetKeyDown(jumpKey) && _characterController.isGrounded && !_isCrouching;
     bool _shouldCrouch => Input.GetKeyDown(crouchKey) && !_duringCrouchAnimation && _characterController.isGrounded;
@@ -29,6 +30,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] float _walkSpeed = 3.0f;
     [SerializeField] float _sprintSpeed = 6.0f;
     [SerializeField] float _crouchSpeed = 1.5f;
+    float _backwardSpeedMultiplier = 0.65f;
+
     //[SerializeField] float slopeSpeed = 7f;
 
     [Header("Look Parameters")]
@@ -104,17 +107,10 @@ public class FirstPersonController : MonoBehaviour
         {
             HandleMovementInput();
 
-            if (_canJump && _shouldJump)
-                HandleJump();
-
-            if (_canCrouch && _shouldCrouch)
-                StartCoroutine(CrouchStand());
-
-            if (_canUseHeadBob)
-                HandleHeadBob();
-
-            if (_canZoom)
-                HandleZoom();
+            if (_canJump && _shouldJump) HandleJump();
+            if (_canCrouch && _shouldCrouch) StartCoroutine(CrouchStand());
+            if (_canUseHeadBob) HandleHeadBob();
+            //if (_canZoom) HandleZoom();
 
             ApplyFinalMovement();
         }
@@ -157,10 +153,17 @@ public class FirstPersonController : MonoBehaviour
     }
     private void HandleMovementInput()
     {
-        _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Vertical"), 
-            (_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Horizontal"));
+        float inputVertical = Input.GetAxis("Vertical");
+        float inputHorizontal = Input.GetAxis("Horizontal");
+
+        _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * inputVertical,
+            (_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * inputHorizontal);
         float _moveDirectionY = _moveDirection.y;
-        _moveDirection = (transform.TransformDirection(Vector3.forward) * _currentInput.x) + (transform.TransformDirection(Vector3.right) * _currentInput.y);
+
+        if (_isMovingBackwords && _isSprinting) _currentInput *= _backwardSpeedMultiplier;
+
+        _moveDirection = (transform.TransformDirection(Vector3.forward) * _currentInput.x) + 
+                           (transform.TransformDirection(Vector3.right) * _currentInput.y);
         _moveDirection.y = _moveDirectionY;
     }
 
@@ -183,10 +186,10 @@ public class FirstPersonController : MonoBehaviour
 
         if(Mathf.Abs(_moveDirection.x) > 0.1f || Mathf.Abs(_moveDirection.z) > 0.1f)
         {
-            _timer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting ? _sprintBobSpeed : _walkBobSpeed);
+            _timer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting && !_isMovingBackwords ? _sprintBobSpeed : _walkBobSpeed);
             _playerCamera.transform.localPosition = new Vector3(
                 _playerCamera.transform.localPosition.x,
-                _defaultYPos + Mathf.Sin(_timer) * (_isCrouching ? _crouchBobAmount : _isSprinting ? _sprintBobAmount : _walkBobAmount),
+                _defaultYPos + Mathf.Sin(_timer) * (_isCrouching ? _crouchBobAmount : _isSprinting && !_isMovingBackwords ? _sprintBobAmount : _walkBobAmount),
                 _playerCamera.transform.localPosition.z);
         }
     }

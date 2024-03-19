@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46f31cd798db7f42926d689af5fc5e8, type: 3}
   m_Name: GameStartData
   m_EditorClassIdentifier: 
+  _textColor: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 0}
+  _bloodRedColor: {r: 0.4509804, g: 0.12941177, b: 0.13333334, a: 0}
   FoodValue: 10
   BeerBalue: 8
   MagazineValue: 10

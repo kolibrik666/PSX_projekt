@@ -7,7 +7,8 @@ using Zenject;
 
 public class ExitDoor : Interactable
 {
-    [Inject] GameSetupData gameSetupData;
+    [Inject] GameSetupData _gameSetupData;
+    [Inject] GameRunData _gameRunData;
 
     [SerializeField] CanvasGroup _bg;
     [SerializeField] GameObject _bgGo;
@@ -34,10 +35,12 @@ public class ExitDoor : Interactable
         seq = DOTween.Sequence()
             .SetLoops(0)
             .Append(_bg.DOFade(1, 1))
-            .AppendInterval(1.5f)
+            .AppendInterval(1f)
             .AppendCallback(() =>
             {
-                gameSetupData.SurvivedDays++;
+                _gameSetupData.SurvivedDays++;
+                _gameSetupData.Sanity = _gameRunData.Sanity;
+                _gameSetupData.Saturation = _gameRunData.Saturation;
                 SceneManager.LoadSceneAsync("GameScene");
             });
     }

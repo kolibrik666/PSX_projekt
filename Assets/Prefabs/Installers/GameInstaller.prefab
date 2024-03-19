@@ -47,9 +47,9 @@ MonoBehaviour:
   _gameStartData: {fileID: 11400000, guid: c4db372f3dea0a44c9c3fc9302b0245a, type: 2}
   _spawnableConsumableSO: {fileID: 11400000, guid: 5c756898d24f4ec44a990fe1f8093c5d,
     type: 2}
+  _survivalManager: {fileID: 2179974622254508739, guid: b3bbfecadb20e0d4e9086358e62c728d,
+    type: 3}
   _spawnPOI: {fileID: 5799202535763511633, guid: 017204cd41b11c54d933cfd9c39a6aa2,
     type: 3}
   _setConsumables: {fileID: 2136956127379377113, guid: aaef6de58e9ae6843a9c5d80496f0990,
-    type: 3}
-  _firstPersonControllerPrefab: {fileID: 9011942974338164169, guid: c96149792183b12408d657dc4a29d01f,
     type: 3}

@@ -1,12 +1,13 @@
 
 using System;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
 public class Consumable : Interactable
 {
-    [Inject] GameSetupData _gameSetupData;
     [Inject] GameStartData _gameStartData;
+    [Inject] GameRunData _gameRunData;
 
     [SerializeField] ConsumableTypes _consumableTypes;
 
@@ -20,13 +21,12 @@ public class Consumable : Interactable
     }
     public void AddValue(int val)
     {
-        if (!_isMagazine) _gameSetupData.Saturation += val;
-        else _gameSetupData.Sanity += val;
+        if (!_isMagazine) _gameRunData.Saturation += val;
+        else _gameRunData.Sanity += val;
         OnValueChanged?.Invoke();
     }
     public override void OnFocus()
     {
-        
     }
 
     public override void OnInteract()

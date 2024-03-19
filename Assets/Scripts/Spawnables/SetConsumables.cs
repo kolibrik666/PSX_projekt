@@ -6,8 +6,8 @@ using Zenject;
 [System.Serializable]
 public class ConsumableDictionaryItem
 {
-    public Consumable Key;
-    public GameObject Value;
+    public Consumable Script;
+    public GameObject Prefab;
 }
 public class SetConsumables : MonoBehaviour
 {
@@ -24,11 +24,11 @@ public class SetConsumables : MonoBehaviour
         var consumable = _consumables.ConsumablesList.GetRandomItemFromList();  
         foreach (var item in _consumablesList)
         {
-            if (item.Key.ConsumableType == consumable.ConsumableType)
+            if (item.Script.ConsumableType == consumable.ConsumableType)
             {
-                item.Value.SetActive(true);
+                item.Prefab.SetActive(true);
             }
-            else Destroy(item.Value);
+            else Destroy(item.Prefab);
         }
     }
     public class Factory : PlaceholderFactory<InitData, SetConsumables> { }

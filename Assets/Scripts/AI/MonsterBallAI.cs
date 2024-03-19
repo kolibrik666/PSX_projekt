@@ -15,18 +15,29 @@ public class MonsterBallAI : GenericAI
     protected void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-        if (distanceToPlayer < _killReach && _player.IsAlive)
-        {
-            _survivalManager.CheckLife(true);
-        }
-        if (distanceToPlayer > _reach || !_player.IsAlive)
-        {
-            Wander();
-        }
+
+        if (distanceToPlayer < _killReach && _player.IsAlive) _survivalManager.CheckLife(true); 
+        if (distanceToPlayer > _reach || !_player.IsAlive) _state = AIState.Wander;
+        else _state = AIState.Follow;
+
+        NavMeshPath path = new NavMeshPath();
+        _agent.CalculatePath(_player.transform.position, path);
+        if (path.status == NavMeshPathStatus.PathComplete && _state == AIState.Follow) _survivalManager.SetChaseState(true);
         else
         {
-            Reset();
-            _agent.destination = _player.transform.position;
+            _survivalManager.SetChaseState(false);
+            if(path.status == NavMeshPathStatus.PathPartial && _state == AIState.Follow) _state = AIState.Wander;
+        }
+
+        switch (_state)
+        {
+            case AIState.Wander:
+                Wander();
+                break;
+            case AIState.Follow:
+                Reset();
+                _agent.destination = _player.transform.position;
+                break;
         }
     }
     void Wander()

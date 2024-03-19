@@ -27,10 +27,9 @@ public class CreateRandom : MonoBehaviour
     TunelPreRooms _preTunelRooms;
     POIs _pois;
 
-    List<SpawnableGeneral> _spawnedCorridorList;
-
     readonly List<GameObject> _allDoors = new(); // vyberie s ajeden z týchto ako exit
 
+    List<SpawnableGeneral> _spawnedCorridorList;
     List<GameObject> _spawnedTunelsList = new();
     List<GameObject> _spawnedCorridorsObjects = new(); // miestnosti naspawnovane v scene
     List<GameObject> _spawnedPuzzleRoomsList = new();
@@ -82,7 +81,7 @@ public class CreateRandom : MonoBehaviour
 
     private void SpawnPOIs(List<POI> poisList)
     {
-        List<Transform> allSpawnpointPOIs = PrepareConsumables();
+        List<Transform> allSpawnpointPOIs = PreparePOIs();
         List<POI> spawnablesList = poisList;
 
         for (int i = 0; i < allSpawnpointPOIs.Count; i++)
@@ -98,13 +97,13 @@ public class CreateRandom : MonoBehaviour
            SpawnedPOIsObjects = _spawnedPOIsObjects,
            Consumables = _consumables
         });
-
     }
-    private List<Transform> PrepareConsumables()
+    private List<Transform> PreparePOIs()
     {
         List<Transform> allSpawnpointPOIs = new();
-        var combinedCollection = _spawnedCorridorsObjects.Concat(_spawnedPuzzleRoomsList);
-        combinedCollection = combinedCollection.Concat(_spawnedTunelsList);
+        var combinedCollection = _spawnedCorridorsObjects
+            .Concat(_spawnedPuzzleRoomsList)
+            .Concat(_spawnedTunelsList);
 
         foreach (var spawnedObject in combinedCollection)
         {

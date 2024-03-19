@@ -7,6 +7,7 @@ using Zenject;
 public class HUD : MonoBehaviour
 {
     [Inject] GameSetupData _gameSetupData;
+    [Inject] GameRunData _gameRunData;
     [SerializeField] InGameMenu _ingameMenu;
     [SerializeField] FirstPersonController _firstPersonController;
     [SerializeField] Slider _hungerBarSlider;
@@ -16,7 +17,9 @@ public class HUD : MonoBehaviour
     public static event Action OnChangeControl;
     private void OnEnable()
     {
-        UpdateSliders();
+        _survivedDays.text = _gameSetupData.SurvivedDays.ToString();
+        _hungerBarSlider.value = _gameSetupData.Saturation;
+        _sanityBarSlider.value = _gameSetupData.Sanity;
         Consumable.OnValueChanged += UpdateSliders;
         SurvivalManager.OnValueChange += UpdateSliders;
         _ingameMenu.OnMenuClosed += ChangeControl;
@@ -39,8 +42,8 @@ public class HUD : MonoBehaviour
     private void UpdateSliders()
     {
         _survivedDays.text = _gameSetupData.SurvivedDays.ToString();
-        _hungerBarSlider.value = _gameSetupData.Saturation;
-        _sanityBarSlider.value = _gameSetupData.Sanity;
+        _hungerBarSlider.value = _gameRunData.Saturation;
+        _sanityBarSlider.value = _gameRunData.Sanity;
     }
     private void IngameMenu()
     {

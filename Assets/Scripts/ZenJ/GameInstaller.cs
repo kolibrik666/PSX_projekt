@@ -12,6 +12,7 @@ public class GameInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<GameSetupData>().AsSingle().NonLazy();
+        Container.Bind<GameRunData>().AsSingle().NonLazy();
         Container.Bind<GameStartData>().FromScriptableObject(_gameStartData).AsSingle();
         Container.BindFactory<SpawnPOI.InitData, SpawnPOI, SpawnPOI.Factory>().FromComponentInNewPrefab(_spawnPOI).AsSingle();
         Container.BindFactory<Consumable, Consumable.Factory>().FromComponentInNewPrefab(_spawnableConsumableSO.SpawnablePrefab);

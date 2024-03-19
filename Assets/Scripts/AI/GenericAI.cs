@@ -9,7 +9,8 @@ public class GenericAI : MonoBehaviour
     [SerializeField] protected Transform _initialPos;
     [SerializeField] protected SurvivalManager _survivalManager;
 
-    protected float _killReach = 2.1f;
+    protected float _killReach = 1.7f;
+    protected AIState _state;
     private void OnEnable()
     {
         FirstPersonController.IsCrouching += UpdateReach;

@@ -31,3 +31,10 @@ public enum Difficulty
     Insane,
 }
 
+public enum AIState
+{
+    Follow,
+    Wander,
+    Kill,
+}
+

@@ -1,4 +1,3 @@
-
 public class GameSetupData
 {
     public int Saturation = 80;
