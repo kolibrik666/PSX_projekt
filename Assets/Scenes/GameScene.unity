@@ -19026,6 +19026,7 @@ MonoBehaviour:
   _hungerBarSlider: {fileID: 2050615779}
   _sanityBarSlider: {fileID: 512520176}
   _survivedDays: {fileID: 689983643}
+  _music: {fileID: 11400000, guid: 91488901d5e02484bbe65acb76250c7c, type: 2}
 --- !u!4 &1088418033
 Transform:
   m_ObjectHideFlags: 0
@@ -24745,7 +24746,7 @@ PrefabInstance:
     - target: {fileID: 9011942974338164170, guid: c96149792183b12408d657dc4a29d01f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9011942974338164170, guid: c96149792183b12408d657dc4a29d01f,
         type: 3}
@@ -24755,7 +24756,7 @@ PrefabInstance:
     - target: {fileID: 9011942974338164170, guid: c96149792183b12408d657dc4a29d01f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9011942974338164170, guid: c96149792183b12408d657dc4a29d01f,
         type: 3}
@@ -37336,8 +37337,8 @@ SceneRoots:
   - {fileID: 1405562644}
   - {fileID: 227928472}
   - {fileID: 7194652055833496311}
-  - {fileID: 2127459859}
   - {fileID: 1946346685}
-  - {fileID: 487950570}
   - {fileID: 1088418033}
   - {fileID: 341226204991216126}
+  - {fileID: 487950570}
+  - {fileID: 2127459859}

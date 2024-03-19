@@ -8,7 +8,7 @@ public class Sound : ScriptableObject
 {
     public List<AudioClip> Clips;
     public AudioMixerGroup MixerGroup;
-    [Header("Ambient")]
+    [Header("NotAmbient")]
     public float Volume = 1f;
     public bool Loop = false;
     [Header("Loop")]
@@ -17,7 +17,6 @@ public class Sound : ScriptableObject
     public bool Ambient = false;
     [Header("Ambient")]
     public float MinVolume = 0.5f;
-    [Header("Ambient")]
     public float MaxVolume = 1f;
 
     public AudioClip Clip()

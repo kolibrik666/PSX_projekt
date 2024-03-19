@@ -3,9 +3,12 @@ using ModestTree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class PlayerDeathAnimation : MonoBehaviour
 {
+    [Inject] AudioManager _audioManager;
+    [Inject] CommonSounds _commonSounds;
     [SerializeField] GameObject _camera;
     [SerializeField] GameObject _deathScreen;
     [SerializeField] CanvasGroup _bloodyScreen;

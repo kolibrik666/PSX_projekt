@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe41bf3e72f9d4e4f87c6fa21d5b4f33, type: 3}
+  m_Name: Music
+  m_EditorClassIdentifier: 
+  Clips:
+  - {fileID: 8300000, guid: 74aec4606952f4af1ba8d3c7d9581b43, type: 3}
+  - {fileID: 8300000, guid: 27ecd949a48e8c6468e5693c2ffe8e18, type: 3}
+  - {fileID: 8300000, guid: 7579cef1a2af67742b7d19933a19349e, type: 3}
+  - {fileID: 8300000, guid: c2c392d4ec07d40528432c3bda4bc466, type: 3}
+  - {fileID: 8300000, guid: 6f8ac1fb6c4da43309fc6f2608f82ab6, type: 3}
+  - {fileID: 8300000, guid: fe998676dac804477a919a1c57dc09d3, type: 3}
+  - {fileID: 8300000, guid: 87d8dee75db9f470487b9032f1f1690f, type: 3}
+  - {fileID: 8300000, guid: dc1d6b96e081b4befbd033dee4730596, type: 3}
+  MixerGroup: {fileID: -4800244353115057047, guid: 2064aaee9618d714c83cb031c4550f16,
+    type: 2}
+  Volume: 0.2
+  Loop: 1
+  IsClipSwitchingLoop: 0
+  OneShot: 0
+  Ambient: 0
+  MinVolume: 0.5
+  MaxVolume: 1

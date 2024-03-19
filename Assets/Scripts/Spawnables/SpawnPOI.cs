@@ -29,6 +29,7 @@ public class SpawnPOI : MonoBehaviour
                 selectedObj.gameObject.transform.SetParent(obj.transform, false);
             });
         });
+        Destroy(gameObject);
     }
 
     public class Factory : PlaceholderFactory<InitData, SpawnPOI> { }

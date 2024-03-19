@@ -8,13 +8,20 @@ public class HUD : MonoBehaviour
 {
     [Inject] GameSetupData _gameSetupData;
     [Inject] GameRunData _gameRunData;
+    [Inject] AudioManager _audioManager;
+
     [SerializeField] InGameMenu _ingameMenu;
     [SerializeField] FirstPersonController _firstPersonController;
     [SerializeField] Slider _hungerBarSlider;
     [SerializeField] Slider _sanityBarSlider;
     [SerializeField] TextMeshProUGUI _survivedDays;
+    [SerializeField] Sound _music;
 
     public static event Action OnChangeControl;
+    private void Start()
+    {
+        _audioManager.Transition(_music);   
+    }
     private void OnEnable()
     {
         _survivedDays.text = _gameSetupData.SurvivedDays.ToString();
@@ -29,7 +36,6 @@ public class HUD : MonoBehaviour
         Consumable.OnValueChanged -= UpdateSliders;
         SurvivalManager.OnValueChange -= UpdateSliders;
         _ingameMenu.OnMenuClosed -= ChangeControl;
-
     }
     void Update()
     {

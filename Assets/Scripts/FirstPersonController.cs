@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class FirstPersonController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class FirstPersonController : MonoBehaviour
     public bool IsSprinting => _isSprinting;
     bool _isSprinting => _canSprint && Input.GetKey(sprintKey);
     bool _isMovingBackwords => Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") == 0f;
+    bool _isMoving => CanMove && (Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f);
     bool _isGrounded => _characterController.isGrounded;
     bool _shouldJump => Input.GetKeyDown(jumpKey) && _characterController.isGrounded && !_isCrouching;
     bool _shouldCrouch => Input.GetKeyDown(crouchKey) && !_duringCrouchAnimation && _characterController.isGrounded;
@@ -74,6 +76,12 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] float _interactionDistance = default;
     [SerializeField] LayerMask _interactionLayer = default;
 
+    [Inject] CommonSounds _commonSounds;
+    [Inject] AudioManager _audioManager;
+    float _footstepInterval = 0.6f;
+    float _footstepSprintInterval = 0.35f;
+    float _footstepTimer;
+
     Interactable _currentInteractable;
 
     Vector3 _moveDirection;
@@ -99,7 +107,18 @@ public class FirstPersonController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
+    private void OnEnable()
+    {
+        SurvivalManager.OnPlayerDeath += Death;
+        SetSpotlight.OnChangeControl += ChangeMovement;
+        HUD.OnChangeControl += ChangeMouseLook;
+    }
+    private void OnDisable()
+    {
+        SurvivalManager.OnPlayerDeath -= Death;
+        SetSpotlight.OnChangeControl -= ChangeMovement;
+        HUD.OnChangeControl -= ChangeMouseLook;
+    }
     void Update()
     {
         if (!_isAlive) return;
@@ -110,6 +129,7 @@ public class FirstPersonController : MonoBehaviour
             if (_canJump && _shouldJump) HandleJump();
             if (_canCrouch && _shouldCrouch) StartCoroutine(CrouchStand());
             if (_canUseHeadBob) HandleHeadBob();
+            if (_isMoving) HandleFootsteps();
             //if (_canZoom) HandleZoom();
 
             ApplyFinalMovement();
@@ -123,18 +143,7 @@ public class FirstPersonController : MonoBehaviour
             HandleInteractionInput();
         }
     }
-    private void OnEnable()
-    {
-        SurvivalManager.OnPlayerDeath += Death;
-        SetSpotlight.OnChangeControl += ChangeMovement;
-        HUD.OnChangeControl += ChangeMouseLook;
-    }
-    private void OnDisable()
-    {
-        SurvivalManager.OnPlayerDeath -= Death;
-        SetSpotlight.OnChangeControl -= ChangeMovement;
-        HUD.OnChangeControl -= ChangeMouseLook;
-    }
+
     private void Death()
     {
         _isAlive = false;
@@ -150,6 +159,16 @@ public class FirstPersonController : MonoBehaviour
     {
         if (_canLook) _canLook = false;
         else _canLook = true;
+    }
+    private void HandleFootsteps()
+    {
+        if (!_isGrounded) return;
+        _footstepTimer += Time.unscaledDeltaTime;
+        if (_footstepTimer >= (_isSprinting ? _footstepSprintInterval : _footstepInterval))
+        {
+            _audioManager.PlayOneShot(_commonSounds.Footsteps);
+            _footstepTimer = 0;
+        }
     }
     private void HandleMovementInput()
     {

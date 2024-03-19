@@ -9,6 +9,9 @@ public class GameInstaller : MonoInstaller
     [SerializeField] GameObject _spawnPOI;
     [SerializeField] GameObject _setConsumables;
 
+    [SerializeField] AudioManager _audioManager;
+    [SerializeField] CommonSounds _commonSounds;
+    [SerializeField] AudioPlayer _audioPlayerPrefab;
     public override void InstallBindings()
     {
         Container.Bind<GameSetupData>().AsSingle().NonLazy();
@@ -17,5 +20,9 @@ public class GameInstaller : MonoInstaller
         Container.BindFactory<SpawnPOI.InitData, SpawnPOI, SpawnPOI.Factory>().FromComponentInNewPrefab(_spawnPOI).AsSingle();
         Container.BindFactory<Consumable, Consumable.Factory>().FromComponentInNewPrefab(_spawnableConsumableSO.SpawnablePrefab);
         Container.BindFactory<SetConsumables.InitData, SetConsumables, SetConsumables.Factory>().FromComponentInNewPrefab(_setConsumables);
+        Container.BindInterfacesAndSelfTo<AudioManager>().FromScriptableObject(_audioManager).AsSingle();
+        Container.BindInterfacesAndSelfTo<CommonSounds>().FromScriptableObject(_commonSounds).AsSingle();
+        Container.BindMemoryPool<AudioPlayer, AudioPlayer.Pool>().WithInitialSize(5)
+           .FromComponentInNewPrefab(_audioPlayerPrefab).AsSingle();
     }
 }

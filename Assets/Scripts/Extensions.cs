@@ -55,4 +55,14 @@ public static class Extensions
         Vector3 randomVector = new Vector3(x, y, z).normalized;
         return randomVector;
     }
+    public static void Shuffle<T>(this List<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            (list[n], list[k]) = (list[k], list[n]);
+        }
+    }
 }

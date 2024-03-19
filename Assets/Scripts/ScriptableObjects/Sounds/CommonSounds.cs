@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "CommonSounds")]
+[CreateAssetMenu(menuName = "Sounds/CommonSounds", order = 1)]
 
 public class CommonSounds : ScriptableObject
 {
