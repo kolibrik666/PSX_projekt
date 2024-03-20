@@ -10,7 +10,7 @@ public class FirstPersonController : MonoBehaviour
     public bool IsAlive => _isAlive;
     public bool IsSprinting => _isSprinting;
     bool _isSprinting => _canSprint && Input.GetKey(sprintKey);
-    bool _isMovingBackwords => Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") == 0f;
+    bool _isMovingBackwards => Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") == 0f;
     bool _isMoving => CanMove && (Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f);
     bool _isGrounded => _characterController.isGrounded;
     bool _shouldJump => Input.GetKeyDown(jumpKey) && _characterController.isGrounded && !_isCrouching;
@@ -172,14 +172,11 @@ public class FirstPersonController : MonoBehaviour
     }
     private void HandleMovementInput()
     {
-        float inputVertical = Input.GetAxis("Vertical");
-        float inputHorizontal = Input.GetAxis("Horizontal");
-
-        _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * inputVertical,
-            (_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * inputHorizontal);
+        _currentInput = new Vector2((_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Vertical"),
+            (_isCrouching ? _crouchSpeed : _isSprinting ? _sprintSpeed : _walkSpeed) * Input.GetAxis("Horizontal"));
         float _moveDirectionY = _moveDirection.y;
 
-        if (_isMovingBackwords && _isSprinting) _currentInput *= _backwardSpeedMultiplier;
+        if (_isMovingBackwards && _isSprinting) _currentInput *= _backwardSpeedMultiplier;
 
         _moveDirection = (transform.TransformDirection(Vector3.forward) * _currentInput.x) + 
                            (transform.TransformDirection(Vector3.right) * _currentInput.y);
@@ -205,10 +202,10 @@ public class FirstPersonController : MonoBehaviour
 
         if(Mathf.Abs(_moveDirection.x) > 0.1f || Mathf.Abs(_moveDirection.z) > 0.1f)
         {
-            _timer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting && !_isMovingBackwords ? _sprintBobSpeed : _walkBobSpeed);
+            _timer += Time.deltaTime * (_isCrouching ? _crouchBobSpeed : _isSprinting && !_isMovingBackwards ? _sprintBobSpeed : _walkBobSpeed);
             _playerCamera.transform.localPosition = new Vector3(
                 _playerCamera.transform.localPosition.x,
-                _defaultYPos + Mathf.Sin(_timer) * (_isCrouching ? _crouchBobAmount : _isSprinting && !_isMovingBackwords ? _sprintBobAmount : _walkBobAmount),
+                _defaultYPos + Mathf.Sin(_timer) * (_isCrouching ? _crouchBobAmount : _isSprinting && !_isMovingBackwards ? _sprintBobAmount : _walkBobAmount),
                 _playerCamera.transform.localPosition.z);
         }
     }

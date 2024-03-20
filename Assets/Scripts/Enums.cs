@@ -38,3 +38,10 @@ public enum AIState
     Kill,
 }
 
+public enum POITypes
+{
+    Large, // celé kovové vnútro ako vo fallout3
+    Medium, //stands, barrels
+    Small // just one item
+}
+

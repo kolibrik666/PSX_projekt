@@ -5,28 +5,28 @@ using static Extensions;
 public class MonsterBallAI : GenericAI
 {
     float _wanderRadius = 18f;
-    float _wanderTimer = 5f;
+    float _wanderTime = 5f;
     float _reach = 14f;
     float _timer;
 
     int _wonderMaxCount = 3;
     int _wonderCount = 0;
 
-    protected void Update()
+    void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+        NavMeshPath path = new NavMeshPath();
 
         if (distanceToPlayer < _killReach && _player.IsAlive) _survivalManager.CheckLife(true); 
         if (distanceToPlayer > _reach || !_player.IsAlive) _state = AIState.Wander;
         else _state = AIState.Follow;
 
-        NavMeshPath path = new NavMeshPath();
         _agent.CalculatePath(_player.transform.position, path);
         if (path.status == NavMeshPathStatus.PathComplete && _state == AIState.Follow) _survivalManager.SetChaseState(true);
         else
         {
             _survivalManager.SetChaseState(false);
-            if(path.status == NavMeshPathStatus.PathPartial && _state == AIState.Follow) _state = AIState.Wander;
+            if(path.status == NavMeshPathStatus.PathPartial) _state = AIState.Wander;
         }
 
         switch (_state)
@@ -44,7 +44,7 @@ public class MonsterBallAI : GenericAI
     {
         _timer += Time.unscaledDeltaTime;
 
-        if (_timer >= _wanderTimer && _wonderCount <= _wonderMaxCount)
+        if (_timer >= _wanderTime && _wonderCount <= _wonderMaxCount)
         {
             Vector3 newPos = RandomNavSphere(transform.position, _wanderRadius, -1);
             _agent.SetDestination(newPos);
@@ -54,10 +54,7 @@ public class MonsterBallAI : GenericAI
         else if(_wonderCount > _wonderMaxCount)
         {
             _agent.SetDestination(_initialPos.position);
-            if (Vector3.Distance(transform.position, _initialPos.position) < 2)
-            {
-                Reset();
-            }
+            if (Vector3.Distance(transform.position, _initialPos.position) < 2) Reset(); 
         }
     }
     protected override void UpdateReach(bool b)

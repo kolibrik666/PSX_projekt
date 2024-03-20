@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: PuzzleRooms
   m_EditorClassIdentifier: 
   PuzzleRoomsList:
-  - {fileID: 11400000, guid: 4592d08f7955a0546b4ffa8cb0d13098, type: 2}
-  - {fileID: 11400000, guid: b0915102f435c8e478bb4d0fb65a2802, type: 2}
+  - {fileID: 11400000, guid: 996d005f3cb4487438cff90e0c2da7df, type: 2}
