@@ -21,6 +21,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] PlayerDeathAnimation _playerDeathAnimation;
     [SerializeField] GameObject _light;
 
+    [SerializeField] Crosshair _crosshair;
+
     [Header("Controls")]
     [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
@@ -237,19 +239,24 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleInteractionCheck()
     {
-        if(Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
+        if (Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
         {
             if(hit.collider.gameObject.layer == 9 && (_currentInteractable == null || hit.collider.gameObject.GetInstanceID() != _currentInteractable.GetInstanceID()))
             {
                 hit.collider.TryGetComponent(out _currentInteractable);
 
-                if (_currentInteractable)
+                if (_currentInteractable) 
+                {
                     _currentInteractable.OnFocus();
+                    _crosshair.CanInteract();
+                }                         // volame sa na HUD kde menime obrazok ked je on focus
             }
+            else _crosshair.ResetDot(); 
         }
         else if (_currentInteractable)
         {
             _currentInteractable.OnLoseFocus();
+            _crosshair.ResetDot();
             _currentInteractable = null;
         }
     }
@@ -259,6 +266,7 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetKeyDown(interactKey) && _currentInteractable != null && Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer))
         {
             _currentInteractable.OnInteract();
+            _crosshair.Interacted();
         }
     }
 

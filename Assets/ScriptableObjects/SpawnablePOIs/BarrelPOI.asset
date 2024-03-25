@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8479dd5adbb774b8ae7c017730247a, type: 3}
   m_Name: BarrelPOI
   m_EditorClassIdentifier: 
-  _Poi: {fileID: 993644790688706824, guid: fbad1e85860012049b82992c2c5c9a11, type: 3}
-  _ChanceToSpawn: 0
+  Poi: {fileID: 993644790688706824, guid: fbad1e85860012049b82992c2c5c9a11, type: 3}
+  ChanceToSpawn: 80
+  Type: 1

@@ -3,7 +3,8 @@ public enum TypeRooms
     General,
     TunelCorridor,
     TunelCorridorConnected,
-    Puzzle,
+    PuzzleGeneral,
+    PuzzleShop,
     PuzzleSplit
 }
 
@@ -40,6 +41,8 @@ public enum AIState
 
 public enum POITypes
 {
+    Shop,
+    General,
     Large, // celé kovové vnútro ako vo fallout3
     Medium, //stands, barrels
     Small // just one item

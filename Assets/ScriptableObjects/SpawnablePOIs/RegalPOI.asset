@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8479dd5adbb774b8ae7c017730247a, type: 3}
   m_Name: RegalPOI
   m_EditorClassIdentifier: 
-  _Poi: {fileID: 8559032397508245877, guid: e9f283f83c59cc849b7c9e5f99d774e9, type: 3}
-  _ChanceToSpawn: 1
+  Poi: {fileID: 8559032397508245877, guid: e9f283f83c59cc849b7c9e5f99d774e9, type: 3}
+  ChanceToSpawn: 80
+  Type: 1

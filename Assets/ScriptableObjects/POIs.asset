@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11d84b0ce25d38469d4649e9fe61d08, type: 3}
   m_Name: POIs
   m_EditorClassIdentifier: 
-  POIsList:
-  - {fileID: 11400000, guid: 941b4f81fb2ca7b4e87093f773bddfd1, type: 2}
+  PoisGeneralList:
   - {fileID: 11400000, guid: 915a52874edbec44483baa83f2b84251, type: 2}
+  - {fileID: 11400000, guid: 941b4f81fb2ca7b4e87093f773bddfd1, type: 2}
+  PoisShopList:
+  - {fileID: 11400000, guid: 22380e80760aea34b8b00b8c3fefde5e, type: 2}
+  - {fileID: 11400000, guid: 59591f6ef8b7e3c469dbaca7905975ad, type: 2}
+  - {fileID: 11400000, guid: d3de0ccc6c0e8f846ba87b56530e2314, type: 2}
+  - {fileID: 11400000, guid: 75142f791cce2ce40bf2631f86cdc4be, type: 2}
+  - {fileID: 11400000, guid: 55adef0b04b6c294998bc84c3ad44245, type: 2}
+  - {fileID: 11400000, guid: 10efd63b9b4474f43b6bdbd78e495948, type: 2}
+  - {fileID: 11400000, guid: bce844f013985bd48a3f2f62d842ca58, type: 2}

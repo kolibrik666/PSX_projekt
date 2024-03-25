@@ -44,12 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87563139466234d45a7165da2a619960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasParent: {fileID: 5764991604217439226, guid: 7786775fb5197fa418a0c8778be4f04f,
+    type: 3}
   _gameStartData: {fileID: 11400000, guid: c4db372f3dea0a44c9c3fc9302b0245a, type: 2}
   _spawnableConsumableSO: {fileID: 11400000, guid: 5c756898d24f4ec44a990fe1f8093c5d,
     type: 2}
   _spawnPOI: {fileID: 5799202535763511633, guid: 017204cd41b11c54d933cfd9c39a6aa2,
     type: 3}
   _setConsumables: {fileID: 2136956127379377113, guid: aaef6de58e9ae6843a9c5d80496f0990,
+    type: 3}
+  _crosshair: {fileID: 6584689119346139083, guid: 7786775fb5197fa418a0c8778be4f04f,
     type: 3}
   _audioManager: {fileID: 11400000, guid: 2363951d0c11a1b4ba843dd82c74b86f, type: 2}
   _commonSounds: {fileID: 11400000, guid: 90bb9f0dad52a9d408a91966b74d36fa, type: 2}

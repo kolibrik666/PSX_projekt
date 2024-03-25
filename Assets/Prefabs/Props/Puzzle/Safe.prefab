@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3034198714188634937}
   - component: {fileID: 6114888002536599843}
   - component: {fileID: 9146377593776411780}
+  - component: {fileID: 6683009524996145551}
   m_Layer: 9
   m_Name: CodeWheel1
   m_TagString: Untagged
@@ -105,6 +106,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17213485, y: 0.1799726, z: 0.049999952}
   m_Center: {x: 0.0000003837049, y: -0.00000037252903, z: 0}
+--- !u!114 &6683009524996145551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2633886689094935665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16460fafc92c0f743ad8c37b14fdb627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3820685717784083155
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +130,8 @@ GameObject:
   - component: {fileID: 3943431500731645224}
   - component: {fileID: 5859055965334957222}
   - component: {fileID: 8492989208013023472}
+  - component: {fileID: 4857646646848465664}
+  - component: {fileID: 2112877397100176299}
   m_Layer: 0
   m_Name: Safe
   m_TagString: Untagged
@@ -212,6 +227,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6702442715559264800, guid: 5d09bf6359cc09f4493bd5a880c3ebc5, type: 3}
+--- !u!114 &4857646646848465664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820685717784083155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e455eefdffa416b4ea707d06cd9d2b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _door: {fileID: 7330809779372043653}
+  _ring: {fileID: 7266990803363566166}
+--- !u!114 &2112877397100176299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820685717784083155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591c0d0df4cebce4995b3431206e3d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _codeCylinders:
+  - {fileID: 6683009524996145551}
+  - {fileID: 3582702217065905096}
+  - {fileID: 1345826242237579509}
+  _doorAnimation: {fileID: 4857646646848465664}
 --- !u!1 &6872788549023310370
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +270,7 @@ GameObject:
   - component: {fileID: 1038695648377105133}
   - component: {fileID: 3645969849209701727}
   - component: {fileID: 840501315875028027}
+  - component: {fileID: 1345826242237579509}
   m_Layer: 9
   m_Name: CodeWheel3
   m_TagString: Untagged
@@ -317,6 +364,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17213485, y: 0.1799726, z: 0.049999952}
   m_Center: {x: 0.0000003837049, y: -0.00000037252903, z: 0}
+--- !u!114 &1345826242237579509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6872788549023310370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16460fafc92c0f743ad8c37b14fdb627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7237854764857070943
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +708,7 @@ GameObject:
   - component: {fileID: 7652902934884983656}
   - component: {fileID: 807333457558392250}
   - component: {fileID: 608813471888743297}
+  - component: {fileID: 3582702217065905096}
   m_Layer: 9
   m_Name: CodeWheel2
   m_TagString: Untagged
@@ -742,3 +802,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17213485, y: 0.1799726, z: 0.049999952}
   m_Center: {x: 0.0000003837049, y: -0.00000037252903, z: 0}
+--- !u!114 &3582702217065905096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578367799035773211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16460fafc92c0f743ad8c37b14fdb627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

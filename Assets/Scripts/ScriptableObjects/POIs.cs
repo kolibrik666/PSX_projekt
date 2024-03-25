@@ -5,5 +5,7 @@ using UnityEngine;
 
 public class POIs : ScriptableObject
 {
-    public List<POI> POIsList = new();
+    public List<POI> PoisGeneralList = new();
+    public List<POI> PoisShopList = new();
+
 }

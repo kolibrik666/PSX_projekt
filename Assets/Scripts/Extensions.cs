@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
@@ -22,6 +21,7 @@ public static class Extensions
 
         return item;
     }
+
     public static ListItem<T> RemoveRandomItemFromList<T>(this List<T> list)
     {
         if (list == null || list.Count == 0) return default;

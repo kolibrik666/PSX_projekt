@@ -92,7 +92,7 @@ public class SurvivalManager : MonoBehaviour
         float borderToGet = RandomNumGen.Range(0f, 1f);
         if (borderToGet < (_playerScript.IsSprinting ? _sprintingMultiplier + _difficultyMultiplier : _difficultyMultiplier * (_ticksWithoutChange * RandomNumGen.Range(1, 10) / 100f)))
         {
-            _gameRunData.Saturation -= 1;
+            if (_gameRunData.Saturation > 0) _gameRunData.Saturation -= 1;
             _ticksWithoutChange = 0;
             OnValueChange?.Invoke();
         }
@@ -103,7 +103,7 @@ public class SurvivalManager : MonoBehaviour
         float borderToGet = RandomNumGen.Range(0f, 1f);
         if (borderToGet < (_isChased ? _chasedMultiplier + _difficultyMultiplier : _difficultyMultiplier * (RandomNumGen.Range(1, 100) / 100f)))
         {
-            _gameRunData.Sanity -= 1;
+            if (_gameRunData.Sanity > 0) _gameRunData.Sanity -= 1;
             OnValueChange?.Invoke();
         }
     }

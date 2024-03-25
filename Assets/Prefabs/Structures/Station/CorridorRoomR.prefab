@@ -2761,6 +2761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnpoints:
   - {fileID: 1795005528226582545}
+  POIType: 1
 --- !u!1 &3886116456829999383
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,17 +11,12 @@ public class Consumable : Interactable
 
     [SerializeField] ConsumableTypes _consumableTypes;
 
-    bool _isMagazine;
     public ConsumableTypes ConsumableType => _consumableTypes;
     public static event Action OnValueChanged;
 
-    private void OnEnable()
-    {
-        _isMagazine = _consumableTypes == ConsumableTypes.Magazine ? true : false;
-    }
     public void AddValue(int val)
     {
-        if (!_isMagazine) _gameRunData.Saturation += val;
+        if (_consumableTypes != ConsumableTypes.Magazine) _gameRunData.Saturation += val;
         else _gameRunData.Sanity += val;
         OnValueChanged?.Invoke();
     }

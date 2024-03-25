@@ -8,7 +8,6 @@ public class GameInstaller : MonoInstaller
     [SerializeField] SpawnableConsumable _spawnableConsumableSO;
     [SerializeField] GameObject _spawnPOI;
     [SerializeField] GameObject _setConsumables;
-
     [SerializeField] AudioManager _audioManager;
     [SerializeField] CommonSounds _commonSounds;
     [SerializeField] AudioPlayer _audioPlayerPrefab;
@@ -24,5 +23,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<CommonSounds>().FromScriptableObject(_commonSounds).AsSingle();
         Container.BindMemoryPool<AudioPlayer, AudioPlayer.Pool>().WithInitialSize(5)
            .FromComponentInNewPrefab(_audioPlayerPrefab).AsSingle();
+        Container.BindInterfacesAndSelfTo<ZenjectUtils>().AsSingle();
+
     }
 }

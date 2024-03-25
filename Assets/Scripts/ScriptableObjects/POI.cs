@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class POI : ScriptableObject
 {
-    public GameObject _Poi;
-    public float _ChanceToSpawn;
+    public GameObject Poi;
+    public float ChanceToSpawn;
+    public POITypes Type;
 }

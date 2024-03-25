@@ -46,8 +46,8 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 50
-  m_Range: 5
-  m_SpotAngle: 60
+  m_Range: 10
+  m_SpotAngle: 80
   m_InnerSpotAngle: 0
   m_CookieSize: 10
   m_Shadows:
@@ -88,8 +88,8 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 2.05
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_ColorTemperature: 5662
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -196,6 +196,7 @@ MonoBehaviour:
   _characterController: {fileID: 9011942974338164171}
   _playerDeathAnimation: {fileID: 6530094537785477689}
   _light: {fileID: 7778811489304078454}
+  _crosshair: {fileID: 0}
   sprintKey: 304
   jumpKey: 32
   crouchKey: 306
@@ -224,7 +225,7 @@ MonoBehaviour:
   _timeToZoom: 0.3
   _zoomFOV: 30
   _interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
-  _interactionDistance: 5
+  _interactionDistance: 2
   _interactionLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -264,6 +265,8 @@ MonoBehaviour:
   _bloodyScreen: {fileID: 0}
   _blackStripe: {fileID: 0}
   _text: {fileID: 0}
+  _restartButton: {fileID: 0}
+  _hint: {fileID: 0}
 --- !u!1 &9011942975009067536
 GameObject:
   m_ObjectHideFlags: 0

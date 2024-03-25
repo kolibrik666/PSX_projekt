@@ -9,6 +9,7 @@ public class HUD : MonoBehaviour
     [Inject] GameSetupData _gameSetupData;
     [Inject] GameRunData _gameRunData;
     [Inject] AudioManager _audioManager;
+    //[Inject] Crosshair.Factory _crosshairFactory;
 
     [SerializeField] InGameMenu _ingameMenu;
     [SerializeField] FirstPersonController _firstPersonController;
@@ -20,6 +21,7 @@ public class HUD : MonoBehaviour
     public static event Action OnChangeControl;
     private void Start()
     {
+        //_crosshairFactory.Create();
         _audioManager.Transition(_music);   
     }
     private void OnEnable()

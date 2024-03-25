@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.AI.Navigation;
 using Zenject;
 using System.Linq;
+using System;
 
 public class CreateRandom : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class CreateRandom : MonoBehaviour
     List<GameObject> _spawnedTunelsList = new();
     List<GameObject> _spawnedCorridorsObjects = new(); // miestnosti naspawnovane v scene
     List<GameObject> _spawnedPuzzleRoomsList = new();
+    List<SpawnableGeneral> _spawnedPuzzleSpawnableList = new();
     List<GameObject> _spawnedPOIsObjects = new();
     public struct ListItem<T>
     {
@@ -73,22 +75,32 @@ public class CreateRandom : MonoBehaviour
                     break;                   
                 case POIs:
                     _pois = (POIs)spawnable;
-                    SpawnPOIs(_pois.POIsList);
+                    SpawnPOIs(_spawnedCorridorsObjects.Concat(_spawnedTunelsList).Concat(_spawnedPuzzleRoomsList));
                     break;               
             }
         }
     }
 
-    private void SpawnPOIs(List<POI> poisList)
+    private void SpawnPOIs(IEnumerable<GameObject> fromObjects)
     {
-        List<Transform> allSpawnpointPOIs = PreparePOIs();
-        List<POI> spawnablesList = poisList;
+        List<SpawnpointPOIGetter> allSpawnpointPOIs = PrepareSpawnpointsPOI(fromObjects); // vöetky s˙radnice do ktor˝ch sa spawn˙ POI
+        List<POI> poisGeneralList = _pois.PoisGeneralList; // poi ktorÈ sa mÙûu spawn˙ù
+        List<POI> poisShopList = _pois.PoisShopList; // poi ktorÈ sa mÙûu spawn˙ù
 
-        for (int i = 0; i < allSpawnpointPOIs.Count; i++)
+        POI randomItem = null;
+        foreach (SpawnpointPOIGetter spawnpointGetters in allSpawnpointPOIs)
         {
-            var toSpawnObject = spawnablesList.GetRandomItemFromList()._Poi;
-            var spawnedObject = SpawnObjectGet(toSpawnObject);
-            spawnedObject.transform.SetParent(allSpawnpointPOIs[i], false);
+            switch(spawnpointGetters.POIType)
+            {
+                case POITypes.General:
+                    randomItem = poisGeneralList.GetRandomItemFromList();
+                    break;
+                case POITypes.Shop:
+                    randomItem = poisShopList.GetRandomItemFromList();
+                    break;
+            }
+            var spawnedObject = SpawnObjectGet(randomItem.Poi);
+            spawnedObject.transform.SetParent(spawnpointGetters.Spawnpoint, false);
             _spawnedPOIsObjects.Add(spawnedObject);
         }
         
@@ -98,17 +110,25 @@ public class CreateRandom : MonoBehaviour
            Consumables = _consumables
         });
     }
-    private List<Transform> PreparePOIs()
+    private List<SpawnpointPOIGetter> PrepareSpawnpointsPOI(IEnumerable<GameObject> fromObjects)
     {
-        List<Transform> allSpawnpointPOIs = new();
-        var combinedCollection = _spawnedCorridorsObjects
-            .Concat(_spawnedPuzzleRoomsList)
-            .Concat(_spawnedTunelsList);
+        List<SpawnpointPOIGetter> allSpawnpointPOIs = new();
+
+        var combinedCollection = fromObjects;
 
         foreach (var spawnedObject in combinedCollection)
         {
+            SpawnpointPOIGetter[] spawnpointPOIGetters = spawnedObject.GetComponents<SpawnpointPOIGetter>();
+            foreach (SpawnpointPOIGetter spawnpointPOIGetter in spawnpointPOIGetters) if(spawnpointPOIGetter != null) allSpawnpointPOIs.Add(spawnpointPOIGetter);         
+            /*
             var spawnpoint = spawnedObject.GetComponent<SpawnpointPOIGetter>();
-            if(spawnpoint != null) foreach (var spawnpointPOI in spawnpoint.SpawnpointsList) allSpawnpointPOIs.Add(spawnpointPOI);
+            var poiType = spawnpoint.POIType;
+            if (spawnpoint != null) foreach (var spawnpointPOI in spawnpoint.SpawnpointsList)
+                {
+                    //spawnpoint.SpawnpointType
+                    //spawnpoint.SpawnpointType
+                    allSpawnpointPOIs.Add(spawnpointPOI);
+                }*/
         }
         return allSpawnpointPOIs;
     }
@@ -138,6 +158,8 @@ public class CreateRandom : MonoBehaviour
             ListItem<SpawnablePuzzle> resultList = spawnablesList.RemoveRandomItemFromList();
             var objectToSpawn = resultList.Spawnable;
             spawnablesList = resultList.SpawnablesList;
+
+            _spawnedPuzzleSpawnableList.Add(objectToSpawn); // pridame si do listu s SpawnableGeneral
 
             GameObject spawnedObject = SpawnObjectGet(objectToSpawn.SpawnablePrefab);// spawne sa prv˝ puzzle
             spawnedObject.transform.SetParent(selectedSpawnpoint.transform, false);
