@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8479dd5adbb774b8ae7c017730247a, type: 3}
+  m_Name: SafePOI
+  m_EditorClassIdentifier: 
+  Poi: {fileID: 6364152925276224801, guid: 26582884eed126f4da8f4e3fdccee0d0, type: 3}
+  ChanceToSpawn: 0.2
+  Type: 1

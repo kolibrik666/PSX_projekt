@@ -25,9 +25,11 @@ public class CodeCylinder : Interactable
     {
         _rotation -= 36;
         if (_rotation <= -360) _rotation = 0;
+        Quaternion targetRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, _rotation);
+
         _sequence = DOTween.Sequence()
-            .Append(transform.DORotateQuaternion(Quaternion.Euler(0, 0, _rotation), _duration))
-            .AppendCallback(() => {
+            .Append(transform.DORotateQuaternion(targetRotation, _duration))
+                .AppendCallback(() => {
                 _canInteract = true;
             });
     }

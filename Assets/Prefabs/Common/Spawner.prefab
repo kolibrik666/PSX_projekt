@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c378caafcbc504d955cf5625b33f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _puzzleManager: {fileID: 0}
   _navMeshSurface: {fileID: 0}
   _metalDoor: {fileID: 11400000, guid: 71bec19ef4fd3034f84b2f2cb541490d, type: 2}
   _doorForCorridors: {fileID: 4006447551084428414, guid: 963de589bb9518c43b465d98f81dca71,
+    type: 3}
+  _fillerRoom: {fileID: 2262095027157569290, guid: f2530c5dd8349524dbc8aa0c2b36b8b9,
     type: 3}
   _placeholder: {fileID: 11400000, guid: e5b4ef438d2b6ff4c89d4eb2d70664db, type: 2}
   _consumables: {fileID: 11400000, guid: 0812e4e2680550b49ba3c999e4c47ed2, type: 2}

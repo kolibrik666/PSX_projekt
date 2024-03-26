@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b7867f9a524914aa0db830fba25265, type: 3}
+  m_Name: CodePapers
+  m_EditorClassIdentifier: 
+  CodePapersList:
+  - {fileID: 11400000, guid: 2e0520cb42ae08d42a2ebac3eabb5bfe, type: 2}
+  - {fileID: 11400000, guid: b7675932a4fd65c44a7a3087b7c0b3b4, type: 2}
+  - {fileID: 11400000, guid: facd90411d046af4eb281cc5146e679d, type: 2}
+  - {fileID: 11400000, guid: 76deef94c03de5546bdf0b8f2a4cc8a6, type: 2}
+  - {fileID: 11400000, guid: aa7ff54ccf3053c42acf8489f74b44c9, type: 2}
+  - {fileID: 11400000, guid: 7a48a75702e32974ca1d1fabe3d07231, type: 2}
+  - {fileID: 11400000, guid: ff3f825385b702145819b9409379e755, type: 2}
+  - {fileID: 11400000, guid: 0dc7f5105cc0ae445aa824c4c72f5b1c, type: 2}
+  - {fileID: 11400000, guid: 2d5a61c8651d53047bdcdb86a062ae6f, type: 2}
+  - {fileID: 11400000, guid: 8a482c44cfecf2a498d9fc69e5fd3c89, type: 2}

@@ -11,6 +11,7 @@ public class CreateRandom : MonoBehaviour
 
     [SerializeField] SpawnableGeneral _metalDoor;
     [SerializeField] GameObject _doorForCorridors;
+    [SerializeField] GameObject _fillerRoom;
     [SerializeField] SpawnableGeneral _placeholder;
 
     [SerializeField] Consumables _consumables;
@@ -87,21 +88,28 @@ public class CreateRandom : MonoBehaviour
         List<POI> poisGeneralList = _pois.PoisGeneralList; // poi ktorÈ sa mÙûu spawn˙ù
         List<POI> poisShopList = _pois.PoisShopList; // poi ktorÈ sa mÙûu spawn˙ù
 
-        POI randomItem = null;
         foreach (SpawnpointPOIGetter spawnpointGetters in allSpawnpointPOIs)
         {
-            switch(spawnpointGetters.POIType)
+            foreach (var spawnpoint in spawnpointGetters.SpawnpointsList)
             {
-                case POITypes.General:
-                    randomItem = poisGeneralList.GetRandomItemFromList();
-                    break;
-                case POITypes.Shop:
-                    randomItem = poisShopList.GetRandomItemFromList();
-                    break;
+                POI randomItem = null;
+                switch (spawnpointGetters.POIType)
+                {
+                    case POITypes.General:
+                        randomItem = poisGeneralList.GetRandomItemFromList();
+                        break;
+                    case POITypes.Shop:
+                        randomItem = poisShopList.GetRandomItemFromList();
+                        break;
+                }
+                var spawnedObject = SpawnObjectGet(randomItem.Poi);
+
+                if (spawnedObject != null)
+                {
+                    spawnedObject.transform.SetParent(spawnpoint, false);
+                    _spawnedPOIsObjects.Add(spawnedObject);
+                }
             }
-            var spawnedObject = SpawnObjectGet(randomItem.Poi);
-            spawnedObject.transform.SetParent(spawnpointGetters.Spawnpoint, false);
-            _spawnedPOIsObjects.Add(spawnedObject);
         }
         
         _spawnPOIFactory.Create(new()
@@ -112,6 +120,7 @@ public class CreateRandom : MonoBehaviour
     }
     private List<SpawnpointPOIGetter> PrepareSpawnpointsPOI(IEnumerable<GameObject> fromObjects)
     {
+
         List<SpawnpointPOIGetter> allSpawnpointPOIs = new();
 
         var combinedCollection = fromObjects;
@@ -185,15 +194,15 @@ public class CreateRandom : MonoBehaviour
 
         foreach (var spawnpoint in spawnpointsSideA) //vybraù random z fillerov nateraz dvere
         {
-            GameObject spawnedObject = SpawnObjectGet(_doorForCorridors);
+            GameObject spawnedObject = SpawnObjectGet(_fillerRoom);
             spawnedObject.transform.SetParent(spawnpoint.transform, false);
-            _allDoors.Add(spawnedObject);
+            //_allDoors.Add(spawnedObject);
         }
         foreach (var spawnpoint in spawnpointsSideB)
         {
-            GameObject spawnedObject = SpawnObjectGet(_doorForCorridors);
+            GameObject spawnedObject = SpawnObjectGet(_fillerRoom);
             spawnedObject.transform.SetParent(spawnpoint.transform, false);
-            _allDoors.Add(spawnedObject);
+            //_allDoors.Add(spawnedObject);
         }
 
         //_puzzleManager.Setup(spawnedPuzzleRoomsList); // poöleme si SpawnablePuzzle do tohto listu. alebo gameObjecty?
@@ -284,6 +293,16 @@ public class CreateRandom : MonoBehaviour
 
     private GameObject SpawnObjectGet(GameObject toSpawn)
     {
+        Vector3 originalPosition = toSpawn.transform.position;
+        Quaternion originalRotation = toSpawn.transform.rotation;
+        GameObject spawnedObject = Instantiate(toSpawn, originalPosition, originalRotation);
+        return spawnedObject;
+    }
+    private GameObject SpawnPOIGet(POI poi)
+    {
+        GameObject toSpawn;
+        if (poi.ChanceToSpawn < RandomNumGen.Range(0f, 0.9f)) return null;
+        else toSpawn = poi.Poi;
         Vector3 originalPosition = toSpawn.transform.position;
         Quaternion originalRotation = toSpawn.transform.rotation;
         GameObject spawnedObject = Instantiate(toSpawn, originalPosition, originalRotation);

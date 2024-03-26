@@ -8,7 +8,7 @@ public class SpotlightController : MonoBehaviour
     [SerializeField] SlidingWallAnimation _slidingAnim;
     [SerializeField] float _rotationSpeed = 15.0f;
     [SerializeField] float _limitX = 32f;
-    [SerializeField] float _limitY = 40f;
+    //[SerializeField] float _limitY = 40f;
 
     float _rotationThreshold = 0.9999f;
     bool _puzzleCompleted = false;
@@ -20,7 +20,7 @@ public class SpotlightController : MonoBehaviour
     {
         if (!_firstRun) return;
         if (transform.forward.z > 0.5f) _multiplier *= -1;
-        Debug.Log(transform.forward.z);
+        //Debug.Log(transform.forward.z);
         _firstRun = false;
     }
     bool IsTransformRotatedTowards(Vector3 direction)
@@ -28,7 +28,6 @@ public class SpotlightController : MonoBehaviour
         float dotProduct = Vector3.Dot(transform.forward * _multiplier, direction.normalized);        
         return dotProduct >= _rotationThreshold;
     }
-
 
     void Update() // po prejdeni  uriètej rhanici sa vypne a prejde znova na movenemnt !!!SPAVIT REMAKE NA DOTWEEN DoLookAt
     {

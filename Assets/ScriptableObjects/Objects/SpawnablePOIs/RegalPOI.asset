@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8479dd5adbb774b8ae7c017730247a, type: 3}
+  m_Name: RegalPOI
+  m_EditorClassIdentifier: 
+  Poi: {fileID: 8559032397508245877, guid: e9f283f83c59cc849b7c9e5f99d774e9, type: 3}
+  ChanceToSpawn: 0.6
+  Type: 1

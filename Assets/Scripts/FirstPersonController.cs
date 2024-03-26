@@ -196,6 +196,7 @@ public class FirstPersonController : MonoBehaviour
     private void HandleJump()
     {
         _moveDirection.y = _jumpForce;
+        _audioManager.PlayOneShot(_commonSounds.Footsteps);
     }
 
     private void HandleHeadBob()
