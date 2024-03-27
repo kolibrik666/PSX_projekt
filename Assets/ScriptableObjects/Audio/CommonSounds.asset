@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Footsteps: {fileID: 11400000, guid: d4e1bc8214bb50747b7788cddc32904a, type: 2}
   GameplayMusic: {fileID: 11400000, guid: 91488901d5e02484bbe65acb76250c7c, type: 2}
+  OpeningBeer: {fileID: 11400000, guid: 6655fa5a8be03734db0b36caca18c5f3, type: 2}
+  SwallowFood: {fileID: 11400000, guid: 084ed065b809ae442b82d2a8ba63f453, type: 2}
+  TakePaper: {fileID: 11400000, guid: fbc4eaabb872c1f48ba75019693208a5, type: 2}

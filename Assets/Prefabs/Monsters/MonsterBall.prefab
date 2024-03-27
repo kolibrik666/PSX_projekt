@@ -103,6 +103,8 @@ MonoBehaviour:
   _agent: {fileID: 2337259132064561403}
   _player: {fileID: 0}
   _initialPos: {fileID: 0}
+  _survivalManager: {fileID: 0}
+  _soundHeartBeat: {fileID: 11400000, guid: 04a00a282ec3dcb43b72657218a04647, type: 2}
 --- !u!195 &2337259132064561403
 NavMeshAgent:
   m_ObjectHideFlags: 0

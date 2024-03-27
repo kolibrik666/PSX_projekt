@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe41bf3e72f9d4e4f87c6fa21d5b4f33, type: 3}
+  m_Name: TakePaper
+  m_EditorClassIdentifier: 
+  Clips:
+  - {fileID: 8300000, guid: d138c81009c55b74e8215e69f82dad6c, type: 3}
+  - {fileID: 8300000, guid: e65e3b7fcbc3530469d001095ffb15a0, type: 3}
+  - {fileID: 8300000, guid: 9b21208045b41e24491271d4125967a9, type: 3}
+  - {fileID: 8300000, guid: 59f40b8d89c3dec4da84105291030e6f, type: 3}
+  MixerGroup: {fileID: 2241748438576323862, guid: 2064aaee9618d714c83cb031c4550f16,
+    type: 2}
+  Volume: 1
+  Loop: 0
+  IsClipSwitchingLoop: 0
+  OneShot: 1
+  Ambient: 0
+  MinVolume: 0.5
+  MaxVolume: 1

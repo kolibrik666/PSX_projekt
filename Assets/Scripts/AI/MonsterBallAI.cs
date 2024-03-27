@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 using static Extensions;
 
 public class MonsterBallAI : GenericAI
 {
+    [Inject] AudioManager _audioManager;
+    [SerializeField] Sound _soundHeartBeat;
+
     float _wanderRadius = 18f;
     float _wanderTime = 5f;
     float _reach = 14f;
     float _timer;
+    float _heartBeatTimer = 0;
+    float _interval = 0.3f;
 
     int _wonderMaxCount = 3;
     int _wonderCount = 0;
@@ -26,7 +32,7 @@ public class MonsterBallAI : GenericAI
         else
         {
             _survivalManager.SetChaseState(false);
-            if(path.status == NavMeshPathStatus.PathPartial) _state = AIState.Wander;
+            if(path.status == NavMeshPathStatus.PathPartial || path.status == NavMeshPathStatus.PathInvalid) _state = AIState.Wander;
         }
 
         switch (_state)
@@ -35,6 +41,14 @@ public class MonsterBallAI : GenericAI
                 Wander();
                 break;
             case AIState.Follow:
+                float distanceRatio = Mathf.Clamp01(distanceToPlayer / _reach);
+                if (distanceToPlayer < _reach/1.8)
+                _heartBeatTimer += Time.unscaledDeltaTime;
+                if (_heartBeatTimer >= (distanceRatio < _interval ? _interval : distanceRatio))
+                {
+                    _audioManager.PlayOneShot(_soundHeartBeat);
+                    _heartBeatTimer = 0;
+                }
                 Reset();
                 _agent.destination = _player.transform.position;
                 break;

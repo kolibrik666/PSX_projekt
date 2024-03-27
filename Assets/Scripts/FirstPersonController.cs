@@ -9,12 +9,12 @@ public class FirstPersonController : MonoBehaviour
     public bool CanMove { get; private set; } = true;
     public bool IsAlive => _isAlive;
     public bool IsSprinting => _isSprinting;
-    bool _isSprinting => _canSprint && Input.GetKey(sprintKey);
+    bool _isSprinting => _canSprint && Input.GetKey(_sprintKey);
     bool _isMovingBackwards => Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") == 0f;
     bool _isMoving => CanMove && (Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f);
     bool _isGrounded => _characterController.isGrounded;
-    bool _shouldJump => Input.GetKeyDown(jumpKey) && _characterController.isGrounded && !_isCrouching;
-    bool _shouldCrouch => Input.GetKeyDown(crouchKey) && !_duringCrouchAnimation && _characterController.isGrounded;
+    bool _shouldJump => Input.GetKeyDown(_jumpKey) && _characterController.isGrounded && !_isCrouching;
+    bool _shouldCrouch => Input.GetKeyDown(_crouchKey) && !_duringCrouchAnimation && _characterController.isGrounded;
 
     [SerializeField] Camera _playerCamera;
     [SerializeField] CharacterController _characterController;
@@ -24,11 +24,10 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] Crosshair _crosshair;
 
     [Header("Controls")]
-    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] KeyCode jumpKey = KeyCode.Space;
-    [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
-    [SerializeField] KeyCode interactKey = KeyCode.Mouse0;
-    [SerializeField] KeyCode zoomKey = KeyCode.Mouse1;
+    [SerializeField] KeyCode _sprintKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode _jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode _crouchKey = KeyCode.LeftControl;
+    [SerializeField] KeyCode _interactKey = KeyCode.E;
 
     [Header("Movement Parameters")]
     [SerializeField] float _walkSpeed = 3.0f;
@@ -57,7 +56,7 @@ public class FirstPersonController : MonoBehaviour
     private bool _isCrouching;
     private bool _duringCrouchAnimation;
 
-    [Header("HeadBob Parameters")]
+    [Header("Headbob Parameters")]
     [SerializeField] float _walkBobSpeed = 10f;
     [SerializeField] float _walkBobAmount = 0.03f;
     [SerializeField] float _sprintBobSpeed = 14f;
@@ -66,12 +65,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] float _crouchBobAmount = 0.025f;
     float _defaultYPos = 0;
     float _timer;
-
-    [Header("Zoom Parameters")]
-    [SerializeField] float _timeToZoom = 0.3f;
-    [SerializeField] float _zoomFOV = 30f;
-    float _defaultFOV;
-    Coroutine _zoomRoutine;
 
     [Header("Interaction")]
     [SerializeField] Vector3 _interactionRayPoint = default;
@@ -93,7 +86,6 @@ public class FirstPersonController : MonoBehaviour
     bool _canJump = true;
     bool _canCrouch = true;
     bool _canUseHeadBob = true;
-    bool _canZoom = true;
     bool _canInteract = true;
     bool _canLook = true;
 
@@ -105,7 +97,6 @@ public class FirstPersonController : MonoBehaviour
     void Awake()
     {
         _defaultYPos = _playerCamera.transform.localPosition.y;
-        _defaultFOV = _playerCamera.fieldOfView;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -132,7 +123,6 @@ public class FirstPersonController : MonoBehaviour
             if (_canCrouch && _shouldCrouch) StartCoroutine(CrouchStand());
             if (_canUseHeadBob) HandleHeadBob();
             if (_isMoving) HandleFootsteps();
-            //if (_canZoom) HandleZoom();
 
             ApplyFinalMovement();
         }
@@ -213,58 +203,37 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    private void HandleZoom()
-    {
-        if(Input.GetKeyDown(zoomKey))
-        {
-            if(_zoomRoutine != null)
-            {
-                StopCoroutine(_zoomRoutine);
-                _zoomRoutine = null;
-            }
-
-            _zoomRoutine = StartCoroutine(ToggleZoom(true));
-        }
-
-        if (Input.GetKeyUp(zoomKey))
-        {
-            if (_zoomRoutine != null)
-            {
-                StopCoroutine(_zoomRoutine);
-                _zoomRoutine = null;
-            }
-
-            _zoomRoutine = StartCoroutine(ToggleZoom(false));
-        }
-    }
-
     private void HandleInteractionCheck()
     {
         if (Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
         {
-            if(hit.collider.gameObject.layer == 9 && (_currentInteractable == null || hit.collider.gameObject.GetInstanceID() != _currentInteractable.GetInstanceID()))
+            if (hit.collider.gameObject.layer == 9 && (_currentInteractable == null || hit.collider.gameObject.GetInstanceID() != _currentInteractable.GetInstanceID()))
             {
                 hit.collider.TryGetComponent(out _currentInteractable);
 
-                if (_currentInteractable) 
+                if (_currentInteractable)
                 {
                     _currentInteractable.OnFocus();
                     _crosshair.CanInteract();
                 }                         // volame sa na HUD kde menime obrazok ked je on focus
             }
-            else _crosshair.ResetDot(); 
+            else _crosshair.ResetDot();
         }
-        else if (_currentInteractable)
+        else ResetInteraction();      
+    }
+    private void ResetInteraction()
+    {
+        if (_currentInteractable)
         {
             _currentInteractable.OnLoseFocus();
-            _crosshair.ResetDot();
             _currentInteractable = null;
         }
+        _crosshair.ResetDot();
     }
 
     private void HandleInteractionInput()
     {
-        if (Input.GetKeyDown(interactKey) && _currentInteractable != null && Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer))
+        if (Input.GetKeyDown(_interactKey) && _currentInteractable != null && Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer))
         {
             _currentInteractable.OnInteract();
             _crosshair.Interacted();
@@ -273,16 +242,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void ApplyFinalMovement()
     {
-        if (!_isGrounded)
-        {
-            _moveDirection.y -= _gravity * Time.deltaTime;
-            //_moveDirection.y -= _gravity;
-        }
-
-        //if (_characterController.velocity.y < -1 && _characterController.isGrounded)
-        //    _moveDirection.y = 0;
-
-        _characterController.Move(_moveDirection * Time.deltaTime);
+        if (!_isGrounded) _moveDirection.y -= _gravity * Time.unscaledDeltaTime;
+        _characterController.Move(_moveDirection * Time.unscaledDeltaTime);
     }
 
     private IEnumerator CrouchStand()
@@ -315,20 +276,4 @@ public class FirstPersonController : MonoBehaviour
         _duringCrouchAnimation = false;
     }
 
-    private IEnumerator ToggleZoom(bool isEnter)
-    {
-        float targetFOV = isEnter ? _zoomFOV : _defaultFOV;
-        float startingFOV = _playerCamera.fieldOfView;
-        float timeElapsed = 0;
-
-        while(timeElapsed < _timeToZoom)
-        {
-            _playerCamera.fieldOfView = Mathf.Lerp(startingFOV, targetFOV, timeElapsed / _timeToZoom);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        _playerCamera.fieldOfView = targetFOV;
-        _zoomRoutine = null;
-    }
 }

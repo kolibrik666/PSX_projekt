@@ -13,26 +13,26 @@ public class ExitDoor : Interactable
     [SerializeField] CanvasGroup _bg;
     [SerializeField] GameObject _bgGo;
     bool _canOpen = false;
-    Sequence seq;
+    Sequence _seq;
     private void OnEnable()
     {
         KeyExit.OnKeyPickedUp += Unlock;
-        _bg.alpha = 0f;
     }
     private void OnDisable()
     {
         KeyExit.OnKeyPickedUp -= Unlock;
-        seq?.Kill();
-        seq = null;
+        _seq?.Kill();
+        _seq = null;
     }
     private void Unlock()
     {
         _canOpen = true;
+        _bg.alpha = 0f;
     }
     public void BlackoutAnimation()
     {
         _bgGo.SetActive(true);
-        seq = DOTween.Sequence()
+        _seq = DOTween.Sequence()
             .SetLoops(0)
             .Append(_bg.DOFade(1, 1))
             .AppendInterval(1f)

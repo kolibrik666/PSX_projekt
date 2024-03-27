@@ -8,7 +8,8 @@ public class Consumable : Interactable
 {
     [Inject] GameStartData _gameStartData;
     [Inject] GameRunData _gameRunData;
-
+    [Inject] AudioManager _audioManager;
+    [Inject] CommonSounds _commonSounds;
     [SerializeField] ConsumableTypes _consumableTypes;
 
     public ConsumableTypes ConsumableType => _consumableTypes;
@@ -26,14 +27,24 @@ public class Consumable : Interactable
 
     public override void OnInteract()
     {
-        int result = _consumableTypes switch
+        switch (_consumableTypes)
         {
-            ConsumableTypes.Magazine => _gameStartData.MagazineValue,
-            ConsumableTypes.Beer => _gameStartData.BeerBalue,
-            _ => _gameStartData.FoodValue
-        };
+            case ConsumableTypes.Beer:
+                _audioManager.PlayOneShot(_commonSounds.SwallowFood);
+                AddValue(_gameStartData.BeerBalue);
+                break;
+            case ConsumableTypes.Magazine:
+                _audioManager.PlayOneShot(_commonSounds.TakePaper);
+                AddValue(_gameStartData.MagazineValue);
+                break;
+            case ConsumableTypes.Key:
+                break;
+            default:
+                AddValue(_gameStartData.FoodValue);
+                _audioManager.PlayOneShot(_commonSounds.SwallowFood);
+                break;
+        }
 
-        AddValue(result);
         Destroy(gameObject);
     }
 

@@ -10754,7 +10754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &616752993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10787,7 +10787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
+  m_Color: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10821,7 +10821,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616752992}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -19260,6 +19260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1088418033}
   - component: {fileID: 1088418032}
+  - component: {fileID: 1088418034}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -19281,6 +19282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingameMenu: {fileID: 689983642}
   _firstPersonController: {fileID: 733028921}
+  _blackInAnimation: {fileID: 1088418034}
   _hungerBarSlider: {fileID: 2050615779}
   _sanityBarSlider: {fileID: 512520176}
   _survivedDays: {fileID: 689983643}
@@ -19300,6 +19302,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1088418034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088418031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293074349d693b7458bd86326e0628d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bgGo: {fileID: 616752992}
+  _bg: {fileID: 616752996}
 --- !u!1001 &1095113076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24947,7 +24963,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Cookie
       value: 
-      objectReference: {fileID: 2800000, guid: 091a5838bfdae034eb7d0fbfbe251dc6, type: 3}
+      objectReference: {fileID: 2800000, guid: a2f4ed69c981028448ef7b883efa7e3c, type: 3}
     - target: {fileID: 5767813691047362641, guid: c96149792183b12408d657dc4a29d01f,
         type: 3}
       propertyPath: m_Intensity
@@ -25028,6 +25044,11 @@ PrefabInstance:
       propertyPath: _crosshair
       value: 
       objectReference: {fileID: 933058950}
+    - target: {fileID: 9011942974338164168, guid: c96149792183b12408d657dc4a29d01f,
+        type: 3}
+      propertyPath: interactKey
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: 9011942974338164168, guid: c96149792183b12408d657dc4a29d01f,
         type: 3}
       propertyPath: canUseHeadBob

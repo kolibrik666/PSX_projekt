@@ -8,4 +8,7 @@ public class CommonSounds : ScriptableObject
 {
     public Sound Footsteps;
     public Sound GameplayMusic;
+    public Sound OpeningBeer;
+    public Sound SwallowFood;
+    public Sound TakePaper;
 }

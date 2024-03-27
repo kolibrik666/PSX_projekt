@@ -13,6 +13,7 @@ public class HUD : MonoBehaviour
 
     [SerializeField] InGameMenu _ingameMenu;
     [SerializeField] FirstPersonController _firstPersonController;
+    [SerializeField] BlackInAnimation _blackInAnimation;
     [SerializeField] Slider _hungerBarSlider;
     [SerializeField] Slider _sanityBarSlider;
     [SerializeField] TextMeshProUGUI _survivedDays;
@@ -22,6 +23,7 @@ public class HUD : MonoBehaviour
     private void Start()
     {
         //_crosshairFactory.Create();
+        _blackInAnimation.PlayAnim();
         _audioManager.Transition(_music);   
     }
     private void OnEnable()
