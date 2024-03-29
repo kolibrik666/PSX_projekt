@@ -1,7 +1,8 @@
+
 public class GameSetupData
 {
-    public int Saturation = 80;
-    public int Sanity = 50;
-    public int SurvivedDays = 0;
-    public Difficulty Difficulty;
+    public int Saturation = default;
+    public int Sanity = default;
+    public int SurvivedDays = default;
+    public Difficulty Difficulty = default;
 }

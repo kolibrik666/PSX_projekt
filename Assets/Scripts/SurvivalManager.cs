@@ -6,6 +6,7 @@ public class SurvivalManager : MonoBehaviour
 {
     [Inject] GameSetupData _gameSetupData;
     [Inject] GameRunData _gameRunData;
+    [Inject] Serializer _serializer;
     [SerializeField] FirstPersonController _playerScript;
     [SerializeField] SanityScreenAnimation _sanityScreenAnimation;
 
@@ -27,6 +28,7 @@ public class SurvivalManager : MonoBehaviour
     public static event Action OnValueChange;
     private void OnEnable()
     {
+        _gameSetupData = _serializer.LoadData<GameSetupData>(_serializer.FileSaveName);
         _difficulty = _gameSetupData.Difficulty;
         _gameRunData.Saturation = _gameSetupData.Saturation;
         _gameRunData.Sanity = _gameSetupData.Sanity;
@@ -67,9 +69,10 @@ public class SurvivalManager : MonoBehaviour
     {
         if (killed || _gameRunData.Saturation <= 0)
         {
-            _daysSurvived = 0;
-            _gameSetupData.SurvivedDays = _daysSurvived;
+            _gameSetupData = _serializer.CreateInitialGameData<GameSetupData>();
+            _serializer.SaveData(_gameSetupData,_serializer.FileSaveName);
             OnPlayerDeath?.Invoke();
+            _sanityScreenAnimation.StopAnim();
         }
         if (_gameRunData.Sanity <= 10 && !_sanityCalled)
         {

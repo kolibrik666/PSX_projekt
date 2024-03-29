@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,6 +10,7 @@ public class HUD : MonoBehaviour
     [Inject] GameSetupData _gameSetupData;
     [Inject] GameRunData _gameRunData;
     [Inject] AudioManager _audioManager;
+    [Inject] Serializer _serializer;
     //[Inject] Crosshair.Factory _crosshairFactory;
 
     [SerializeField] InGameMenu _ingameMenu;
@@ -24,10 +26,10 @@ public class HUD : MonoBehaviour
     {
         //_crosshairFactory.Create();
         _blackInAnimation.PlayAnim();
-        _audioManager.Transition(_music);   
     }
     private void OnEnable()
     {
+        _gameSetupData = _serializer.LoadData<GameSetupData>(_serializer.FileSaveName);
         _survivedDays.text = _gameSetupData.SurvivedDays.ToString();
         _hungerBarSlider.value = _gameSetupData.Saturation;
         _sanityBarSlider.value = _gameSetupData.Sanity;

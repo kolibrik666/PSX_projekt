@@ -7,6 +7,10 @@ public static class RandomNumGen
     {
         _random = new Random();
     }
+    public static void Init(int seed)
+    {
+        _random = new Random(seed);
+    }
     public static int Range(int min, int max)
     {
         Init();
@@ -22,4 +26,5 @@ public static class RandomNumGen
         num = Math.Min(maxValue, num);
         return (float)num;
     }
+
 }

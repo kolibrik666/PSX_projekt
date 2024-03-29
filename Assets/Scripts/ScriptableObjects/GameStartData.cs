@@ -10,4 +10,10 @@ public class GameStartData : ScriptableObject
     public int BeerBalue = 8;
     public int MagazineValue = 10;
     public const int ConsumablePOIS = 3;
+
+    [Header("Initial Save File")]
+    public int Saturation = 40;
+    public int Sanity = 80;
+    public int SurvivedDays = 0;
+    public Difficulty Difficulty = Difficulty.Normal;
 }

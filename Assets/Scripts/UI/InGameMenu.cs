@@ -11,14 +11,9 @@ public class InGameMenu : MonoBehaviour
     [SerializeField] Button _quitButton;
     public bool IsOpened => _isOpened;
     bool _isOpened = false;
-    GameSetupData _gameSetupData;
-    FirstPersonController _firstPersonController;
 
     public event Action OnMenuClosed;
-    public void Setup(FirstPersonController firstPersonController)
-    {
-        _firstPersonController = firstPersonController;
-    }
+
     public void Open()
     {
         OnMenuClosed?.Invoke();
@@ -30,12 +25,12 @@ public class InGameMenu : MonoBehaviour
     }
     public void Close()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         OnMenuClosed?.Invoke();
         _isOpened = false;
         gameObject.SetActive(_isOpened); //can be animation
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void OnEnable()
@@ -59,6 +54,7 @@ public class InGameMenu : MonoBehaviour
     void OpenMainMenu()
     {
         SceneManager.LoadSceneAsync("MainMenu");
+        Time.timeScale = 1;
     }
     void OpenSettings()
     {

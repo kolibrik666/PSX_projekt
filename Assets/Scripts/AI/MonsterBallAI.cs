@@ -27,6 +27,17 @@ public class MonsterBallAI : GenericAI
         if (distanceToPlayer > _reach || !_player.IsAlive) _state = AIState.Wander;
         else _state = AIState.Follow;
 
+        float distanceRatio = Mathf.Clamp01(distanceToPlayer / _reach);
+        if (distanceToPlayer < _reach / 1.5 && _player.IsAlive)
+        {
+            _heartBeatTimer += Time.unscaledDeltaTime;
+            if (_heartBeatTimer >= (distanceRatio < _interval ? _interval : distanceRatio))
+            {
+                _audioManager.PlayOneShot(_soundHeartBeat);
+                _heartBeatTimer = 0;
+            }
+        }
+
         _agent.CalculatePath(_player.transform.position, path);
         if (path.status == NavMeshPathStatus.PathComplete && _state == AIState.Follow) _survivalManager.SetChaseState(true);
         else
@@ -40,15 +51,7 @@ public class MonsterBallAI : GenericAI
             case AIState.Wander:
                 Wander();
                 break;
-            case AIState.Follow:
-                float distanceRatio = Mathf.Clamp01(distanceToPlayer / _reach);
-                if (distanceToPlayer < _reach/1.8)
-                _heartBeatTimer += Time.unscaledDeltaTime;
-                if (_heartBeatTimer >= (distanceRatio < _interval ? _interval : distanceRatio))
-                {
-                    _audioManager.PlayOneShot(_soundHeartBeat);
-                    _heartBeatTimer = 0;
-                }
+            case AIState.Follow:                
                 Reset();
                 _agent.destination = _player.transform.position;
                 break;

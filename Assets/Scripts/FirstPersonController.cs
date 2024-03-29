@@ -242,8 +242,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void ApplyFinalMovement()
     {
-        if (!_isGrounded) _moveDirection.y -= _gravity * Time.unscaledDeltaTime;
-        _characterController.Move(_moveDirection * Time.unscaledDeltaTime);
+        if (!_isGrounded) _moveDirection.y -= _gravity * Time.deltaTime;
+        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     private IEnumerator CrouchStand()

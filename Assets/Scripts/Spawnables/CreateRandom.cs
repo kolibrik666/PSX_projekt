@@ -48,6 +48,7 @@ public class CreateRandom : MonoBehaviour
 
     private void OnEnable()
     {
+        RandomNumGen.Init();
         _spawnedCorridorList = new List<SpawnableGeneral>();
         SpawnSpawnables();
         _navMeshSurface.BuildNavMesh();

@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 705a4eb6bdce692439929b0c4d676a7d, type: 3}
   MixerGroup: {fileID: 2241748438576323862, guid: 2064aaee9618d714c83cb031c4550f16,
     type: 2}
-  Volume: 0.9
+  Volume: 1
   Loop: 0
   IsClipSwitchingLoop: 0
   OneShot: 1

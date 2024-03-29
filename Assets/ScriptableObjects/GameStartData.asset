@@ -17,3 +17,7 @@ MonoBehaviour:
   FoodValue: 10
   BeerBalue: 8
   MagazineValue: 10
+  Saturation: 40
+  Sanity: 40
+  SurvivedDays: 0
+  Difficulty: 0

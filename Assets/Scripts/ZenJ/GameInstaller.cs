@@ -1,3 +1,4 @@
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Zenject;
 using static Zenject.CheatSheet;
@@ -24,6 +25,6 @@ public class GameInstaller : MonoInstaller
         Container.BindMemoryPool<AudioPlayer, AudioPlayer.Pool>().WithInitialSize(5)
            .FromComponentInNewPrefab(_audioPlayerPrefab).AsSingle();
         Container.BindInterfacesAndSelfTo<ZenjectUtils>().AsSingle();
-
+        Container.BindInterfacesAndSelfTo<Serializer>().AsSingle().NonLazy();
     }
 }
