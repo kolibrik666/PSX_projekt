@@ -1,7 +1,6 @@
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Zenject;
-using static Zenject.CheatSheet;
+
 
 public class GameInstaller : MonoInstaller
 {
@@ -12,6 +11,8 @@ public class GameInstaller : MonoInstaller
     [SerializeField] AudioManager _audioManager;
     [SerializeField] CommonSounds _commonSounds;
     [SerializeField] AudioPlayer _audioPlayerPrefab;
+
+    [SerializeField] SpawnableGeneral _setupSpotlightPuzzle;
     public override void InstallBindings()
     {
         Container.Bind<GameSetupData>().AsSingle().NonLazy();
@@ -22,9 +23,12 @@ public class GameInstaller : MonoInstaller
         Container.BindFactory<SetConsumables.InitData, SetConsumables, SetConsumables.Factory>().FromComponentInNewPrefab(_setConsumables);
         Container.BindInterfacesAndSelfTo<AudioManager>().FromScriptableObject(_audioManager).AsSingle();
         Container.BindInterfacesAndSelfTo<CommonSounds>().FromScriptableObject(_commonSounds).AsSingle();
-        Container.BindMemoryPool<AudioPlayer, AudioPlayer.Pool>().WithInitialSize(5)
+        Container.BindMemoryPool<AudioPlayer, AudioPlayer.Pool>().WithInitialSize(8)
            .FromComponentInNewPrefab(_audioPlayerPrefab).AsSingle();
         Container.BindInterfacesAndSelfTo<ZenjectUtils>().AsSingle();
         Container.BindInterfacesAndSelfTo<Serializer>().AsSingle().NonLazy();
+
+        Container.BindFactory<SetupPuzzle, SetupPuzzle.Factory>();
+
     }
 }

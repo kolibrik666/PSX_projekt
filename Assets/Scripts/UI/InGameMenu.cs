@@ -16,12 +16,12 @@ public class InGameMenu : MonoBehaviour
 
     public void Open()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         OnMenuClosed?.Invoke();
         _isOpened = true;
         gameObject.SetActive(_isOpened); //can be animation
         Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
     public void Close()
     {

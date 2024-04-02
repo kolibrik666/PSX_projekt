@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class SpotlightController : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class SpotlightController : MonoBehaviour
     {
         if (PuzzleCompleted)
         {
+
             _setSpotlight.ChangeControl(true);
             return;
         }

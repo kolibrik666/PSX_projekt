@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 2}
   Volume: 1
   Loop: 0
-  IsClipSwitchingLoop: 1
+  IsClipSwitchingLoop: 0
   OneShot: 1
   Ambient: 0
   MinVolume: 0.5

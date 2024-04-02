@@ -7,6 +7,7 @@ using Zenject;
 
 public class HUD : MonoBehaviour
 {
+    [Inject] GameStartData _gameStartData;
     [Inject] GameSetupData _gameSetupData;
     [Inject] GameRunData _gameRunData;
     [Inject] AudioManager _audioManager;
@@ -20,6 +21,8 @@ public class HUD : MonoBehaviour
     [SerializeField] Slider _sanityBarSlider;
     [SerializeField] TextMeshProUGUI _survivedDays;
     [SerializeField] Sound _music;
+
+    [SerializeField] GameObject _navMeshVisualizer;
 
     public static event Action OnChangeControl;
     private void Start()
@@ -36,6 +39,8 @@ public class HUD : MonoBehaviour
         Consumable.OnValueChanged += UpdateSliders;
         SurvivalManager.OnValueChange += UpdateSliders;
         _ingameMenu.OnMenuClosed += ChangeControl;
+
+        if(_gameStartData.IsDevDebug) _navMeshVisualizer.SetActive(_gameStartData.IsDevDebug);
     }
     private void OnDisable()
     {

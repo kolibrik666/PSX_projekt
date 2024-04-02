@@ -11,6 +11,8 @@ public class MonsterBallAI : GenericAI
     float _wanderRadius = 18f;
     float _wanderTime = 5f;
     float _reach = 14f;
+    float _originalReach = 14f;
+    float _crouchReach = 8f;
     float _timer;
     float _heartBeatTimer = 0;
     float _interval = 0.3f;
@@ -61,23 +63,24 @@ public class MonsterBallAI : GenericAI
     {
         _timer += Time.unscaledDeltaTime;
 
-        if (_timer >= _wanderTime && _wonderCount <= _wonderMaxCount)
+        if (_timer >= _wanderTime)
         {
             Vector3 newPos = RandomNavSphere(transform.position, _wanderRadius, -1);
             _agent.SetDestination(newPos);
             _timer = 0f;
             _wonderCount++;
         }
-        else if(_wonderCount > _wonderMaxCount)
+        else if (_wonderCount > _wonderMaxCount)
         {
             _agent.SetDestination(_initialPos.position);
-            if (Vector3.Distance(transform.position, _initialPos.position) < 2) Reset(); 
+            if (Vector3.Distance(transform.position, _initialPos.position) < 2) Reset();
         }
+
     }
     protected override void UpdateReach(bool b)
     {
-        if (b) _reach = _reach - 6;
-        else _reach = _reach * 2;
+        if (b) _reach = _crouchReach;
+        else _reach = _originalReach;
     }
     void Reset()
     {

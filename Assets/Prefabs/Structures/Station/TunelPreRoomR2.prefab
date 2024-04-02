@@ -299,12 +299,12 @@ PrefabInstance:
     - target: {fileID: 2395281790213628490, guid: c2094f7f8bb2daf42a935b230f4ec119,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.78
+      value: -2.38
       objectReference: {fileID: 0}
     - target: {fileID: 2395281790213628490, guid: c2094f7f8bb2daf42a935b230f4ec119,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.59
+      value: -4.555
       objectReference: {fileID: 0}
     - target: {fileID: 2539355958436656103, guid: c2094f7f8bb2daf42a935b230f4ec119,
         type: 3}
@@ -569,6 +569,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 1851605962318218552, guid: c2094f7f8bb2daf42a935b230f4ec119, type: 3}
     - {fileID: 6630391725179594061, guid: c2094f7f8bb2daf42a935b230f4ec119, type: 3}
+    - {fileID: 6638707143045472021, guid: c2094f7f8bb2daf42a935b230f4ec119, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2930499118084104415, guid: c2094f7f8bb2daf42a935b230f4ec119, type: 3}
     - {fileID: 1718538004095458076, guid: c2094f7f8bb2daf42a935b230f4ec119, type: 3}
@@ -745,7 +746,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MuddyDebrisHuge (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6625172624312396989, guid: b32b3e28dc5e9e245b7b2d1bb80a74b1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

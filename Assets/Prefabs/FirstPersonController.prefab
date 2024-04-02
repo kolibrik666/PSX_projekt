@@ -88,7 +88,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 2.05
-  m_ColorTemperature: 5662
+  m_ColorTemperature: 4667
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -197,11 +197,10 @@ MonoBehaviour:
   _playerDeathAnimation: {fileID: 6530094537785477689}
   _light: {fileID: 7778811489304078454}
   _crosshair: {fileID: 0}
-  sprintKey: 304
-  jumpKey: 32
-  crouchKey: 306
-  interactKey: 323
-  zoomKey: 324
+  _sprintKey: 304
+  _jumpKey: 32
+  _crouchKey: 306
+  _interactKey: 101
   _walkSpeed: 2.5
   _sprintSpeed: 5
   _crouchSpeed: 1
@@ -222,8 +221,6 @@ MonoBehaviour:
   _sprintBobAmount: 0.06
   _crouchBobSpeed: 8
   _crouchBobAmount: 0.01
-  _timeToZoom: 0.3
-  _zoomFOV: 30
   _interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   _interactionDistance: 2
   _interactionLayer:

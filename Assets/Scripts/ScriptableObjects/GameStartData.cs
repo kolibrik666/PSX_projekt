@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/GameStartData", order = 1)]
 public class GameStartData : ScriptableObject
 {
+    public bool IsRelease;
+    public bool IsDevDebug;
+
+    [Header("Data")]
     public Color _textColor;
     public Color _bloodRedColor;
 

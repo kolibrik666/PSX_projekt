@@ -4,9 +4,16 @@ using Unity.AI.Navigation;
 using Zenject;
 using System.Linq;
 using System;
+using Unity.VisualScripting;
 
 public class CreateRandom : MonoBehaviour
 {
+    [Inject] GameStartData _gameStartData;
+    [Inject] SpawnPOI.Factory _spawnPOIFactory = default;
+    [Inject] SetupPuzzle.Factory _setupPuzzleFactory = default;
+
+    [Inject] ZenjectUtils _zenjectUtils;
+
     [SerializeField] NavMeshSurface _navMeshSurface;
 
     [SerializeField] SpawnableGeneral _metalDoor;
@@ -24,6 +31,7 @@ public class CreateRandom : MonoBehaviour
     [SerializeField] List<Transform> _spawnPointsCorridorsA = new(); //sideA
     [SerializeField] List<Transform> _spawnPointsCorridorsB = new(); //sideB
 
+    SubwayPlatforms _subwayPlatforms;
     PuzzleRooms _puzzleRooms;
     TunelVariants _tunelVariants;
     TunelPreRooms _preTunelRooms;
@@ -43,12 +51,10 @@ public class CreateRandom : MonoBehaviour
         public T Spawnable { get; set; }
     }
     //vyberie sa dopredu ake miestnosti sa spawnu a potom sa to poöle Ôalej?
-    [Inject] GameStartData _gameStartData;
-    [Inject] SpawnPOI.Factory _spawnPOIFactory = default;
+
 
     private void OnEnable()
     {
-        RandomNumGen.Init();
         _spawnedCorridorList = new List<SpawnableGeneral>();
         SpawnSpawnables();
         _navMeshSurface.BuildNavMesh();
@@ -60,6 +66,10 @@ public class CreateRandom : MonoBehaviour
         {
             switch(spawnable)
             {
+                case SubwayPlatforms:
+                    _subwayPlatforms = (SubwayPlatforms)spawnable;
+                    SetupSubwayPlatforms();
+                    break;
                 case TunelVariants:
                     _tunelVariants = (TunelVariants)spawnable;
                     SetupTunels(_tunelVariants.NumOfSpawningObjects);
@@ -82,7 +92,12 @@ public class CreateRandom : MonoBehaviour
             }
         }
     }
-
+    private void SetupSubwayPlatforms()
+    {
+        var randomPlatform = _subwayPlatforms.SubwayPlatformsList.GetRandomItemFromList();
+        var spawnedObject = SpawnObjectGet(randomPlatform.SpawnablePrefab);
+        spawnedObject.transform.SetParent(_spawnPoints[0], false);
+    }
     private void SpawnPOIs(IEnumerable<GameObject> fromObjects)
     {
         List<SpawnpointPOIGetter> allSpawnpointPOIs = PrepareSpawnpointsPOI(fromObjects); // vöetky s˙radnice do ktor˝ch sa spawn˙ POI
@@ -170,13 +185,19 @@ public class CreateRandom : MonoBehaviour
             spawnablesList = resultList.SpawnablesList;
 
             _spawnedPuzzleSpawnableList.Add(objectToSpawn); // pridame si do listu s SpawnableGeneral
-
+            
             GameObject spawnedObject = SpawnObjectGet(objectToSpawn.SpawnablePrefab);// spawne sa prv˝ puzzle
             spawnedObject.transform.SetParent(selectedSpawnpoint.transform, false);
             //pre part2 z puzzlu potrebujem informacie o poistke Ëi je pickapnuta
             _spawnedPuzzleRoomsList.Add(spawnedObject);
+            /*
+            var obj = _setupPuzzleFactory.Create(objectToSpawn);
+            obj.transform.SetParent(selectedSpawnpoint.transform, false);
+            _spawnedPuzzleRoomsList.Add(obj.gameObject);¥*/
+            // switch a prepÌnaù podæa typu ak˝ sa vybral z listu, tak toho sa vytvorÌ factory puzzle, ALEBO spawneö proste obejkt ktor˝ potom spawne puzzle
+            // Ëo zanemana ûe by ûe ten ojekt bude maù faktory na tie Initial data Ëo si poslal, ale to by predlûovalo, radËej takto switch
 
-            if(spawnOnSideA) spawnpointsSideA.Remove(selectedSpawnpoint);
+            if (spawnOnSideA) spawnpointsSideA.Remove(selectedSpawnpoint);
             else spawnpointsSideB.Remove(selectedSpawnpoint);
 
             if (objectToSpawn.RoomType == TypeRooms.PuzzleSplit && objectToSpawn.SpawnablesPartsList != null) // pozrieme Ëi je rozpoleny alebo iba jednotny

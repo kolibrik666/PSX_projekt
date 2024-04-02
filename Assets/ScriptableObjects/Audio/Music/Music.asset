@@ -18,7 +18,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c2c392d4ec07d40528432c3bda4bc466, type: 3}
   - {fileID: 8300000, guid: 6f8ac1fb6c4da43309fc6f2608f82ab6, type: 3}
   - {fileID: 8300000, guid: fe998676dac804477a919a1c57dc09d3, type: 3}
-  - {fileID: 8300000, guid: 87d8dee75db9f470487b9032f1f1690f, type: 3}
   - {fileID: 8300000, guid: dc1d6b96e081b4befbd033dee4730596, type: 3}
   MixerGroup: {fileID: -4800244353115057047, guid: 2064aaee9618d714c83cb031c4550f16,
     type: 2}

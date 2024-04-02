@@ -120,9 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _setSpotlight: {fileID: 1959088279503847467}
   _spotlightMoveStand: {fileID: 7730851384072778810}
+  _slidingAnim: {fileID: 0}
   _rotationSpeed: 15
   _limitX: 32
-  _limitY: 40
 --- !u!65 &8223619532051793939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ Light:
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1

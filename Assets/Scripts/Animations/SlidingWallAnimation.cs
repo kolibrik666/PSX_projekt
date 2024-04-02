@@ -1,9 +1,11 @@
 using UnityEngine;
 using DG.Tweening;
 using System;
+using Zenject;
 
 public class SlidingWallAnimation : MonoBehaviour
 {
+    [SerializeField] Sound _sound;
     [SerializeField] GameObject _slidingWall;
     [SerializeField] float _duration = 4f;
     [SerializeField] float _targetPosY = -8.769f;
@@ -13,6 +15,7 @@ public class SlidingWallAnimation : MonoBehaviour
     {
         _slidingWall.transform.DOMoveY(y, 0f);
     }
+
     public void OpenDoor(Action finishCallback = null)
     {
         _sequence?.Kill();

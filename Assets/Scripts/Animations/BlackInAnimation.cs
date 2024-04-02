@@ -1,6 +1,6 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BlackInAnimation : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class BlackInAnimation : MonoBehaviour
         _bg.alpha = 1.0f;
         _seq = DOTween.Sequence()
             .Append(_bg.DOFade(0, 1))
-            .AppendInterval(1f)
             .AppendCallback(() =>
             {
                 _bgGo.SetActive(false);
