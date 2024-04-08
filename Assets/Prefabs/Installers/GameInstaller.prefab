@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameStartData: {fileID: 11400000, guid: c4db372f3dea0a44c9c3fc9302b0245a, type: 2}
-  _spawnableConsumableSO: {fileID: 11400000, guid: 5c756898d24f4ec44a990fe1f8093c5d,
-    type: 2}
   _spawnPOI: {fileID: 5799202535763511633, guid: 017204cd41b11c54d933cfd9c39a6aa2,
     type: 3}
   _setConsumables: {fileID: 2136956127379377113, guid: aaef6de58e9ae6843a9c5d80496f0990,
@@ -57,3 +55,7 @@ MonoBehaviour:
     type: 3}
   _setupSpotlightPuzzle: {fileID: 11400000, guid: 4592d08f7955a0546b4ffa8cb0d13098,
     type: 2}
+  _trezorPuzzleRoom: {fileID: 1004755692331851537, guid: 6c3c8bd72e8439e43b04c41e29134c0b,
+    type: 3}
+  _spotlightPuzzleRoom: {fileID: 5415395333486890373, guid: 9a43b7f22679ecf4f9a5ca4bfc313ccb,
+    type: 3}

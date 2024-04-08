@@ -5,9 +5,11 @@ using Zenject;
 
 public class SlidingWallAnimation : MonoBehaviour
 {
+    [Inject] AudioManager _audioManager;
+
     [SerializeField] Sound _sound;
     [SerializeField] GameObject _slidingWall;
-    [SerializeField] float _duration = 4f;
+    [SerializeField] float _duration = 3.5f;
     [SerializeField] float _targetPosY = -8.769f;
 
     Sequence _sequence;
@@ -18,6 +20,7 @@ public class SlidingWallAnimation : MonoBehaviour
 
     public void OpenDoor(Action finishCallback = null)
     {
+        _audioManager.PlayOneShot(_sound);
         _sequence?.Kill();
         _sequence = DOTween.Sequence()
             .Append(_slidingWall.transform.DOMoveY(_targetPosY, _duration))

@@ -5,7 +5,6 @@ using Zenject;
 public class GameInstaller : MonoInstaller
 {
     [SerializeField] GameStartData _gameStartData;
-    [SerializeField] SpawnableConsumable _spawnableConsumableSO;
     [SerializeField] GameObject _spawnPOI;
     [SerializeField] GameObject _setConsumables;
     [SerializeField] AudioManager _audioManager;
@@ -13,13 +12,18 @@ public class GameInstaller : MonoInstaller
     [SerializeField] AudioPlayer _audioPlayerPrefab;
 
     [SerializeField] SpawnableGeneral _setupSpotlightPuzzle;
+
+    [Header("Puzzles")]
+    [SerializeField] GameObject _trezorPuzzleRoom;
+    [SerializeField] GameObject _spotlightPuzzleRoom;
+
     public override void InstallBindings()
     {
         Container.Bind<GameSetupData>().AsSingle().NonLazy();
         Container.Bind<GameRunData>().AsSingle().NonLazy();
         Container.Bind<GameStartData>().FromScriptableObject(_gameStartData).AsSingle();
         Container.BindFactory<SpawnPOI.InitData, SpawnPOI, SpawnPOI.Factory>().FromComponentInNewPrefab(_spawnPOI).AsSingle();
-        Container.BindFactory<Consumable, Consumable.Factory>().FromComponentInNewPrefab(_spawnableConsumableSO.SpawnablePrefab);
+
         Container.BindFactory<SetConsumables.InitData, SetConsumables, SetConsumables.Factory>().FromComponentInNewPrefab(_setConsumables);
         Container.BindInterfacesAndSelfTo<AudioManager>().FromScriptableObject(_audioManager).AsSingle();
         Container.BindInterfacesAndSelfTo<CommonSounds>().FromScriptableObject(_commonSounds).AsSingle();
@@ -30,5 +34,10 @@ public class GameInstaller : MonoInstaller
 
         Container.BindFactory<SetupPuzzle, SetupPuzzle.Factory>();
 
+        Container.BindFactory<TrezorPuzzleRoom, TrezorPuzzleRoom.Factory>().FromComponentInNewPrefab(_trezorPuzzleRoom);
+        Container.BindFactory<SpotlightPuzzleRoom, SpotlightPuzzleRoom.Factory>().FromComponentInNewPrefab(_spotlightPuzzleRoom);
+
     }
+
+
 }

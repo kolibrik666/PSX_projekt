@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
 using Zenject;
 
@@ -19,7 +20,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] Camera _playerCamera;
     [SerializeField] CharacterController _characterController;
     [SerializeField] PlayerDeathAnimation _playerDeathAnimation;
-    [SerializeField] GameObject _light;
 
     [SerializeField] Crosshair _crosshair;
 
@@ -42,6 +42,12 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField, Range(1, 10)] float _lookSpeedY = 2.0f;
     [SerializeField, Range(1, 100)] float _upperLookLimit = 80.0f; //stupne
     [SerializeField, Range(1, 100)] float _lowerLookLimit = 80.0f;
+
+    [Header("Flashlight Parameters")]
+    [SerializeField] GameObject _light;
+    [SerializeField] GameObject _flashlight;
+    [SerializeField] GameObject _head;
+    float _flashlightRotationSpeed = 8f;
 
     [Header("Jumping Parameters")]
     [SerializeField] float _jumpForce = 8.0f;
@@ -112,6 +118,7 @@ public class FirstPersonController : MonoBehaviour
         SetSpotlight.OnChangeControl -= ChangeMovement;
         HUD.OnChangeControl -= ChangeMouseLook;
     }
+ 
     void Update()
     {
         if (!_isAlive) return;
@@ -156,7 +163,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!_isGrounded) return;
         _footstepTimer += Time.unscaledDeltaTime;
-        if (_footstepTimer >= (_isSprinting ? _footstepSprintInterval : _footstepInterval))
+        if (_footstepTimer >= (_isSprinting && !_isCrouching ? _footstepSprintInterval : _footstepInterval))
         {
             _audioManager.PlayOneShot(_commonSounds.Footsteps);
             _footstepTimer = 0;
@@ -181,6 +188,10 @@ public class FirstPersonController : MonoBehaviour
         _rotationX = Mathf.Clamp(_rotationX, -_upperLookLimit, _lowerLookLimit);
         _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * _lookSpeedX, 0);
+
+        _flashlight.transform.position = _head.transform.position;
+        Quaternion targetRotation = Quaternion.Euler(_rotationX, transform.eulerAngles.y, 0);
+        _flashlight.transform.rotation = Quaternion.Lerp(_flashlight.transform.rotation, targetRotation, _flashlightRotationSpeed * Time.deltaTime);
     }
 
     private void HandleJump()
@@ -248,9 +259,7 @@ public class FirstPersonController : MonoBehaviour
 
     private IEnumerator CrouchStand()
     {
-        if (_isCrouching && Physics.Raycast(_playerCamera.transform.position, Vector3.up, 1f))
-            yield break;
-
+        if (_isCrouching && Physics.Raycast(_playerCamera.transform.position, Vector3.up, 1.5f)) yield break;
         _duringCrouchAnimation = true;
 
         float timeElapsed = 0;

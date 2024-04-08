@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3568654452339717422}
   - component: {fileID: 2691465692046364516}
   - component: {fileID: 8166474902617658598}
-  - component: {fileID: 38869743595798665}
+  - component: {fileID: 1618241616752548023}
   m_Layer: 0
   m_Name: RailwayStraightDamaged2R
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &38869743595798665
-MeshCollider:
+--- !u!65 &1618241616752548023
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,7 +102,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3713066762500137539, guid: 02698672654d2a6439bd6418f6719a87, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.19793655, z: 1.02}
+  m_Center: {x: 2.49, y: 0.09896823, z: 0.021077812}

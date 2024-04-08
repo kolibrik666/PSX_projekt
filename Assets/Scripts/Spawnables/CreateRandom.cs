@@ -10,7 +10,8 @@ public class CreateRandom : MonoBehaviour
 {
     [Inject] GameStartData _gameStartData;
     [Inject] SpawnPOI.Factory _spawnPOIFactory = default;
-    [Inject] SetupPuzzle.Factory _setupPuzzleFactory = default;
+    [Inject] TrezorPuzzleRoom.Factory _trezorPuzzleFactory = default;
+    [Inject] SpotlightPuzzleRoom.Factory _spotlightPuzzleFactory = default;
 
     [Inject] ZenjectUtils _zenjectUtils;
 
@@ -59,7 +60,7 @@ public class CreateRandom : MonoBehaviour
         SpawnSpawnables();
         _navMeshSurface.BuildNavMesh();
     }
-
+    #region SpawnSpawnables
     private void SpawnSpawnables()
     {
         foreach (var spawnable in _spawnables)
@@ -92,12 +93,15 @@ public class CreateRandom : MonoBehaviour
             }
         }
     }
+    
     private void SetupSubwayPlatforms()
     {
         var randomPlatform = _subwayPlatforms.SubwayPlatformsList.GetRandomItemFromList();
         var spawnedObject = SpawnObjectGet(randomPlatform.SpawnablePrefab);
         spawnedObject.transform.SetParent(_spawnPoints[0], false);
     }
+    #endregion
+    #region POIs
     private void SpawnPOIs(IEnumerable<GameObject> fromObjects)
     {
         List<SpawnpointPOIGetter> allSpawnpointPOIs = PrepareSpawnpointsPOI(fromObjects); // vöetky s˙radnice do ktor˝ch sa spawn˙ POI
@@ -157,7 +161,7 @@ public class CreateRandom : MonoBehaviour
         }
         return allSpawnpointPOIs;
     }
-
+    #endregion
     private void SetupPuzzleRooms(List<GameObject> spawnedCorridorsObjects, List<SpawnablePuzzle> puzzleRoomsList)
     {
         //potrebujem checknuù ûe Ëi sa vybrala verzia Ëo m· aj PART 2 -> TypeRooms.PuzzleSplit, ak ·no  tak jej priraÔ z toho SpawnablePuzzle niektor˙ Ëasù z ktorej bude na v˝ber.
@@ -184,18 +188,21 @@ public class CreateRandom : MonoBehaviour
             var objectToSpawn = resultList.Spawnable;
             spawnablesList = resultList.SpawnablesList;
 
-            _spawnedPuzzleSpawnableList.Add(objectToSpawn); // pridame si do listu s SpawnableGeneral
-            
-            GameObject spawnedObject = SpawnObjectGet(objectToSpawn.SpawnablePrefab);// spawne sa prv˝ puzzle
+            GameObject spawnedObject = null;
+
+            switch (objectToSpawn.RoomType)
+            {
+                case TypeRooms.PuzzleShop:
+                    spawnedObject = _trezorPuzzleFactory.Create().gameObject;
+                    break;
+                case TypeRooms.PuzzleGeneral:
+                    spawnedObject = _spotlightPuzzleFactory.Create().gameObject;
+                    break;
+            }
+
             spawnedObject.transform.SetParent(selectedSpawnpoint.transform, false);
             //pre part2 z puzzlu potrebujem informacie o poistke Ëi je pickapnuta
             _spawnedPuzzleRoomsList.Add(spawnedObject);
-            /*
-            var obj = _setupPuzzleFactory.Create(objectToSpawn);
-            obj.transform.SetParent(selectedSpawnpoint.transform, false);
-            _spawnedPuzzleRoomsList.Add(obj.gameObject);¥*/
-            // switch a prepÌnaù podæa typu ak˝ sa vybral z listu, tak toho sa vytvorÌ factory puzzle, ALEBO spawneö proste obejkt ktor˝ potom spawne puzzle
-            // Ëo zanemana ûe by ûe ten ojekt bude maù faktory na tie Initial data Ëo si poslal, ale to by predlûovalo, radËej takto switch
 
             if (spawnOnSideA) spawnpointsSideA.Remove(selectedSpawnpoint);
             else spawnpointsSideB.Remove(selectedSpawnpoint);

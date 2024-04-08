@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 6664730498479761626}
   - component: {fileID: 9087303339942575273}
   - component: {fileID: 304386793024934281}
+  - component: {fileID: 4703692028380285659}
   m_Layer: 0
   m_Name: TrezorPuzzleRoom
   m_TagString: Untagged
@@ -370,6 +371,18 @@ MonoBehaviour:
   _keySpawnpoints:
   - {fileID: 7543511905408908283}
   _key: {fileID: 11400000, guid: 027bdd5193bfe0a459ef8d8374efab93, type: 2}
+--- !u!114 &4703692028380285659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004755692331851537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96d97d1a93916c498423090f360671f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1206323071176231813
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +990,7 @@ Transform:
   m_GameObject: {fileID: 2891799310041197417}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.978064, z: -0, w: -0.20830475}
-  m_LocalPosition: {x: -1.002, y: 1.4083319, z: -1.792}
+  m_LocalPosition: {x: -1.002, y: 0.6583319, z: -1.792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1995,8 +2008,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7786115897819585315}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.31952173, z: -0, w: 0.947579}
-  m_LocalPosition: {x: 15.653, y: 0.996, z: 6.327}
+  m_LocalRotation: {x: -0, y: 0.3195217, z: -0, w: 0.9475789}
+  m_LocalPosition: {x: -1.088, y: 0.8180027, z: -0.631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
