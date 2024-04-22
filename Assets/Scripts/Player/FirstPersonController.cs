@@ -8,6 +8,7 @@ public class FirstPersonController : MonoBehaviour
     public bool CanMove { get; private set; } = true;
     public bool IsAlive => _isAlive;
     public bool IsSprinting => _isSprinting;
+    public bool CanSprint => _canSprint;
     bool _isSprinting => _canSprint && Input.GetKey(_sprintKey);
     bool _isMovingBackwards => Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") < 0f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0f && Input.GetAxis("Vertical") == 0f;
     bool _isMoving => CanMove && (Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f);
@@ -110,6 +111,7 @@ public class FirstPersonController : MonoBehaviour
         SurvivalManager.OnPlayerDeath += Death;
         SetSpotlight.OnChangeControl += ChangeMovement;
         HUD.OnChangeControl += ChangeMouseLook;
+        SurvivalManager.CanSprint += ChangeSprint;
         UpdateSettings();
     }
     private void OnDisable()
@@ -118,6 +120,7 @@ public class FirstPersonController : MonoBehaviour
         SurvivalManager.OnPlayerDeath -= Death;
         SetSpotlight.OnChangeControl -= ChangeMovement;
         HUD.OnChangeControl -= ChangeMouseLook;
+        SurvivalManager.CanSprint -= ChangeSprint;
     }
  
     void Update()
@@ -171,6 +174,10 @@ public class FirstPersonController : MonoBehaviour
     {
         if (_canLook) _canLook = false;
         else _canLook = true;
+    }
+    private void ChangeSprint(bool b)
+    {
+        _canSprint = b;
     }
     private void HandleFootsteps()
     {

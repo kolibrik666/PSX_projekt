@@ -5,15 +5,15 @@ using DG.Tweening;
 
 public class SanityScreenAnimation : MonoBehaviour
 {
-    [SerializeField] CanvasGroup _bg;
-    [SerializeField] GameObject _gameObject;
+    [SerializeField] Material _sanityMat;
+    const string _intensity = "_vignetteIntensity";
 
     Sequence _sequence;
     Sequence _sequence2;
 
     private void OnEnable()
     {
-        _bg.alpha = 0f;
+        _sanityMat.SetFloat(_intensity, 0);
     }
     private void OnDisable()
     {
@@ -28,18 +28,17 @@ public class SanityScreenAnimation : MonoBehaviour
     }
     public void PlayAnim()
     {
-        _gameObject.SetActive(true);
         _sequence = DOTween.Sequence()
-            .Append(_bg.DOFade(1, 1f).SetEase(Ease.Linear));
+            .Append(_sanityMat.DOFloat(1f, _intensity, 1f).SetEase(Ease.Linear));
     }
     public void StopAnim() 
     {        
         _sequence2 = DOTween.Sequence()
-            .Append(_bg.DOFade(0, 1f).SetEase(Ease.Linear))
+            .Append(_sanityMat.DOFloat(0f, _intensity, 1f).SetEase(Ease.Linear))
             .AppendInterval(1f)
             .AppendCallback(() => {
                 KillAnim();
-                _gameObject.SetActive(false);
+                //_gameObject.SetActive(false);
             });
     }
 

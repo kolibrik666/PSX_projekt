@@ -43,7 +43,7 @@ public class HUD : MonoBehaviour
         _sanityBarSlider.value = _gameSetupData.Sanity;
         Consumable.OnValueChanged += UpdateSliders;
         SurvivalManager.OnValueChange += UpdateSliders;
-        DebugConsole.OnValueChange += UpdateSliders; ;
+        DebugConsole.OnValueChange += UpdateSliders;
         _ingameMenu.OnMenuClosed += ChangeControl;
     }
     private void OnDisable()
