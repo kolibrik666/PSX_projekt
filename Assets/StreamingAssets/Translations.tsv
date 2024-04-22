@@ -1,0 +1,41 @@
+Key	English	Slovak	Spanish	German	French	ChineseSimplified	Russian	Polish
+New_game_button	New	Nová hra	Nuevo	Spieleb	Nouveau	新的	Новый	Nowa gra
+Quit_game_button	Quit	Ukončiť	Abandonar	Aufhören	Quitter	辞职	Покидать	Zakończyć
+Continue_game_button	Continue	Pokračovať	Continuar	Weitermachen	Continuer	继续	Продолжать	Kontynuować
+Settings_button	Settings	Nastavenia	Ajustes	Einstellungen	Paramètres	设置	Настройки	Ustawienia
+Gameplay_setting_button	Gameplay	Herné nastavenia	Como se Juega	Spielweise	Gameplay	游戏玩法	Геймплей	Ustawienia gry
+Audio_setting_button	Audio	Zvuk	Audio	Audio	l'audio	声音的	Аудио	Dźwięk
+Display_setting_button	Display	Displej	Mostrar	Anzeige	Afficher	展示	Отображать	Wyświetlacz
+Controls_setting_button	Controls	Ovládanie	Controls	Kontrollen	Contrôles	控制	Элементы управления	Kontrolowanie
+Windowed	Windowed	Okno	con ventana	Mit Fenster	Fenêtré	开窗	оконный	Okno
+ExclusiveFullScreen	Exclusive Full Screen	Celá obrazovka	Pantalla completa	Exklusiver Vollbildmodus	Plein écran exclusif	独家全面屏	Весь экран	Cały ekran
+FullScreenWindow	Full Screen Window	Okno na celú obrazovku	ventana de pantalla completa	Vollbildfenster	Fenêtre plein écran	全屏窗口	Полноэкранное окно	Okno pełnoekranowe
+MaximizedWindow	Maximized Window	Maximalizované okno	ventana maximizada	Maximiertes Fenster	Fenêtre maximisée	最大化窗口	Развернутое окно	Maksymalne okno
+English	English	Anglický	Inglés	Englisch	Anglais	英语	Английский	Angielski
+Slovak	Slovak	Slovenský	Eslovaco	Slowakisch	Slovaque	斯洛伐克语	словацкий	Słowacki
+Spanish	Spanish	Španielsky	Español	Spanisch	Espagnol	西班牙语	испанский	Hiszpański
+German	German	Nemecký	Alemán	Deutsch	Allemand	德语	Немецкий	Niemiecki
+French	French	Francúzsky	Francés	Französisch	Français	法语	Французский	Francuski
+ChineseSimplified	ChineseSimplified	Čínsky	Chino simplificado	Vereinfachtes Chinesisch	Chinois simplifié	简体中文	Китайский упрощенный	Uproszczony chiński
+Russian	Russian	Ruský	Ruso	Russisch	Russe	俄语	Русский	Rosyjski
+Polish	Polish	Poľský	Polaco	Polieren	Polonais	抛光	Польский	Polski
+Language	Language	Jazyk	Idioma	Sprache	Langue	语言	Язык	Język
+Headbob	Headbob	Kývanie hlavy	Bob cabeza	Headbob	Coupe-tête	头饰	Кывание Главы	Ruch głowy
+Difficulty	Difficulty	Obtiažnosť	Dificultad	Schwierigkeit	Difficulté	困难	Обтяженность	Trudność
+Normal	Normal	Normálna	Normal	Normal	Normale	普通的	Нормальна	Normalna
+Nightmare	Nightmare	Nočná mora	Pesadilla	Alptraum	Cauchemar	恶梦	Ночная Мора	Koszmar
+Insane	Insane	Šialená	Loco	Verrückt	Fou	疯狂的	Шиалена	Obłąkany
+Resolution	Resolution	Rozlíšenie	Resolución	Auflösung	Résolution	解决	Розлишение	Rezolucja
+Screen_mode	Screen mode	Režim obrazovky	Modo de pantalla	Bildschirmmodus	Mode écran	屏幕模式	Режим экрана	Tryb ekranowy
+Yes	Yes	Áno	Sí	Ja	Oui	是的	дa	Tak
+No	No	Nie	No	Nein	Non	不	Нет	Nie
+On	On	Zapnuté	En	An	Sur	在	На	Włączony
+Off	Off	Vypnuté	Apagado	Aus	Désactivé	离开	Выключенный	Wyłączony
+Vsync	VSync	VSync	VSync	VSync	VSync	VSync	VSync	VSync
+Main_menu_button	Main Menu	Hlavné menu	Menú principal	Hauptmenü	Menu principal	主菜单	Главное меню	Menu główne
+Days_survived_info	Days Survived	Prežitých dní	Días sobrevividos	Tage überlebt	Jours survécus	生存天数	Прожитые дни	Przeżytych dni
+Press_esc_back	Esc) <b>Back</b> 	Esc) <b>Späť</b> 	Esc) <b>Volver</b>	Esc) <b>Zurück</b>	Échap) <b>Retour</b>	Esc) <b>返回</b>	Esc) <b>Назад</b>	Esc) <b>Wstecz</b>
+How_to_control	WASD - to play SHIFT - to run CTRL - to crouch E - to interact	WASD - na pohyb SHIFT - na šprint CTRL - na krčenie sa E - na interakciu	WASD - para jugar MAYÚS - para ejecutar CTRL - agacharse E - interactuar	WASD – zum Spielen SHIFT – laufen CTRL – in die Hocke gehen E – interagieren	WASD - pour jouer SHIFT - pour courir CTRL - s'accroupir E - pour interagir	WASD-播放 SHIFT-运行 CTRL-蹲下 E-互动	WASD – двигаться SHIFT – бежать CTRL — присесть Е - для взаимодействия	WASD – grać SHIFT – biegać CTRL – kucnąć E - wchodzić w interakcję
+How_to_play	Solve puzzles. Get key to exit. Look for exit sign above door.	Rieš hádanky. Získaj kľúč k východu. Hľadaj dvere s východom.	Resolver rompecabezas. Obtenga la clave para salir. Busque la señal de salida encima de la puerta.	Rätsel lösen. Holen Sie sich den Schlüssel zum Verlassen. Halten Sie nach dem Ausgangsschild über der Tür Ausschau.	Résoudre des puzzles. Obtenez la clé pour sortir. Recherchez le panneau de sortie au-dessus de la porte.	解决难题。 获取钥匙退出。 寻找门上方的出口标志。	Вы решаете головоломки. Получите ключ от выхода. Ищите дверь с выходом.	Rozwiązuj zagadki. Zdobądź klucz, aby wyjść. Poszukaj znaku wyjścia nad drzwiami.
+You_died	YOU DIED	ZOMREL SI	MORITO	DU BIST GESTORBEN	TU ES MORT	你死了	ВЫ УМЕРЛИ	UMARŁEŚ
+Click_to_restart	CLICK ON SCREEN TO RESTART	KLIKNI NA OBRAZOVKU PRE REŠTART	HAGA CLIC EN LA PANTALLA PARA REINICIAR	KLICKEN SIE AUF DEN BILDSCHIRM, UM NEU ZU STARTEN	CLIQUEZ SUR L'ÉCRAN POUR REDÉMARRER	单击屏幕重新启动	НАЖМИТЕ НА ЭКРАН, ЧТОБЫ ПЕРЕЗАПУСТИТЬ	KLIKNIJ NA EKRANIE, ABY URUCHOMIĆ PONOWNIE

@@ -1,7 +1,5 @@
-using DG.Tweening;
 using System;
 using System.Collections;
-using System.Drawing;
 using UnityEngine;
 using Zenject;
 
@@ -77,6 +75,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] float _interactionDistance = default;
     [SerializeField] LayerMask _interactionLayer = default;
 
+    [Inject] GameSetupData _gameSetupData;
     [Inject] CommonSounds _commonSounds;
     [Inject] AudioManager _audioManager;
     float _footstepInterval = 0.6f;
@@ -103,17 +102,19 @@ public class FirstPersonController : MonoBehaviour
     void Awake()
     {
         _defaultYPos = _playerCamera.transform.localPosition.y;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockCursor();
     }
     private void OnEnable()
     {
+        MainMenuSettings.SettingsChanged += UpdateSettings;
         SurvivalManager.OnPlayerDeath += Death;
         SetSpotlight.OnChangeControl += ChangeMovement;
         HUD.OnChangeControl += ChangeMouseLook;
+        UpdateSettings();
     }
     private void OnDisable()
     {
+        MainMenuSettings.SettingsChanged -= UpdateSettings;
         SurvivalManager.OnPlayerDeath -= Death;
         SetSpotlight.OnChangeControl -= ChangeMovement;
         HUD.OnChangeControl -= ChangeMouseLook;
@@ -142,7 +143,15 @@ public class FirstPersonController : MonoBehaviour
             HandleInteractionInput();
         }
     }
-
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    private void UpdateSettings()
+    {
+        _canUseHeadBob = _gameSetupData.Headbob;
+    }
     private void Death()
     {
         _isAlive = false;
@@ -152,7 +161,11 @@ public class FirstPersonController : MonoBehaviour
     private void ChangeMovement()
     {
         if (CanMove) CanMove = false;
-        else CanMove = true;
+        else
+        {
+            LockCursor();
+            CanMove = true;
+        }
     }
     private void ChangeMouseLook()
     {

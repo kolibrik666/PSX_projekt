@@ -9,6 +9,7 @@ public class GameStartData : ScriptableObject
     [Header("Data")]
     public Color _textColor;
     public Color _bloodRedColor;
+    public Color _communistRedColor;
 
     public int FoodValue = 10;
     public int BeerBalue = 8;
@@ -16,8 +17,10 @@ public class GameStartData : ScriptableObject
     public const int ConsumablePOIS = 3;
 
     [Header("Initial Save File")]
+    public bool FirstLaunch = true;
     public int Saturation = 40;
     public int Sanity = 80;
     public int SurvivedDays = 0;
     public Difficulty Difficulty = Difficulty.Normal;
+    public bool Headbob = true;
 }

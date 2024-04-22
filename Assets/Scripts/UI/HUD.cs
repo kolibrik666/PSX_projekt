@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -22,12 +21,18 @@ public class HUD : MonoBehaviour
     [SerializeField] TextMeshProUGUI _survivedDays;
     [SerializeField] Sound _music;
 
-    [SerializeField] GameObject _navMeshVisualizer;
+    [SerializeField] DebugConsole _debugConsole;
 
     public static event Action OnChangeControl;
     private void Start()
     {
         //_crosshairFactory.Create();
+        if (_gameStartData.IsDevDebug)
+        {
+            _debugConsole.enabled = true;
+            _debugConsole.Setup();
+        }
+
         _blackInAnimation.PlayAnim();
     }
     private void OnEnable()
@@ -38,17 +43,17 @@ public class HUD : MonoBehaviour
         _sanityBarSlider.value = _gameSetupData.Sanity;
         Consumable.OnValueChanged += UpdateSliders;
         SurvivalManager.OnValueChange += UpdateSliders;
+        DebugConsole.OnValueChange += UpdateSliders; ;
         _ingameMenu.OnMenuClosed += ChangeControl;
-
-        if(_gameStartData.IsDevDebug) _navMeshVisualizer.SetActive(_gameStartData.IsDevDebug);
     }
     private void OnDisable()
     {
         Consumable.OnValueChanged -= UpdateSliders;
         SurvivalManager.OnValueChange -= UpdateSliders;
+        DebugConsole.OnValueChange -= UpdateSliders;
         _ingameMenu.OnMenuClosed -= ChangeControl;
     }
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) IngameMenu();
     }
@@ -64,9 +69,11 @@ public class HUD : MonoBehaviour
     }
     private void IngameMenu()
     {
-        if (!_firstPersonController.IsAlive) return;
-        if (_ingameMenu.IsOpened) _ingameMenu.Close();
-        else _ingameMenu.Open();
+        if (_firstPersonController.IsAlive && _ingameMenu.SettingsOpened == false)
+        {
+            if (_ingameMenu.IsOpened) _ingameMenu.Close();
+            else _ingameMenu.Open();
+        }
     }
 
 }

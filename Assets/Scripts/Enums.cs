@@ -48,3 +48,15 @@ public enum POITypes
     Small // just one item
 }
 
+public enum Languages
+{
+    English = 0,
+    Slovak,
+    Spanish,
+    German,
+    French,
+    ChineseSimplified,
+    Russian,
+    Polish,
+}
+

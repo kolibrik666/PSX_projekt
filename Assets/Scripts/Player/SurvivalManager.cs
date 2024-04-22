@@ -50,7 +50,7 @@ public class SurvivalManager : MonoBehaviour
     }
     void Update()
     {
-        _elapsedTime += Time.unscaledDeltaTime;
+        _elapsedTime += Time.deltaTime;
         if (_elapsedTime >= _interval)
         {
             Tick();
@@ -70,6 +70,7 @@ public class SurvivalManager : MonoBehaviour
         if (killed || _gameRunData.Saturation <= 0)
         {
             _gameSetupData = _serializer.CreateInitialGameData<GameSetupData>();
+            _gameSetupData.FirstLaunch = false;
             _serializer.SaveData(_gameSetupData,_serializer.FileSaveName);
             OnPlayerDeath?.Invoke();
             _sanityScreenAnimation.StopAnim();

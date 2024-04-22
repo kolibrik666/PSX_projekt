@@ -1,9 +1,9 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-[System.Serializable]
+[Serializable]
 public class ConsumableDictionaryItem
 {
     public Consumable Script;

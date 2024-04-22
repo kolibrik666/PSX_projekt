@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 
 public class NavMeshVisualizer : MonoBehaviour
 {
@@ -25,5 +22,9 @@ public class NavMeshVisualizer : MonoBehaviour
         renderer.sharedMaterial = _visualisationMaterial;
         filter.mesh = navMesh;
         _meshVisualisation.transform.position = _generatedMeshOffset;
+    }
+    private void OnDisable()
+    {
+        Destroy(_meshVisualisation);
     }
 }

@@ -9,19 +9,23 @@ public class Serializer : IInitializable
     [Inject] GameStartData _gameStartData;
     
     private const string _fileSaveName = "save";
-    private const string keyString = "FJ6clSRP9pQuDC1/fxBXfniNr+NYyyazeDmt3VjniQI=";
+    private const string _keyString = "FJ6clSRP9pQuDC1/fxBXfniNr+NYyyazeDmt3VjniQI=";
     public string FileSaveName => _fileSaveName;
-    byte[] key = Convert.FromBase64String(keyString);
+    byte[] _key = Convert.FromBase64String(_keyString);
 
     public void Initialize()
     {
     }
 
+    public bool SaveExist(string filePath)
+    {
+        return File.Exists(filePath);
+    }
     public void SaveData<T>(T data, string fileName)
     {
         string json = JsonUtility.ToJson(data);
        
-        byte[] encryptedBytes = EncryptStringToBytes_Aes(json, key);
+        byte[] encryptedBytes = EncryptStringToBytes_Aes(json, _key);
 
         string filePath = Path.Combine(Application.persistentDataPath, fileName + ".data");
         File.WriteAllBytes(filePath, encryptedBytes);
@@ -42,7 +46,7 @@ public class Serializer : IInitializable
         }
 
         byte[] encryptedBytes = File.ReadAllBytes(filePath);
-        string decryptedJson = DecryptBytesToString_Aes(encryptedBytes, key);
+        string decryptedJson = DecryptBytesToString_Aes(encryptedBytes, _key);
 
         return JsonUtility.FromJson<T>(decryptedJson);
     }
@@ -50,10 +54,12 @@ public class Serializer : IInitializable
     {
         GameSetupData initialSetupData = new GameSetupData
         {
+            FirstLaunch = _gameStartData.FirstLaunch,
             Saturation = _gameStartData.Saturation,
             Sanity = _gameStartData.Sanity,
             SurvivedDays = _gameStartData.SurvivedDays,
-            Difficulty = _gameStartData.Difficulty
+            Difficulty = _gameStartData.Difficulty,
+            Headbob = _gameStartData.Headbob,
         };
 
         return initialSetupData;
@@ -119,8 +125,8 @@ public class Serializer : IInitializable
         {
             byte[] key = new byte[keySize / 8];
             rng.GetBytes(key);
-            string keyString = Convert.ToBase64String(key);
-            Debug.Log("Generated Key: " + keyString);
+            string _keyString = Convert.ToBase64String(key);
+            Debug.Log("Generated Key: " + _keyString);
 
             return key;
         }
