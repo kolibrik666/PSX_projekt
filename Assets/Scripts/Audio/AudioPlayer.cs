@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -87,12 +88,12 @@ public class AudioPlayer : MonoBehaviour
             .SetEase(Ease.InExpo);
     }
 
-    public void StopLoop(Sound endSound) //async
+    public async void StopLoop(Sound endSound) 
     {
         if (_despawnCalled || _toDespawn) return;
         _toDespawn = true;
         _source.loop = false;
-        //await Task.Delay(Mathf.RoundToInt((_source.clip.length - _source.time) * 1000));
+        await Task.Delay(Mathf.RoundToInt((_source.clip.length - _source.time) * 1000));
         _audioManager.PlayOneShot(endSound);
         Despawn();
     }

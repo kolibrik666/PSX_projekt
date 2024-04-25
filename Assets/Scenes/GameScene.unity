@@ -6371,7 +6371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &616752993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9917,6 +9917,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1062402361}
     m_Modifications:
+    - target: {fileID: 2283698064817854566, guid: 7786775fb5197fa418a0c8778be4f04f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283698064817854566, guid: 7786775fb5197fa418a0c8778be4f04f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561891088259388816, guid: 7786775fb5197fa418a0c8778be4f04f,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5764991604217439226, guid: 7786775fb5197fa418a0c8778be4f04f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10021,6 +10036,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Crosshair
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119922879758537977, guid: 7786775fb5197fa418a0c8778be4f04f,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -4,9 +4,12 @@ public abstract class Interactable : MonoBehaviour
 {
     public virtual void Awake()
     {
-        gameObject.layer = 9;
+        if(gameObject.layer == 0) gameObject.layer = 9;
     }
     public virtual void OnInteract()
+    {
+    }
+    public virtual void OnHold()
     {
     }
     public virtual void OnFocus()

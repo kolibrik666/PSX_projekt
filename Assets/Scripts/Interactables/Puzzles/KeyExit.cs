@@ -19,6 +19,10 @@ public class KeyExit : Interactable
         Destroy(_key);
     }
 
+    public override void OnHold()
+    {
+        
+    }
     public override void OnLoseFocus()
     {
         //UI + zvyrazniù pickable

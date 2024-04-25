@@ -53,6 +53,9 @@ public class ExitDoor : Interactable
     {
         if (_canOpen) BlackoutAnimation();
     }
+    public override void OnHold()
+    {
+    }
     public override void OnFocus()
     {
     }

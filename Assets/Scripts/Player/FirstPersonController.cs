@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
@@ -75,6 +77,10 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] Vector3 _interactionRayPoint = default;
     [SerializeField] float _interactionDistance = default;
     [SerializeField] LayerMask _interactionLayer = default;
+    [SerializeField] LayerMask _interactionHoldingLayer = default;
+
+    float _holdInterval = 80f;
+    float _holdTimer;
 
     [Inject] GameSetupData _gameSetupData;
     [Inject] CommonSounds _commonSounds;
@@ -238,7 +244,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance))
         {
-            if (hit.collider.gameObject.layer == 9 && (_currentInteractable == null || hit.collider.gameObject.GetInstanceID() != _currentInteractable.GetInstanceID()))
+            if ((hit.collider.gameObject.layer == 9 || hit.collider.gameObject.layer == 10) && (_currentInteractable == null || hit.collider.gameObject.GetInstanceID() != _currentInteractable.GetInstanceID()))
             {
                 hit.collider.TryGetComponent(out _currentInteractable);
 
@@ -264,12 +270,37 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleInteractionInput()
     {
-        if (Input.GetKeyDown(_interactKey) && _currentInteractable != null && Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer))
+        async void HandleHoldInput()
+        {
+            if (Input.GetKey(_interactKey))
+            {
+                await UniTask.Delay(TimeSpan.FromMilliseconds(300));
+                if (_currentInteractable == null) return;
+                _holdTimer += Time.timeScale;
+                _crosshair.Holding(_holdTimer);
+                if (_holdTimer >= _holdInterval)
+                {
+                    _currentInteractable.OnInteract();
+                    _holdTimer = 0;
+                    _crosshair.Holding(_holdTimer);
+                }
+            }
+            else
+            {
+                _holdTimer = 0;
+                _crosshair.ResetSlider();
+            }  
+        }
+
+        if (_holdTimer == 0 && Input.GetKeyUp(_interactKey) && _currentInteractable != null && (Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out RaycastHit hit, _interactionDistance, _interactionLayer)
+            || Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out _, _interactionDistance, _interactionHoldingLayer)))
         {
             _currentInteractable.OnInteract();
             _crosshair.Interacted();
         }
+        else if (Physics.Raycast(_playerCamera.ViewportPointToRay(_interactionRayPoint), out _, _interactionDistance, _interactionHoldingLayer)) HandleHoldInput();
     }
+    
 
     private void ApplyFinalMovement()
     {

@@ -134,7 +134,7 @@ MonoBehaviour:
   _walkBobSpeed: 10
   _walkBobAmount: 0.02
   _sprintBobSpeed: 14
-  _sprintBobAmount: 0.06
+  _sprintBobAmount: 0.045
   _crouchBobSpeed: 8
   _crouchBobAmount: 0.01
   _interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
@@ -142,6 +142,9 @@ MonoBehaviour:
   _interactionLayer:
     serializedVersion: 2
     m_Bits: 512
+  _interactionHoldingLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &2327008629764003141
 MonoBehaviour:
   m_ObjectHideFlags: 0
